@@ -1,6 +1,6 @@
 <li class="nav-item pb-2">
-    <a class="nav-link {{ Route::currentRouteName() == 'dinas-home' ? 'active' : '' }}"
-        href="{{ route('dinas-home') }}">
+    <a class="nav-link {{ Route::currentRouteName() == 'home-dinas' ? 'active' : '' }}"
+        href="{{ route('home-dinas') }}">
         <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"

@@ -52,12 +52,12 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 
 // Route for Dinas
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
-    Route::get('/dinas-home', DinasHome::class)->name('dinas-home');
+    Route::get('/dinas-home', DinasHome::class)->name('home-dinas');
 });
 
 // Route for Wisata
 Route::middleware(['auth', 'user-role:wisata'])->group(function () {
-    Route::get('/wisata-home', WisataHome::class)->name('wisata-home');
+    Route::get('/wisata-home', WisataHome::class)->name('home-wisata');
 });
 
 
