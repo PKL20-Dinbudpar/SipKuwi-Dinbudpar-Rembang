@@ -34,7 +34,7 @@
                     <p class="text-xs font-weight-bold">Hubungi Dinbudpar Rembang</p>
                     <a href="https://dinbudpar.rembangkab.go.id/hubungi-kami/" target="_blank"
                     {{-- <a href="/documentation/bootstrap/overview/soft-ui-dashboard/index.html" target="_blank" --}}
-                        class="btn btn-white btn-sm w-100 mb-0">Web Resmi</a>
+                        class="btn btn-white btn-sm w-100 mb-0">Hubungi Kami</a>
                 </div>
             </div>
         </div>

@@ -85,7 +85,7 @@
                                                 class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Wisata">
                                                 <i class="fas fa-user-edit text-secondary"></i>
                                             </span>
-                                            <span wire:click="deleteConfirmation({{ $objek->id_wisata }})" wire:loading.attr="disabled">
+                                            <span data-bs-toggle="modal" data-bs-target="#deleteWisataModal" wire:click="deleteWisata({{ $objek->id_wisata }})">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                             </span>
                                         </td>
@@ -99,11 +99,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Button trigger modal -->
-                    {{-- <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Launch demo modal
-                    </button> --}}
 
                     {{-- Modal Tambah Wisata --}}
                     <x-modal> 
@@ -139,6 +134,26 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
                                     <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                                </div>
+                            </form>
+                        </x-slot>
+                    </x-modal>
+
+                    {{-- Modal Delete Wisata --}}
+                    <x-modal> 
+                        <x-slot name="id"> deleteWisataModal </x-slot>
+                        <x-slot name="title">
+                            Hapus Objek Wisata
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <form wire:submit.prevent="destroyWisata">
+                                <div class="modal-body">
+                                    <h6>Apa anda yakin ingin menghapus objek wisata ini?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                                    <button type="submit" class="btn bg-gradient-primary">Hapus</button>
                                 </div>
                             </form>
                         </x-slot>

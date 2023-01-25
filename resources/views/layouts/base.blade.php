@@ -60,6 +60,10 @@
         window.livewire.on('wisataSaved', () => {
             $('#createWisataModal').modal('hide');
         });
+
+        window.livewire.on('wisataDeleted', () => {
+            $('#deleteWisataModal').modal('hide');
+        });
     </script>
 </body>
 

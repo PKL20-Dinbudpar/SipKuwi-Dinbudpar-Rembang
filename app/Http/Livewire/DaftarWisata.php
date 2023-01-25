@@ -71,31 +71,16 @@ class DaftarWisata extends Component
         $this->sortBy = $field;
     }
 
-    public function deleteConfirmation($id_wisata)
-    {
-        $this->deleteConfirmation = $id_wisata;
-        $wisata = Wisata::where('id_wisata', $id_wisata)->first();
-    }
-
-    public function hapusWisata(Wisata $wisata)
-    {
-        $wisata->delete();
-        session()->flash('message', 'Data berhasil dihapus');
-        $this->deleteConfirmation = false;
-    }
-
-    public function addConfirmation()
+    public function resetInput()
     {
         $this->reset(['objWisata']);
         $this->resetErrorBag();
-        $this->addConfirmation = true;
     }
 
     public function editWisata(Wisata $wisata)
     {
         $this->resetErrorBag();
         $this->objWisata = $wisata;
-        // $this->addConfirmation = true;
     }
 
     public function saveWisata()
@@ -105,22 +90,28 @@ class DaftarWisata extends Component
         if (isset($this->objWisata->id_wisata)) {
             $this->objWisata->save();
             session()->flash('message', 'Objek wisata berhasil diubah');
-            // $this->addConfirmation = false;
         }
         else {
             Wisata::create($this->objWisata);
             session()->flash('message', 'Objek wisata berhasil ditambahkan');
-            // $this->addConfirmation = false;
         }
 
         $this->resetInput();
         $this->emit('wisataSaved');
     }
 
-    public function resetInput()
+    public function deleteWisata(Wisata $wisata)
     {
-        $this->reset(['objWisata']);
-        $this->resetErrorBag();
+        $this->objWisata = $wisata;
+    }
+
+    public function destroyWisata()
+    {
+        Wisata::destroy($this->objWisata->id_wisata);
+        session()->flash('message', 'Objek Wisata berhasil dihapus');
+
+        $this->resetInput();
+        $this->emit('wisataDeleted');
     }
 
     public function export()
