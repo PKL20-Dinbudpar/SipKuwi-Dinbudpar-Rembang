@@ -9,6 +9,7 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Billing;
 use App\Http\Livewire\DaftarTransaksi;
+use App\Http\Livewire\DaftarUser;
 use App\Http\Livewire\DaftarWisata;
 use App\Http\Livewire\DinasHome;
 use App\Http\Livewire\Profile;
@@ -56,6 +57,7 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/dinas-home', DinasHome::class)->name('home-dinas');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
+    Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');
 });
 
 // Route for Wisata
