@@ -18,7 +18,7 @@ class DaftarTransaksi extends Component
                     
         $transaksi = $transaksi->paginate(10);
 
-        return view('livewire.daftar-transaksi', [
+        return view('livewire.wisata.daftar-transaksi', [
             'transaksi' => $transaksi
         ]);
     }

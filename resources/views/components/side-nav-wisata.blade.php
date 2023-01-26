@@ -57,8 +57,8 @@
 </li>
 
 <li class="nav-item pb-2">
-    <a class="nav-link {{ Route::currentRouteName() == 'user-management' ? 'active' : '' }}"
-        href="{{ route('user-management') }}">
+    <a class="nav-link {{ Route::currentRouteName() == 'rekap-kunjungan' ? 'active' : '' }}"
+        href="{{ route('rekap-kunjungan') }}">
         <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"

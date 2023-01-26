@@ -50,7 +50,7 @@ class DaftarUser extends Component
 
         $wisata = Wisata::all();
 
-        return view('livewire.daftar-user', [
+        return view('livewire.dinas.daftar-user', [
             'users' => $users,
             'wisata' => $wisata,
         ]);
