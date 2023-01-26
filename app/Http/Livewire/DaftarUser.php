@@ -14,7 +14,7 @@ class DaftarUser extends Component
 
     
     public $search;
-    public $sortBy = 'id_wisata';
+    public $sortBy = 'wisata.id_wisata';
     public $sortAsc = true;
     public $userWisata;
 
@@ -23,26 +23,28 @@ class DaftarUser extends Component
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'id_wisata'],
+        'sortBy' => ['except' => 'wisata.id_wisata'],
         'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
         'userWisata.name' => 'required|string|max:255',
         'userWisata.username' => 'required|string|max:255',
-        'userWisata.password' => 'required|string|max:255',
-        'userWisata.email' => 'required|string|max:255',
-        'userWisata.id_wisata' => 'required',
+        'userWisata.password' => 'required_if:userWisata.id,null|string|min:8',
+        'userWisata.email' => 'email|max:255',
+        'userWisata.role' => 'required',
+        'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
     ];
 
     public function render()
     {
         $users = User::with('wisata')
+        ->leftjoin('wisata', 'users.id_wisata', '=', 'wisata.id_wisata')
         ->when($this->search, function($query){
             $query->where('name', 'like', '%'.$this->search.'%')
                 ->orWhere('username', 'like', '%'.$this->search.'%')
                 ->orWhere('email', 'like', '%'.$this->search.'%')
-                ->orWhere('id_wisata', 'like', '%'.$this->search.'%');
+                ->orWhere('wisata.nama_wisata', 'like', '%'.$this->search.'%');
         })
         ->orderBy($this->sortBy, $this->sortAsc ? 'asc' : 'desc');
 
@@ -92,6 +94,7 @@ class DaftarUser extends Component
             session()->flash('message', 'Data user berhasil diubah');
         }
         else {
+            $this->userWisata['password'] = bcrypt($this->userWisata['password']);
             User::create($this->userWisata);
             session()->flash('message', 'Data user berhasil ditambahkan');
         }
@@ -107,7 +110,7 @@ class DaftarUser extends Component
 
     public function destroyUser()
     {
-        User::destroy($this->userWisata->id_wisata);
+        User::destroy($this->userWisata->id);
         session()->flash('message', 'User berhasil dihapus');
 
         $this->resetInput();

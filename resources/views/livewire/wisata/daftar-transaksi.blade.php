@@ -49,32 +49,32 @@
                                 @foreach ($transaksi as $data)
                                     <tr>
                                         <td class="ps-4">
-                                            <p class="text-center font-weight-bold mb-0">
+                                            <p class="text-center text-xs font-weight-bold mb-0">
                                                 {{ $transaksi->firstItem() + $loop->index }}
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-center font-weight-bold mb-0">
+                                            <p class="text-center text-xs font-weight-bold mb-0">
                                                 {{ $data->waktu_transaksi }}
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-left font-weight-bold mb-0">
+                                            <p class="text-left text-xs font-weight-bold mb-0">
                                                 {{ $data->user->name ?? '-' }}
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-left font-weight-bold mb-0">
+                                            <p class="text-left text-xs font-weight-bold mb-0">
                                                 {{ $data->tiket->nama_tiket }}
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-center font-weight-bold mb-0">
+                                            <p class="text-center text-xs font-weight-bold mb-0">
                                                 {{ $data->jumlah_tiket }}
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-center font-weight-bold mb-0">
+                                            <p class="text-center text-xs font-weight-bold mb-0">
                                                 {{ $data->total_pendapatan }}
                                             </p>
                                         </td>

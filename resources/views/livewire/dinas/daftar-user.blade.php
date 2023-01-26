@@ -50,11 +50,14 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Username
                                         </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Password
-                                        </th>
+                                        </th> --}}
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Email
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Role
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nama Wisata
@@ -82,16 +85,23 @@
                                                 {{ $user->username }}
                                             </p>
                                         </td>
-                                        <td class="">
+                                        {{-- <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $user->password }}
                                             </p>
-                                        </td>
+                                        </td> --}}
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $user->email }}
                                             </p>
                                         </td>
+                                        <td class="align-middle text-sm">
+                                            @if ($user->role == 'dinas')
+                                                <span class="badge badge-sm bg-gradient-danger">dinas</span>
+                                            @elseif($user->role == 'wisata')
+                                                <span class="badge badge-sm bg-gradient-info">wisata</span>
+                                            @endif
+                                          </td>
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $user->wisata->nama_wisata ?? "" }}
@@ -137,7 +147,7 @@
                                         <input type="text" wire:model.defer="userWisata.username" class="form-control">
                                         @error('userWisata.username')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
-                                    <div class="mb-3">
+                                    <div @isset($userWisata->id) hidden @endisset class="mb-3">
                                         <label>Password</label>
                                         <input type="text" wire:model.defer="userWisata.password" class="form-control">
                                         @error('userWisata.password')<span class="text-danger">{{ $message }}</span>@enderror
@@ -148,6 +158,16 @@
                                         @error('userWisata.email')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
+                                        <label>Role</label>
+                                        <select wire:model.defer="userWisata.role" id="selectRole" onchange="hideWisata()" class="form-control" aria-label="Default select example">
+                                            <option value="">Pilih Role</option>
+                                            <option value="dinas">Dinas</option>
+                                            <option value="wisata">Wisata</option>
+                                        </select>
+                                        @error('userWisata.role')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+
+                                    <div id="selectWisata" @if (!isset($userWisata->id) || $userWisata->role != 'wisata') hidden @endif class="mb-3">
                                         <label>Nama Wisata</label>
                                         <select wire:model.defer="userWisata.id_wisata" class="form-control" aria-label="Default select example">
                                             <option value="">Pilih Wisata</option>
@@ -163,6 +183,17 @@
                                     <button type="submit" class="btn bg-gradient-primary">Simpan</button>
                                 </div>
                             </form>
+
+                            <script>
+                                function hideWisata() {
+                                    var role = document.getElementById("selectRole").value;
+                                    if (role == 'wisata') {
+                                        document.getElementById("selectWisata").hidden = false;
+                                    } else {
+                                        document.getElementById("selectWisata").hidden = true;
+                                    }
+                                }    
+                            </script>
                         </x-slot>
                     </x-modal>
 
