@@ -3,12 +3,16 @@
         <div class="row mt-0">
             {{-- Link to Halaman Rekap Tahunan --}}
             <div class="d-flex justify-content-start mb-3 text-center">
-                <a type="button" class="btn bg-gradient-secondary w-auto mt-4 mb-0 
+                <a type="button" class="btn bg-gradient-info w-auto mt-4 mb-0 
                 {{ Route::currentRouteName() == 'home-dinas' ? 'active' : '' }}"
                 href="{{ route('home-dinas') }}">
                     {{ __('Bulanan') }}
                 </a>
-                <a type="button" class="btn bg-gradient-info w-auto mx-2 mt-4 mb-0 {{ Route::currentRouteName() == 'home-dinas' ? 'active' : '' }}">{{ __('Tahunan') }}</a>
+                <a type="button" class="btn bg-gradient-secondary w-auto mx-2 mt-4 mb-0 
+                {{ Route::currentRouteName() == 'home-dinas-tahunan' ? 'active' : '' }}"
+                href="{{ route('home-dinas-tahunan') }}">
+                    {{ __('Tahunan') }}
+                </a>
             </div>
         </div>
 
@@ -17,7 +21,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Pilih Bulan dan Tahun</h6>
+                        {{-- <h6>Pilih Bulan dan Tahun</h6> --}}
                     </div>
                     <div class="card-body px-4 pt-0 pb-2">
                         {{-- Dropdown select Bulan and Tahun --}}
@@ -72,12 +76,10 @@
                         <div class="table-responsive p-0">
                             @include('components.tables.tabel-rekap-bulanan')
                         </div>
-                    @else
-                        @if ($bulan != "" && $tahun != "")
-                            <div class="text-center m-5">
-                                <p class="text-gray-500">Tidak ada Data</p>
-                            </div>
-                        @endif
+                    @elseif ($bulan != "" && $tahun != "")
+                        <div class="text-center m-5">
+                            <p class="text-gray-500">Tidak ada Data</p>
+                        </div>
                     @endif
                 </div>
               </div>

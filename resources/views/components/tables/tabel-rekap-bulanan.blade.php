@@ -8,7 +8,7 @@
     <col>
     <thead>
         <tr>
-            <th scope="col" rowspan="2" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 No
             </th>
             <th scope="col" rowspan="2" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -88,6 +88,7 @@
                     {{ $totalPendapatan == 0 ? 0 : $totalPendapatan }}
                 </span>
             </td>
+            </tr>
         @endforeach
     </tbody>
 </table>
