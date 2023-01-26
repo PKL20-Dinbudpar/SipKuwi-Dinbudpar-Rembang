@@ -19,6 +19,7 @@ use App\Http\Livewire\Rtl;
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
+use App\Http\Livewire\RekapBulanan;
 use App\Http\Livewire\WisataHome;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

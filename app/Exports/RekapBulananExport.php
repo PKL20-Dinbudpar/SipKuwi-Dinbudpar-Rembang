@@ -1,27 +1,30 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Exports;
 
-use App\Exports\RekapBulananExport;
+use App\Http\Livewire\DinasHome;
+use App\Http\Livewire\RekapBulanan;
 use App\Models\Rekap;
 use App\Models\Wisata;
-use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class DinasHome extends Component
+class RekapBulananExport extends DinasHome implements FromView
 {
     public $bulan;
     public $tahun;
-    public $totalWisatawan;
-    public $totalPendapatan;
 
-    public function mount()
+    public function __construct($bulan, $tahun)
     {
-        $this->bulan = date('m');
-        $this->tahun = date('Y');
+        $this->bulan = $bulan;
+        $this->tahun = $tahun;
     }
 
-    public function render()
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function view(): View
     {
         $tanggal = Rekap::with('wisata')
                 ->leftjoin('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
@@ -39,17 +42,10 @@ class DinasHome extends Component
         
         $wisata = Wisata::all();
 
-
-        return view('livewire.dinas.dinas-home', [
-            'tanggal' => $tanggal,
+        return view('components.tables.tabel-rekap-bulanan', [
             'rekap' => $rekap,
-            'wisata' => $wisata,
-        ]);
-    }
-
-    public function export()
-    {
-        // return Excel::download(new RekapKunjungan, 'RekapBulanan.xlsx');
-        return Excel::download(new RekapBulananExport($this->bulan, $this->tahun), 'RekapBulanan.xlsx');
+            'tanggal' => $tanggal,
+            'wisata' => $wisata,]
+        );
     }
 }
