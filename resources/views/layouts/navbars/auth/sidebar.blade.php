@@ -16,7 +16,7 @@
             @elseif (Auth::user()->role == 'wisata')
                 <x-side-nav-wisata />
             @endif
-            <x-side-nav-link />
+            {{-- <x-side-nav-link /> --}}
         </ul>
     </div>
     <div class="sidenav-footer mx-3 mt-3 pt-3">
@@ -33,7 +33,6 @@
                     <h6 class="text-white up mb-0">Butuh Bantuan?</h6>
                     <p class="text-xs font-weight-bold">Hubungi Dinbudpar Rembang</p>
                     <a href="https://dinbudpar.rembangkab.go.id/hubungi-kami/" target="_blank"
-                    {{-- <a href="/documentation/bootstrap/overview/soft-ui-dashboard/index.html" target="_blank" --}}
                         class="btn btn-white btn-sm w-100 mb-0">Hubungi Kami</a>
                 </div>
             </div>
