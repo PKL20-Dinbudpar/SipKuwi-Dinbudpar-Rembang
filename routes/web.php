@@ -21,6 +21,7 @@ use App\Http\Livewire\Rtl;
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
 use App\Http\Livewire\RekapBulanan;
+use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapTahunan;
 use App\Http\Livewire\WisataHome;
 use Illuminate\Http\Request;
@@ -67,6 +68,7 @@ Route::middleware(['auth', 'user-role:dinas'])->group(function () {
 Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/wisata-home', WisataHome::class)->name('home-wisata');
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
+    Route::get('/rekap-kunjungan', RekapKunjungan::class)->name('rekap-kunjungan');
 });
 
 
