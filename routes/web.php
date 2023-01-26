@@ -8,6 +8,7 @@ use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Billing;
+use App\Http\Livewire\DaftarTransaksi;
 use App\Http\Livewire\DaftarWisata;
 use App\Http\Livewire\DinasHome;
 use App\Http\Livewire\Profile;
@@ -60,6 +61,7 @@ Route::middleware(['auth', 'user-role:dinas'])->group(function () {
 // Route for Wisata
 Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/wisata-home', WisataHome::class)->name('home-wisata');
+    Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
 });
 
 

@@ -16,7 +16,7 @@
             @elseif (Auth::user()->role == 'wisata')
                 <x-side-nav-wisata />
             @endif
-            {{-- <x-side-nav-link /> --}}
+            <x-side-nav-link />
         </ul>
     </div>
     <div class="sidenav-footer mx-3 mt-3 pt-3">
