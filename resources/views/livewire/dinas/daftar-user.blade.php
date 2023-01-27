@@ -110,7 +110,7 @@
                                         <td class="">
                                             <span data-bs-toggle="modal" data-bs-target="#createUserModal" wire:click="editUser({{ $user->id }})"
                                                 class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit User">
-                                                <i class="fas fa-user-edit text-secondary"></i>
+                                                <i class="cursor-pointer fas fa-user-edit text-secondary"></i>
                                             </span>
                                             <span data-bs-toggle="modal" data-bs-target="#deleteUserModal" wire:click="deleteUser({{ $user->id }})">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>

@@ -82,7 +82,7 @@
                                         <td class="">
                                             <span data-bs-toggle="modal" data-bs-target="#createWisataModal" wire:click="editWisata({{ $objek->id_wisata }})"
                                                 class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Wisata">
-                                                <i class="fas fa-user-edit text-secondary"></i>
+                                                <i class="cursor-pointer fas fa-pencil-alt text-secondary" aria-hidden="true"></i>
                                             </span>
                                             <span data-bs-toggle="modal" data-bs-target="#deleteWisataModal" wire:click="deleteWisata({{ $objek->id_wisata }})">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>
