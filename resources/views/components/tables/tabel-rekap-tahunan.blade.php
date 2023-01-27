@@ -79,8 +79,28 @@
                 $totalPendapatan = 0;
             @endphp
         </th>
+        @foreach ($bulan as $bln)
+            @php
+                $data = $rekap->where('id_wisata', $objek->id_wisata)->where('bulan', $bln->bulan)->first();
+                
+                if ($data) {
+                    $totalWisatawan += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
+                    $totalPendapatan += $data->total_pendapatan;
+                }
+            @endphp
+
+            <td scope="row" class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_domestik ?? "" }}</span>
+            </td>
+            <td scope="row" class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
+            </td>
+            <td scope="row" class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? "" }}</span>
+            </td>
+        @endforeach
         
-        @foreach ($rekap as $data)
+        {{-- @foreach ($rekap as $data)
             @if ($data->id_wisata == $objek->id_wisata)
                 @php
                     $totalWisatawan += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
@@ -96,7 +116,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? 0 }}</span>
                 </td>
             @endif
-        @endforeach
+        @endforeach --}}
         <td scope="row" class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">
                 {{ $totalWisatawan == 0 ? 0 : $totalWisatawan }}

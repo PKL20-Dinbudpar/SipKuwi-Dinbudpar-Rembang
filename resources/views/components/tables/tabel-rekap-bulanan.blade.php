@@ -1,7 +1,7 @@
 <table class="table align-items-center mb-0">
     <col>
     <col>
-    @foreach ($tanggal as $hari)
+    @foreach ($tanggal as $tgl)
         <colgroup span="3"></colgroup>
     @endforeach
     <col>
@@ -14,9 +14,9 @@
             <th scope="col" rowspan="2" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                 Nama Objek Wisata
             </th>
-            @foreach ($tanggal as $hari)
+            @foreach ($tanggal as $tgl)
                 <th scope="col" colspan="3" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    {{ $hari->tanggal->format('d M Y') }}
+                    {{ $tgl->tanggal->format('d M Y') }}
                 </th>
             @endforeach
             <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -27,7 +27,7 @@
             </th>
         </tr>
         <tr>
-            @foreach ($tanggal as $hari)
+            @foreach ($tanggal as $tgl)
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     WisNus
                 </th>
@@ -55,28 +55,24 @@
                     $totalPendapatan = 0;
                 @endphp
             </th>
-            @foreach ($rekap as $data)
-                @foreach ($tanggal as $hari)    
-                    @if ($data->id_wisata == $objek->id_wisata && $data->tanggal == $hari->tanggal)
-                        @php
-                            $totalWisatawan += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
-                            $totalPendapatan += $data->total_pendapatan;
-                        @endphp
-                        <td scope="row" class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_domestik ?? 0 }}</span>
-                        </td>
-                        <td scope="row" class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? 0 }}</span>
-                        </td>
-                        <td scope="row" class="align-middle text-center">
-                            <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? 0 }}</span>
-                        </td>
-                    {{-- @elseif ($data->tanggal != $hari->tanggal)
-                        <td></td>
-                        <td></td>
-                        <td></td> --}}
-                    @endif
-                @endforeach
+            @foreach ($tanggal as $tgl)
+                @php
+                    $data = $rekap->where('id_wisata', $objek->id_wisata)->where('tanggal', $tgl->tanggal)->first();
+
+                    if ($data) {
+                        $totalWisatawan += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
+                        $totalPendapatan += $data->total_pendapatan;
+                    }
+                @endphp
+                <td scope="row" class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_domestik ?? "" }}</span>
+                </td>
+                <td scope="row" class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
+                </td>
+                <td scope="row" class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? "" }}</span>
+                </td>
             @endforeach
             <td scope="row" class="align-middle text-center">
                 <span class="text-secondary text-xs font-weight-bold">
