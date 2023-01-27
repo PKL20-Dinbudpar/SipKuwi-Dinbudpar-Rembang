@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                     <div class="card card-plain mt-8">
-                        <div class="card-image position-center">
+                        <div class="card-image d-flex justify-content-center">
                             <img src="../assets/img/logorembang.png" class="card-image h-20 w-20"></div>
                         <div class="card-header pb-0 text-center bg-transparent">
                             <p class="mb-0">{{ __('Sistem Informasi Pendataan Kunjungan Wisata')}}<br></p>

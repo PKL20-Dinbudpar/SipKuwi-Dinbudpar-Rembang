@@ -1,4 +1,4 @@
-<table class="table align-items-center mb-0">
+<table class="table table-hover align-items-center mb-0">
     <col>
     <col>
     @foreach ($bulan as $bln)
