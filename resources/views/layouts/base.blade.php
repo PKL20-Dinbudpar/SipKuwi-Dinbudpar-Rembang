@@ -71,6 +71,9 @@
         window.livewire.on('userDeleted', () => {
             $('#deleteUserModal').modal('hide');
         });
+        window.livewire.on('rekapSaved', () => {
+            $('#editRekapModal').modal('hide');
+        });
     </script>
 </body>
 
