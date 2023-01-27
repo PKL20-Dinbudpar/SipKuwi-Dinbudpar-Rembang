@@ -99,24 +99,6 @@
                 <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? "" }}</span>
             </td>
         @endforeach
-        
-        {{-- @foreach ($rekap as $data)
-            @if ($data->id_wisata == $objek->id_wisata)
-                @php
-                    $totalWisatawan += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
-                    $totalPendapatan += $data->total_pendapatan;
-                @endphp
-                <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_domestik ?? 0 }}</span>
-                </td>
-                <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? 0 }}</span>
-                </td>
-                <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? 0 }}</span>
-                </td>
-            @endif
-        @endforeach --}}
         <td scope="row" class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">
                 {{ $totalWisatawan == 0 ? 0 : $totalWisatawan }}
