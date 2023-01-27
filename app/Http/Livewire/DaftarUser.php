@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\UserExport;
 use App\Models\User;
 use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DaftarUser extends Component
 {
@@ -115,5 +117,10 @@ class DaftarUser extends Component
 
         $this->resetInput();
         $this->emit('userDeleted');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UserExport, 'DaftarUser.xlsx');
     }
 }

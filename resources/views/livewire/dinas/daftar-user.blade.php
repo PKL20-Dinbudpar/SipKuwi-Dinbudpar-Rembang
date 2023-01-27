@@ -27,7 +27,7 @@
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F50E;&#xFE0E;
                                     </span>
-                                    <input wire:model="search" type="text" class="form-control" placeholder="Cari User/Alamat/Wisata" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input wire:model="search" type="text" class="form-control" placeholder="Cari Nama/Username/Email/Wisata" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div>
