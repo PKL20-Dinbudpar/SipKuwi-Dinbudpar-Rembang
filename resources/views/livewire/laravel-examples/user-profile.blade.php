@@ -185,7 +185,7 @@
                                 @error('user.phone') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
                                 <div class="@error('user.location') border border-danger rounded-3 @enderror">
@@ -194,16 +194,18 @@
                                 </div>
                                 @error('user.location') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="about">{{ 'About Me' }}</label>
                         <div class="@error('user.about')border border-danger rounded-3 @enderror">
-                            <textarea wire:model="user.about" class="form-control" id="about" rows="3"
+                            <textarea 
+                            wire:model="user.about" 
+                            class="form-control" id="about" rows="3"
                                 placeholder="Say something about yourself"></textarea>
                         </div>
                         @error('user.about') <div class="text-danger">{{ $message }}</div> @enderror
-                    </div>
+                    </div> --}}
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
                     </div>

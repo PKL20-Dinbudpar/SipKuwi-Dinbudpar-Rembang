@@ -16,8 +16,8 @@ class UserProfile extends Component
         'user.name' => 'max:40|min:3',
         'user.email' => 'email:rfc,dns',
         'user.phone' => 'max:10',
-        'user.about' => 'max:200',
-        'user.location' => 'min:3'
+        // 'user.about' => 'max:200',
+        // 'user.location' => 'min:3'
     ];
 
     public function mount() { 
