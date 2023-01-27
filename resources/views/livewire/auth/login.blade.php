@@ -1,15 +1,14 @@
 <section>
-    <div class="page-header section-height-75">
+    <div class="page-header section-height-">
         <div class="container">
             <div class="row">
                 <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                     <div class="card card-plain mt-8">
-                        <div class="card-header pb-0 text-left bg-transparent">
-                            <h3 class="font-weight-bolder text-info text-gradient">{{ __('Log in') }}</h3>
-                            <p class="mb-0">{{ __('Welcome Back! Please enter your details')}}<br></p>
-                            {{-- <p class="mb-0">{{__('OR Sign in with these credentials:') }}</p>
-                            <p class="mb-0">{{ __('Email ') }}<b>{{ __('admin@softui.com') }}</b></p>
-                            <p class="mb-0">{{ __('Password ') }}<b>{{ __('secret') }}</b></p> --}}
+                        <div class="card-image position-center">
+                            <img src="../assets/img/logorembang.png" class="card-image h-20 w-20"></div>
+                        <div class="card-header pb-0 text-center bg-transparent">
+                            <p class="mb-0">{{ __('Sistem Informasi Pendataan Kunjungan Wisata')}}<br></p>
+                            <p class="mb-0">{{__('Kabupaten Rembang') }}</p>
                         </div>
                         <div class="card-body">
                             <form wire:submit.prevent="login" action="#" method="POST" role="form text-left">
