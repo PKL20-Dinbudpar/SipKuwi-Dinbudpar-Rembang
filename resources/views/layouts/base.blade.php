@@ -64,6 +64,13 @@
         window.livewire.on('wisataDeleted', () => {
             $('#deleteWisataModal').modal('hide');
         });
+        window.livewire.on('userSaved', () => {
+            $('#createUserModal').modal('hide');
+        });
+
+        window.livewire.on('userDeleted', () => {
+            $('#deleteUserModal').modal('hide');
+        });
     </script>
 </body>
 
