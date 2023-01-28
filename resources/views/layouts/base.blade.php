@@ -74,6 +74,9 @@
         window.livewire.on('rekapSaved', () => {
             $('#editRekapModal').modal('hide');
         });
+        window.livewire.on('rekapDeleted', () => {
+            $('#deleteRekapModal').modal('hide');
+        });
     </script>
 </body>
 

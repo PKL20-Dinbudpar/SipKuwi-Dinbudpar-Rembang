@@ -64,8 +64,8 @@
                             </div>
 
                             <div class="d-flex justify-content-end mt-4">
-                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" wire:click="editRekap({{ $todayRekap->id_rekap }})" 
-                                    class="btn bg-gradient-info">
+                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" 
+                                    @isset($todayRekap) wire:click="editRekap({{ $todayRekap->id_rekap }})" @endisset class="btn bg-gradient-info">
                                     Edit
                                 </button>
                             </div>
@@ -91,7 +91,7 @@
                         </div>
 
                         <div class="d-flex flex-row justify-content-between my-2">
-                            <div class="form-group mb-0 col-8">
+                            <div class="form-group mb-0 col-5">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
@@ -125,8 +125,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div>
-                                <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm mb-0"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
+                            <div class="d-flex">
+                                <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm d-none d-lg-block mb-0 mx-2"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
+                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Data</button>
                             </div>
                         </div>
                     </div>
@@ -176,11 +177,18 @@
                                             class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit Rekap">
                                             <i class="cursor-pointer fas fa-pencil-alt text-secondary" aria-hidden="true"></i>
                                         </span>
+                                        <span data-bs-toggle="modal" data-bs-target="#deleteRekapModal" wire:click="deleteRekap({{ $item->id_rekap }})">
+                                            <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach
                           </tbody>
                         </table>
+
+                        <div class="p-4">
+                            {{ $rekap->links() }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -190,12 +198,21 @@
                 <x-modal> 
                     <x-slot name="id"> editRekapModal </x-slot>
                     <x-slot name="title">
-                        Edit Rekap
+                        @isset($dataRekap->id_rekap)   
+                            Edit Rekap
+                        @else
+                            Tambah Rekap
+                        @endisset
                     </x-slot>
 
                     <x-slot name="content">
                         <form wire:submit.prevent="saveRekap">
                             <div class="modal-body">
+                                <div class="mb-3">
+                                    <label>Tanggal</label>
+                                    <input type="date" wire:model.defer="dataRekap.tanggal" class="form-control" 
+                                    @isset($dataRekap->id_rekap) disabled @endisset>
+                                </div>
                                 <div class="mb-3">
                                     <label>Jumlah Wisatawan Domestik</label>
                                     <input type="number" wire:model.defer="dataRekap.wisatawan_domestik" class="form-control">
@@ -207,7 +224,7 @@
                                     @error('dataRekap.wisatawan_mancanegara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label>Jumlah Wisatawan Mancanegara</label>
+                                    <label>Total Pendapatan</label>
                                     <input type="number" wire:model.defer="dataRekap.total_pendapatan" class="form-control">
                                     @error('dataRekap.total_pendapatan')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
@@ -228,6 +245,26 @@
                                 }
                             }    
                         </script>
+                    </x-slot>
+                </x-modal>
+
+                {{-- Modal Delete --}}
+                <x-modal> 
+                    <x-slot name="id"> deleteRekapModal </x-slot>
+                    <x-slot name="title">
+                        Hapus Rekap
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <form wire:submit.prevent="destroyRekap">
+                            <div class="modal-body">
+                                <h6>Apa anda yakin ingin menghapus rekap pada tanggal {{ $dataRekap->tanggal }}?</h6>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                                <button type="submit" class="btn bg-gradient-primary">Hapus</button>
+                            </div>
+                        </form>
                     </x-slot>
                 </x-modal>
             </div>

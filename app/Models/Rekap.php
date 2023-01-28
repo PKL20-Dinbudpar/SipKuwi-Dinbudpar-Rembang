@@ -19,6 +19,11 @@ class Rekap extends Model
     // dates
     protected $dates = ['tanggal'];
 
+    protected $casts = [
+        'tanggal' => 'date:Y-m-d'
+    ];
+
+
     // Timestamp
     public $timestamps = false;
 

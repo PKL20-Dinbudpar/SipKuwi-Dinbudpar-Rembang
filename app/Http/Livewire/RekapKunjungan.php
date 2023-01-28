@@ -3,23 +3,34 @@
 namespace App\Http\Livewire;
 
 use App\Models\Rekap;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class RekapKunjungan extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
+    public $idWisata;
     public $dataRekap;
+    public $deleteRekap;
     
     public $tahun;
     public $bulan;
     public $tanggal;
 
     protected $rules = [
+        'dataRekap.tanggal' => 'required',
         'dataRekap.wisatawan_domestik' => 'required|int',
         'dataRekap.wisatawan_mancanegara' => 'required|int',
         'dataRekap.total_pendapatan' => 'required|int',
     ];
+
+    public function mount()
+    {
+        $this->dataRekap = new Rekap();
+    }
 
     public function render()
     {
@@ -41,8 +52,6 @@ class RekapKunjungan extends Component
 
         $rekap = $rekap->paginate(10);
 
-        // dd($rekap);
-        
         return view('livewire.wisata.rekap-kunjungan', [
             'todayRekap' => $todayRekap,
             'rekap' => $rekap,
@@ -59,16 +68,38 @@ class RekapKunjungan extends Component
     {
         $this->validate();
 
-        $this->dataRekap->save();
-        session()->flash('message', 'Objek wisata berhasil diubah');
+        if (isset($this->dataRekap->id_rekap)) {
+            $this->dataRekap->save();
+            session()->flash('message', 'Data rekap berhasil diubah');
+        }
+        else {
+            $this->dataRekap->id_wisata = auth()->user()->id_wisata;
+            $this->dataRekap->save();
+            session()->flash('message', 'Data rekap berhasil ditambahkan');
+        }
 
-        $this->resetInput();
+        $this->dataRekap = new Rekap();
+        $this->resetErrorBag();
         $this->emit('rekapSaved');
     }
 
     public function resetInput()
     {
-        $this->reset(['dataRekap']);
         $this->resetErrorBag();
+    }
+
+    public function deleteRekap(Rekap $rekap)
+    {
+        $this->deleteRekap = $rekap;
+    }
+
+    public function destroyRekap()
+    {
+        Rekap::destroy($this->deleteRekap->id_rekap);
+        session()->flash('message', 'Rekap data berhasil dihapus');
+
+        $this->reset(['deleteRekap']);
+        $this->resetInput();
+        $this->emit('rekapDeleted');
     }
 }
