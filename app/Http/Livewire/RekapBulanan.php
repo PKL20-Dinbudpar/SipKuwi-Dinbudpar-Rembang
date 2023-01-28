@@ -8,7 +8,7 @@ use App\Models\Wisata;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
-class DinasHome extends Component
+class RekapBulanan extends Component
 {
     public $bulan;
     public $tahun;
@@ -40,7 +40,7 @@ class DinasHome extends Component
         $wisata = Wisata::all();
 
 
-        return view('livewire.dinas.dinas-home', [
+        return view('livewire.dinas.rekap-bulanan', [
             'tanggal' => $tanggal,
             'rekap' => $rekap,
             'wisata' => $wisata,

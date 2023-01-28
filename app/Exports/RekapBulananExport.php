@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use App\Http\Livewire\DinasHome;
 use App\Http\Livewire\RekapBulanan;
 use App\Models\Rekap;
 use App\Models\Wisata;
@@ -10,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class RekapBulananExport extends DinasHome implements FromView
+class RekapBulananExport extends RekapBulanan implements FromView
 {
     public $bulan;
     public $tahun;

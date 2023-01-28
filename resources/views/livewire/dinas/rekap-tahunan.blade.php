@@ -4,13 +4,13 @@
             {{-- Link to Halaman Rekap Tahunan --}}
             <div class="d-flex justify-content-start mb-3 text-center">
                 <a type="button" class="btn bg-gradient-secondary w-auto mt-4 mb-0 
-                {{ Route::currentRouteName() == 'home-dinas' ? 'active' : '' }}"
-                href="{{ route('home-dinas') }}">
+                {{ Route::currentRouteName() == 'rekap-wisata-bulanan' ? 'active' : '' }}"
+                href="{{ route('rekap-wisata-bulanan') }}">
                     {{ __('Bulanan') }}
                 </a>
                 <a type="button" class="btn bg-gradient-info w-auto mx-2 mt-4 mb-0 
-                {{ Route::currentRouteName() == 'home-dinas-tahunan' ? 'active' : '' }}"
-                href="{{ route('home-dinas-tahunan') }}">
+                {{ Route::currentRouteName() == 'rekap-wisata-tahunan' ? 'active' : '' }}"
+                href="{{ route('rekap-wisata-tahunan') }}">
                     {{ __('Tahunan') }}
                 </a>
             </div>

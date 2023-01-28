@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     if (Auth::check()) {
         if (Auth::user()->role == 'dinas'){
-            return redirect('/dinas-home');
+            return redirect('/rekap-wisata');
         } else if (Auth::user()->role == 'wisata'){
             return redirect('/wisata-home');
         }
@@ -58,8 +58,8 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 
 // Route for Dinas
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
-    Route::get('/dinas-home', DinasHome::class)->name('home-dinas');
-    Route::get('/dinas-home/tahunan', RekapTahunan::class)->name('home-dinas-tahunan');
+    Route::get('/rekap-wisata', RekapBulanan::class)->name('rekap-wisata-bulanan');
+    Route::get('/rekap-wisata/tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
     Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');
 });
