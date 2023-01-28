@@ -3,12 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\Rekap;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class RekapKunjungan extends Component
+class EditRekap extends Component
 {
+    public $idWisata;
+
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
@@ -26,18 +28,21 @@ class RekapKunjungan extends Component
         'dataRekap.total_pendapatan' => 'required|int',
     ];
 
-    public function mount()
+    public function mount($idWisata = null)
     {
+        $this->idWisata = $idWisata;
         $this->dataRekap = new Rekap();
     }
 
     public function render()
     {
-        $todayRekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $wisata = Wisata::findOrFail($this->idWisata);
+
+        $todayRekap = Rekap::where('id_wisata', $this->idWisata)
                     ->where('tanggal', date('Y-m-d'))
                     ->first();
-
-        $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+                    
+        $rekap = Rekap::where('id_wisata', $this->idWisata)
                     ->when($this->tahun, function($query){
                         return $query->whereYear('tanggal', '=', $this->tahun);
                     })
@@ -51,7 +56,8 @@ class RekapKunjungan extends Component
 
         $rekap = $rekap->paginate(10);
 
-        return view('livewire.wisata.rekap-kunjungan', [
+        return view('livewire.dinas.edit-rekap', [
+            'wisata' => $wisata,
             'todayRekap' => $todayRekap,
             'rekap' => $rekap,
         ]);
@@ -72,7 +78,7 @@ class RekapKunjungan extends Component
             session()->flash('message', 'Data rekap berhasil diubah');
         }
         else {
-            $this->dataRekap->id_wisata = auth()->user()->id_wisata;
+            $this->dataRekap->id_wisata = $this->idWisata;
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }

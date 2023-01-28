@@ -12,6 +12,7 @@ use App\Http\Livewire\DaftarTransaksi;
 use App\Http\Livewire\DaftarUser;
 use App\Http\Livewire\DaftarWisata;
 use App\Http\Livewire\DinasHome;
+use App\Http\Livewire\EditRekap;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\StaticSignIn;
@@ -60,6 +61,7 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/rekap-wisata', RekapBulanan::class)->name('rekap-wisata-bulanan');
     Route::get('/rekap-wisata/tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
+    Route::get('/rekap-wisata/{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
     Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');
 });

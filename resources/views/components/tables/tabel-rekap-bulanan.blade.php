@@ -47,7 +47,7 @@
                 <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
             </td>
             <th scope="row" class="align-items-center">
-                <a href="#" class="d-flex justify-content-left">
+                <a href="/rekap-wisata/{{ $objek->id_wisata }}" class="d-flex justify-content-left">
                     <i class="mx-3 cursor-pointer fas fa-pencil-alt text-secondary" aria-hidden="true"></i>
                     <p class="text-xs font-weight-bold mb-0">
                         {{ $objek->nama_wisata }}
