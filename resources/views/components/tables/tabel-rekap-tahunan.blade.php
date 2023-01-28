@@ -8,10 +8,10 @@
     <col>
     <thead>
         <tr>
-            <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th scope="col" rowspan="2" class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 No
             </th>
-            <th scope="col" rowspan="2" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+            <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                 Nama Objek Wisata
             </th>
             @foreach ($bulan as $bln)
@@ -70,10 +70,13 @@
         <td scope="row" class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
         </td>
-        <th scope="row">
-            <p class="text-xs font-weight-bold mb-0">
-                {{ $objek->nama_wisata }}
-            </p>
+        <th scope="row" class="align-items-center">
+            <a href="#" class="d-flex justify-content-left">
+                <i class="mx-3 cursor-pointer fas fa-pencil-alt text-secondary" aria-hidden="true"></i>
+                <p class="text-xs font-weight-bold mb-0">
+                    {{ $objek->nama_wisata }}
+                </p>
+            </a>
             @php
                 $totalWisatawan = 0;
                 $totalPendapatan = 0;

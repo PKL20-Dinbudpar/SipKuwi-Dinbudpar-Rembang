@@ -28,8 +28,8 @@
                                     <input wire:model="search" type="text" class="form-control" placeholder="Cari Wisata/Alamat/Kecamatan" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                             </div>
-                            <div>
-                                <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm mb-0"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
+                            <div class="d-flex">
+                                <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm d-none d-md-block mb-0 mx-2"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
                                 <button wire:click="resetInput" data-bs-toggle="modal" data-bs-target="#createWisataModal" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Wisata</button>
                             </div>
                         </div>
@@ -103,7 +103,11 @@
                     <x-modal> 
                         <x-slot name="id"> createWisataModal </x-slot>
                         <x-slot name="title">
-                            Tambah Objek Wisata
+                            @isset($objWisata->id_wisata)
+                                Edit Objek Wisata
+                            @else
+                                Tambah Objek Wisata
+                            @endisset
                         </x-slot>
 
                         <x-slot name="content">
