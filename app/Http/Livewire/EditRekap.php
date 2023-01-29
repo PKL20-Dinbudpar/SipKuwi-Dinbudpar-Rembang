@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 
 class EditRekap extends Component
 {
+    public $namaWisata;
     public $idWisata;
 
     use WithPagination;
@@ -37,10 +38,6 @@ class EditRekap extends Component
     public function render()
     {
         $wisata = Wisata::findOrFail($this->idWisata);
-
-        $todayRekap = Rekap::where('id_wisata', $this->idWisata)
-                    ->where('tanggal', date('Y-m-d'))
-                    ->first();
                     
         $rekap = Rekap::where('id_wisata', $this->idWisata)
                     ->when($this->tahun, function($query){
@@ -58,7 +55,6 @@ class EditRekap extends Component
 
         return view('livewire.dinas.edit-rekap', [
             'wisata' => $wisata,
-            'todayRekap' => $todayRekap,
             'rekap' => $rekap,
         ]);
     }

@@ -60,8 +60,8 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 // Route for Dinas
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/rekap-wisata', RekapBulanan::class)->name('rekap-wisata-bulanan');
-    Route::get('/rekap-wisata/tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
-    Route::get('/rekap-wisata/{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
+    Route::get('/rekap-wisata-tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
+    Route::get('/edit-rekap-wisata{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
     Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');
 });
@@ -72,7 +72,6 @@ Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
     Route::get('/rekap-kunjungan', RekapKunjungan::class)->name('rekap-kunjungan');
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
@@ -85,5 +84,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/laravel-user-profile', UserProfile::class)->name('user-profile');
     Route::get('/laravel-user-management', UserManagement::class)->name('user-management');
 });
-
 

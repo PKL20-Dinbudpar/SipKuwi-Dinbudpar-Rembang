@@ -1,9 +1,21 @@
 <main class="main-content">
-    <div class="container-fluid py-4">
+    <div class="container-fluid pt=0">
+
+        <div class="row mt-0 py-2">
+            {{-- Back link with icon --}}
+            <div class="col-12">
+                <a href="{{ route('rekap-wisata-bulanan') }}" class="text-decoration-none">
+                    <div class="d-flex flex-row align-items-center">
+                        <i class="fa fa-arrow-left" style="font-size:12px"></i>
+                        <span class="ms-2">Kembali</span>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
 
         <div class="row">
             <div class="col-12">
-
                 {{-- Tabel --}}
                 <div class="card mb-4">
                     @if (session()->has('message'))
@@ -18,7 +30,7 @@
                     @endif
                     <div class="card-header pb-0">
                         <div>
-                            <h4>Histori Rekap {{ $wisata->nama_wisata }}</h4>
+                            <h4>Rekap Kunjungan {{ $wisata->nama_wisata }}</h4>
                         </div>
 
                         <div class="d-flex flex-row justify-content-between mt-3 mb-2">
