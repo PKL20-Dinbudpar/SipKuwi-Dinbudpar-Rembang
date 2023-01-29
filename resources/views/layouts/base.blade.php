@@ -69,7 +69,6 @@
         window.livewire.on('userSaved', () => {
             $('#createUserModal').modal('hide');
         });
-
         window.livewire.on('userDeleted', () => {
             $('#deleteUserModal').modal('hide');
         });
@@ -78,6 +77,9 @@
         });
         window.livewire.on('rekapDeleted', () => {
             $('#deleteRekapModal').modal('hide');
+        });
+        window.livewire.on('tiketSaved', () => {
+            $('#createTiketModal').modal('hide');
         });
     </script>
 </body>
