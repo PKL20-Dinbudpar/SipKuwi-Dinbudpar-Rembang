@@ -77,13 +77,13 @@ class RekapKunjungan extends Component
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }
 
-        $this->dataRekap = new Rekap();
-        $this->resetErrorBag();
+        $this->resetInput();
         $this->emit('rekapSaved');
     }
 
     public function resetInput()
     {
+        $this->dataRekap = new Rekap();
         $this->resetErrorBag();
     }
 
