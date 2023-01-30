@@ -29,6 +29,8 @@ class RekapKunjungan extends Component
     public function mount()
     {
         $this->dataRekap = new Rekap();
+        $this->deleteRekap = new Rekap();
+        $this->deleteRekap->tanggal = date('Y-m-d');
     }
 
     public function render()
