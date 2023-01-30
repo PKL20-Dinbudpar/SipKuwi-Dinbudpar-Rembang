@@ -15,6 +15,8 @@
                 <x-side-nav-dinas />
             @elseif (Auth::user()->role == 'wisata')
                 <x-side-nav-wisata />
+            @elseif (Auth::user()->role == 'hotel')
+                <x-side-nav-hotel />
             @endif
             {{-- <x-side-nav-link /> --}}
         </ul>

@@ -29,11 +29,6 @@ class Wisata extends Model
         return $this->hasMany(User::class, 'id_wisata', 'id_wisata');
     }
 
-    public function pengguna()
-    {
-        return $this->hasMany(Pengguna::class, 'id_wisata', 'id_wisata');
-    }
-
     public function tiket()
     {
         return $this->hasMany(Tiket::class, 'id_wisata', 'id_wisata');
@@ -63,11 +58,6 @@ class Wisata extends Model
     public function getAlamat()
     {
         return $this->alamat;
-    }
-
-    public function getPengguna()
-    {
-        return $this->pengguna->count();
     }
 
     public function getTiket()

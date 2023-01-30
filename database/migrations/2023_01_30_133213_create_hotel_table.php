@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wisata', function (Blueprint $table) {
-            $table->id('id_wisata');
-            $table->string('nama_wisata');
+        Schema::create('hotel', function (Blueprint $table) {
+            $table->id('id_hotel');
+            $table->string('nama_hotel');
             $table->string('alamat')->nullable();
             $table->char('id_kecamatan', 3)->nullable();
-
-            // $table->foreign('id_kecamatan', 'fk_wisata_kecamatan')->references('id_kecamatan')->on('kecamatan');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wisata');
+        Schema::dropIfExists('hotel');
     }
 };

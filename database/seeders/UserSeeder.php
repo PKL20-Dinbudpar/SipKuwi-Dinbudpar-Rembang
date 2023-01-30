@@ -34,6 +34,15 @@ class UserSeeder extends Seeder
                 'role' => 'wisata',
                 'id_wisata' => 999,
             ],
+            [
+                'username' => 'hotel',
+                'password' => Hash::make('hotel'),
+                'name' => 'Hotel',
+                'email' => 'hotel@gmail.com',
+                'alamat' => 'Jl. Hotel',
+                'role' => 'hotel',
+                // 'id_hotel' => 999,
+            ],
         ];
 
         foreach ($users as $user) {

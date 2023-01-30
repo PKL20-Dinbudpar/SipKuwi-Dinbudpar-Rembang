@@ -39,11 +39,6 @@ class Transaksi extends Model
         return $this->wisata->nama_wisata;
     }
 
-    public function getPengguna()
-    {
-        return $this->pengguna->nama;
-    }
-
     public function getTiket()
     {
         return $this->tiket->nama_tiket;

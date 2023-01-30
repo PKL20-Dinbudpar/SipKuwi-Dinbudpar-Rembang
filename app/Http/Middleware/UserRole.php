@@ -22,12 +22,14 @@ class UserRole
             return $next($request);
         }
 
-        return response()->json("You don't have permission for this page");
+        // return response()->json("You don't have permission for this page");
 
         if (Auth::user()->role == 'dinas'){
             return redirect('/rekap-wisata-bulanan');
         } else if (Auth::user()->role == 'wisata'){
             return redirect('/wisata-home');
+        } else if (Auth::user()->role == 'hotel'){
+            return redirect('/rekap-kunjungan-hotel');
         }
     }
 }

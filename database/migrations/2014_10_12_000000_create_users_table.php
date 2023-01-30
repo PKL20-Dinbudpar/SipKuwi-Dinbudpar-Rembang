@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->default('dinas');
             $table->unsignedBigInteger('id_wisata')->nullable();
+            $table->unsignedBigInteger('id_hotel')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

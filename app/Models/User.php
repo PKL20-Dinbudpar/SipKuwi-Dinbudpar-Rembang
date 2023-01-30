@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
         'role',
         'id_wisata',
+        'id_hotel',
     ];
 
     /**

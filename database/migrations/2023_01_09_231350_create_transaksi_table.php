@@ -24,10 +24,8 @@ return new class extends Migration
             $table->integer('total_pendapatan');
 
             $table->foreign('id_wisata', 'fk_transaksi_wisata')->references('id_wisata')->on('wisata');
-            // $table->foreign('id_pengguna', 'fk_transaksi_pengguna')->references('id_pengguna')->on('pengguna');
             $table->foreign('id_tiket', 'fk_transaksi_tiket')->references('id_tiket')->on('tiket');
 
-            // $table->unique(['waktu_transaksi', 'id_wisata', 'id_pengguna', 'id_tiket']);
         });
     }
 

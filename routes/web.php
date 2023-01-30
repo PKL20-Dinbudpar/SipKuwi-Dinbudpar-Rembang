@@ -23,6 +23,7 @@ use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
 use App\Http\Livewire\RekapBulanan;
 use App\Http\Livewire\RekapKunjungan;
+use App\Http\Livewire\RekapKunjunganHotel;
 use App\Http\Livewire\RekapTahunan;
 use App\Http\Livewire\TicketingWisata;
 use App\Http\Livewire\WisataHome;
@@ -73,6 +74,10 @@ Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/ticketing', TicketingWisata::class)->name('ticketing');
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
     Route::get('/rekap-kunjungan', RekapKunjungan::class)->name('rekap-kunjungan');
+});
+
+Route::middleware(['auth', 'user-role:hotel'])->group(function () {
+    Route::get('/rekap-kunjungan-hotel', RekapKunjunganHotel::class)->name('rekap-kunjungan-hotel');
 });
 
 Route::middleware('auth')->group(function () {

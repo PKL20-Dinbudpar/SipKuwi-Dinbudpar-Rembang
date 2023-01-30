@@ -14,7 +14,7 @@ class Rekap extends Model
     protected $primaryKey = 'id_rekap';
 
     // Fillable
-    protected $fillable = ['tanggal', 'id_wisata', 'wisatawan_domestik', 'wisatawan_mancanegara', 'total_pendapatan'];
+        protected $fillable = ['tanggal', 'id_wisata', 'wisatawan_domestik', 'wisatawan_mancanegara', 'total_pendapatan', 'id_hotel',];
 
     // dates
     protected $dates = ['tanggal'];
