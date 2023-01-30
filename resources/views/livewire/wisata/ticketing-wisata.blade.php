@@ -8,7 +8,7 @@
                             <div>
                                 <h5 class="mb-0">Daftar Tiket</h5>
                             </div>
-                            <button data-bs-toggle="modal" data-bs-target="#createTiketModal" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Tiket</button>
+                            <button wire:click="resetInput()" data-bs-toggle="modal" data-bs-target="#createTiketModal" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Tiket</button>
                         </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
@@ -78,9 +78,12 @@
                         
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
-                        @isset($tiketWisata->id_tiket)
-                            <button type="button" wire:click="deleteTiket({{ $tiketWisata->id_tiket }})" class="btn bg-gradient-danger">Hapus</button>
-                        @endisset
+                        <div>
+                            @isset($tiketWisata->id_tiket)
+                                <button type="button" wire:click="deleteTiket({{ $tiketWisata->id_tiket }})" class="btn bg-gradient-danger" 
+                                    data-bs-toggle="modal" data-bs-target="#deleteTiketModal" data-bs-dismiss="modal">Hapus</button>
+                            @endisset
+                        </div>
                         <div>
                             <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
                             <button type="submit" class="btn bg-gradient-primary">Simpan</button>
@@ -90,5 +93,24 @@
             </x-slot>
         </x-modal>
 
+        {{-- Modal Delete --}}
+        <x-modal> 
+            <x-slot name="id"> deleteTiketModal </x-slot>
+            <x-slot name="title">
+                Hapus Tiket
+            </x-slot>
+
+            <x-slot name="content">
+                <form wire:submit.prevent="destroyTiket">
+                    <div class="modal-body">
+                        <h6>Apa anda yakin ingin menghapus tiket ini?</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn bg-gradient-primary">Hapus</button>
+                    </div>
+                </form>
+            </x-slot>
+        </x-modal>
     </div>
 </main>

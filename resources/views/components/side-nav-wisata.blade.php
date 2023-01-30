@@ -1,6 +1,6 @@
 <li class="nav-item pb-2">
-    <a class="nav-link {{ Route::currentRouteName() == 'home-wisata' ? 'active' : '' }}"
-        href="{{ route('home-wisata') }}">
+    <a class="nav-link {{ Route::currentRouteName() == 'ticketing' ? 'active' : '' }}"
+        href="{{ route('ticketing') }}">
         <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -23,7 +23,7 @@
                 </g>
             </svg>
         </div>
-        <span class="nav-link-text ms-1">Home</span>
+        <span class="nav-link-text ms-1">Ticketing</span>
     </a>
 </li>
 

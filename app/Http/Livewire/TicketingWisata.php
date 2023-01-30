@@ -58,4 +58,18 @@ class TicketingWisata extends Component
         $this->resetInput();
         $this->emit('tiketSaved');
     }
+
+    public function deleteTiket(Tiket $tiket)
+    {
+        $this->tiketWisata = $tiket;
+    }
+
+    public function destroyTiket()
+    {
+        Tiket::destroy($this->tiketWisata->id_tiket);
+        session()->flash('message', 'Tiket berhasil dihapus');
+
+        $this->resetInput();
+        $this->emit('tiketDeleted');
+    }
 }
