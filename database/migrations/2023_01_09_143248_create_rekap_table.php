@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('id_rekap');
             $table->date('tanggal');
             $table->unsignedBigInteger('id_wisata')->nullable();
-            $table->unsignedBigInteger('id_wisata')->nullable();
+            $table->unsignedBigInteger('id_hotel')->nullable();
             $table->integer('wisatawan_domestik')->default(0);
             $table->integer('wisatawan_mancanegara')->default(0);
             $table->integer('total_pendapatan')->default(0);
