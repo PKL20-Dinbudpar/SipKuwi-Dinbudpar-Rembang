@@ -201,7 +201,9 @@
                     <x-slot name="content">
                         <form wire:submit.prevent="destroyRekap">
                             <div class="modal-body">
-                                <h6>Apa anda yakin ingin menghapus rekap pada tanggal <br>{{ $deleteRekap->tanggal->format('d M Y') }}?</h6>
+                                @if ($deleteRekap)                                
+                                    <h6>Apa anda yakin ingin menghapus rekap pada tanggal <br>{{ $deleteRekap->tanggal->format('d M Y') }}?</h6>
+                                @endif
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>

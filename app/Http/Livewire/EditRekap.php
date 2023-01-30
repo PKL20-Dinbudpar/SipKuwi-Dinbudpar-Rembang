@@ -33,9 +33,6 @@ class EditRekap extends Component
     {
         $this->idWisata = $idWisata;
         $this->dataRekap = new Rekap();
-
-        $this->deleteRekap = new Rekap();
-        $this->deleteRekap->tanggal = date('Y-m-d');
     }
 
     public function render()
