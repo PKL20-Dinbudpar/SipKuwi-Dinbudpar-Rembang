@@ -33,6 +33,11 @@ class Rekap extends Model
         return $this->belongsTo(Wisata::class, 'id_wisata', 'id_wisata');
     }
 
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class, 'id_hotel', 'id_hotel');
+    }
+
     // Getters
     public function getNamaWisata()
     {

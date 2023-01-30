@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\Hotel;
 use App\Models\Rekap;
 use App\Models\Wisata;
 use Illuminate\Console\Scheduling\Schedule;
@@ -41,6 +42,16 @@ class Kernel extends ConsoleKernel
                 $rekap->id_wisata = $w->id_wisata;
                 $rekap->wisatawan_domestik = 0;
                 $rekap->wisatawan_mancanegara = 0;
+                $rekap->total_pendapatan = 0;
+                $rekap->save();
+            }
+            $hotel = Hotel::all();
+            foreach ($hotel as $h) {
+                $rekap = new Rekap;
+                $rekap->tanggal = date('Y-m-d');
+                $rekap->id_hotel = $h->id_hotel;
+                $rekap->hotel_domestik = 0;
+                $rekap->hotel_mancanegara = 0;
                 $rekap->total_pendapatan = 0;
                 $rekap->save();
             }
