@@ -14,7 +14,7 @@ class UserProfile extends Component
     public $newPassword;
     public $newPasswordConfirmation;
     public $oldPassword;
-    public $showPassword = false;
+    public $typePass = 'password';
 
     public $showSuccesNotification  = false;
 
@@ -79,6 +79,15 @@ class UserProfile extends Component
         $this->oldPassword = '';
 
         $this->resetErrorBag();
+    }
+
+    public function showPass()
+    {
+        if ($this->typePass == 'password') {
+            $this->typePass = 'text';
+        } else {
+            $this->typePass = 'password';
+        }
     }
 
     public function render()

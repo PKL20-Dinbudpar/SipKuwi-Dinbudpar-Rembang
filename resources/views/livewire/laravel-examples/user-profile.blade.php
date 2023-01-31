@@ -37,7 +37,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                {{-- <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
                             <li class="nav-item">
@@ -129,7 +129,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -225,8 +225,13 @@
                             <div class="form-group">
                                 <label for="user.pass" class="form-control-label">{{ __('Password') }}</label>
                                 <div class="@error('user.pass')border border-danger rounded-3 @enderror">
-                                    <input wire:model="user.pass" class="form-control" type="password"
+                                    <div class="input-group">
+                                        <input wire:model="user.pass" class="form-control" type="{{ $typePass }}"
                                         placeholder="password" id="pass" disabled>
+                                        <button class="btn btn-outline-secondary mb-0" type="button" wire:click="showPass">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <button wire:click="resetPass" type="button" data-bs-toggle="modal" data-bs-target="#changePassModal" 
                                     class="btn bg-gradient-danger btn-sm mt-2">{{ 'Ganti Password' }}</button>
@@ -254,17 +259,17 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label>Password Baru</label>
-                        <input type="text" wire:model.defer="newPassword" class="form-control">
+                        <input type="password" wire:model.defer="newPassword" class="form-control">
                         @error('newPassword')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="mb-3">
                         <label>Konfirmasi Password</label>
-                        <input type="text" wire:model.defer="newPasswordConfirmation" class="form-control">
+                        <input type="password" wire:model.defer="newPasswordConfirmation" class="form-control">
                         @error('newPasswordConfirmation')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="mb-3">
                         <label>Password Lama</label>
-                        <input type="text" wire:model.defer="oldPassword" class="form-control">
+                        <input type="password" wire:model.defer="oldPassword" class="form-control">
                         @error('oldPassword')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </div>
