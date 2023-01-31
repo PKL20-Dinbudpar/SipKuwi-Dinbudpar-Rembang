@@ -84,6 +84,9 @@
         window.livewire.on('tiketDeleted', () => {
             $('#deleteTiketModal').modal('hide');
         });
+        window.livewire.on('passwordSaved', () => {
+            $('#changePassModal').modal('hide');
+        });
     </script>
 </body>
 

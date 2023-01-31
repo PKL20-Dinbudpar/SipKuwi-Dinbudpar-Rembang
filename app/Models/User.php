@@ -25,6 +25,7 @@ class User extends Authenticatable
         'alamat',
         'foto',
         'password',
+        'pass',
         'role',
         'id_wisata',
         'id_hotel',

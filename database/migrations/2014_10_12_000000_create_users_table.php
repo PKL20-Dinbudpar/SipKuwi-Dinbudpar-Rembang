@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone')->nullable()->unique();
             $table->string('alamat')->nullable();
             $table->string('password');
+            $table->string('pass')->nullable();
             $table->string('role')->default('dinas');
             $table->unsignedBigInteger('id_wisata')->nullable();
             $table->unsignedBigInteger('id_hotel')->nullable();

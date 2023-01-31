@@ -8,21 +8,32 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
-                        <a href="javascript:;"
+                        @if (auth()->user()->role == 'dinas')
+                            <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
+                        
+                        @else
+                            <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
+                        @endif
+                        {{-- <a href="javascript:;"
                             class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                             <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Edit Image"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            {{ __('Alec Thompson') }}
+                            {{ auth()->user()->name }}
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                            {{ __(' CEO / Co-Founder') }}
+                            @if (auth()->user()->role == 'dinas')
+                                {{ __('Dinas Kebudayaan dan Pariwisata Rembang') }}
+                            @elseif(auth()->user()->role == 'wisata')
+                                {{ $wisata->nama_wisata ?? 'Objek Wisata' }}
+                            @elseif(auth()->user()->role == 'hotel')
+                                {{ $hotel->nama_hotel ?? 'Hotel' }}
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -147,6 +158,7 @@
                         <span
                             class="alert-text text-white">{{ __('Your profile information have been successfuly saved!') }}</span>
                         <button wire:click="$set('showSuccesNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            X
                         </button>
                     </div>
                 @endif
@@ -165,6 +177,18 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="user-username" class="form-control-label">{{ __('Username') }}</label>
+                                <div class="@error('user.username')border border-danger rounded-3 @enderror">
+                                    <input wire:model="user.username" class="form-control" type="username"
+                                        placeholder="@example.com" id="user-username">
+                                </div>
+                                @error('user.username') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
                                 <div class="@error('user.email')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.email" class="form-control" type="email"
@@ -173,45 +197,82 @@
                                 @error('user.email') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
                                 <div class="@error('user.phone')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.phone" class="form-control" type="tel"
-                                        placeholder="40770888444" id="phone">
+                                        placeholder="088888888888" id="phone">
                                 </div>
                                 @error('user.phone') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
-                                <div class="@error('user.location') border border-danger rounded-3 @enderror">
-                                    <input wire:model="user.location" class="form-control" type="text"
-                                        placeholder="Location" id="name">
-                                </div>
-                                @error('user.location') <div class="text-danger">{{ $message }}</div> @enderror
-                            </div>
-                        </div> --}}
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="about">{{ 'About Me' }}</label>
-                        <div class="@error('user.about')border border-danger rounded-3 @enderror">
-                            <textarea 
-                            wire:model="user.about" 
-                            class="form-control" id="about" rows="3"
-                                placeholder="Say something about yourself"></textarea>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="alamat">{{ 'Alamat' }}</label>
+                                <div class="@error('user.alamat')border border-danger rounded-3 @enderror">
+                                    <textarea 
+                                    wire:model="user.alamat" 
+                                    class="form-control" id="alamat" rows="3"
+                                        placeholder="Alamat rumah pengguna"></textarea>
+                                </div>
+                                @error('user.alamat') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
                         </div>
-                        @error('user.about') <div class="text-danger">{{ $message }}</div> @enderror
-                    </div> --}}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="user.pass" class="form-control-label">{{ __('Password') }}</label>
+                                <div class="@error('user.pass')border border-danger rounded-3 @enderror">
+                                    <input wire:model="user.pass" class="form-control" type="password"
+                                        placeholder="password" id="pass" disabled>
+                                </div>
+                                <button wire:click="resetPass" type="button" data-bs-toggle="modal" data-bs-target="#changePassModal" 
+                                    class="btn bg-gradient-danger btn-sm mt-2">{{ 'Ganti Password' }}</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Save Changes' }}</button>
+                        <button type="submit" class="btn bg-gradient-dark btn-md mt-4 mb-4">{{ 'Simpan Profil' }}</button>
                     </div>
                 </form>
 
             </div>
         </div>
     </div>
+
+    {{-- Modal Tambah Wisata --}}
+    <x-modal> 
+        <x-slot name="id"> changePassModal </x-slot>
+        <x-slot name="title">
+            Ganti Password
+        </x-slot>
+
+        <x-slot name="content">
+            <form wire:submit.prevent="savePassword">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Password Baru</label>
+                        <input type="text" wire:model.defer="newPassword" class="form-control">
+                        @error('newPassword')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Konfirmasi Password</label>
+                        <input type="text" wire:model.defer="newPasswordConfirmation" class="form-control">
+                        @error('newPasswordConfirmation')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="mb-3">
+                        <label>Password Lama</label>
+                        <input type="text" wire:model.defer="oldPassword" class="form-control">
+                        @error('oldPassword')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
 </div>
