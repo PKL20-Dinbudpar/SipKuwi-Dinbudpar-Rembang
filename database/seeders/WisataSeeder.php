@@ -47,11 +47,6 @@ class WisataSeeder extends Seeder
                 'id_kecamatan' => '20',
             ],
             [
-                'nama_wisata' => 'Taman Alas Pandansili Kadiwono',
-                'alamat' => 'Ds. Kadiwono',
-                'id_kecamatan' => '20',
-            ],
-            [
                 'nama_wisata' => 'Taman Konservasi Hutan Mangrove / Jembatan Merah',
                 'alamat' => 'Ds. Punjulharjo',
                 'id_kecamatan' => '100',
@@ -80,11 +75,6 @@ class WisataSeeder extends Seeder
                 'nama_wisata' => 'Museum RA. Kartini',
                 'alamat' => 'Ds. Kutoharjo',
                 'id_kecamatan' => '100',
-            ],
-            [
-                'nama_wisata' => 'Watu Layar',
-                'alamat' => 'Ds. Binangun',
-                'id_kecamatan' => '140',
             ],
             [
                 'nama_wisata' => 'Taman Wisata Alam Sumber Semen',
@@ -172,21 +162,6 @@ class WisataSeeder extends Seeder
                 'id_kecamatan' => '60',
             ],
             [
-                'nama_wisata' => 'Kampung Ciu Pamotan',
-                'alamat' => 'Ds. Cikalan',
-                'id_kecamatan' => '70',
-            ],
-            [
-                'nama_wisata' => 'Taman Sulo Indah Permai',
-                'alamat' => 'Ds. Sriombo',
-                'id_kecamatan' => '140',
-            ],
-            [
-                'nama_wisata' => 'Tirta Seger Waras Kulutan',
-                'alamat' => 'Ds. Kulutan',
-                'id_kecamatan' => '30',
-            ],
-            [
                 'nama_wisata' => 'Taman Sarinah',
                 'alamat' => 'Ds. Karang Sari',
                 'id_kecamatan' => '100',
@@ -197,33 +172,13 @@ class WisataSeeder extends Seeder
                 'id_kecamatan' => '30',
             ],
             [
-                'nama_wisata' => 'Rumah Batik Nyak Kiok',
-                'alamat' => 'Ds. Karangturi',
-                'id_kecamatan' => '140',
-            ],
-            [
-                'nama_wisata' => 'Punden Mbelik',
-                'alamat' => 'Ds. Sumberjo',
-                'id_kecamatan' => '100',
-            ],
-            [
-                'nama_wisata' => 'Warung Toleransi Jing hai',
-                'alamat' => 'Ds. Karangturi',
-                'id_kecamatan' => '140',
-            ],
-            [
-                'nama_wisata' => 'Kincir Sutra Doplang Pamotan',
-                'alamat' => 'Ds. Pamotan',
-                'id_kecamatan' => '70',
-            ],
-            [
                 'nama_wisata' => 'Pantai Pulo Swalan',
                 'alamat' => 'Ds. Pasar Banggi',
                 'id_kecamatan' => '100',
             ],
             [
-                'nama_wisata' => 'Reomah Oei',
-                'alamat' => 'Ds. Karangturi',
+                'nama_wisata' => 'Rest Area Binangun Indah',
+                'alamat' => ' Ds. Binangun, Kec. Lasem',
                 'id_kecamatan' => '140',
             ],
             [
@@ -236,8 +191,6 @@ class WisataSeeder extends Seeder
                 'alamat' => 'Ds. Binangun',
                 'id_kecamatan' => '140',
             ],
-
-
             [   
                 'id_wisata' => 999,
                 'nama_wisata' => 'tesWisata',

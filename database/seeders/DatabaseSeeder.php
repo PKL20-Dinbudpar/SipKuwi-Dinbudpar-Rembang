@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             RekapSeeder::class,
             TransaksiSeeder::class,
+            HotelSeeder::class,
         ]);
     }
 }
