@@ -2,7 +2,6 @@
     <div class="container-fluid py-4">
         
         {{-- Tables --}}
-        {{-- @include('components.tables.table') --}}
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4 mx-4">
@@ -27,7 +26,7 @@
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F50E;&#xFE0E;
                                     </span>
-                                    <input wire:model="search" type="text" class="form-control" placeholder="Cari Nama/Username/Email/Wisata" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input wire:model="search" type="text" class="form-control" placeholder="Cari" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="d-flex">
@@ -50,9 +49,9 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Username
                                         </th>
-                                        {{-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Password
-                                        </th> --}}
+                                        </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Email
                                         </th>
@@ -60,7 +59,7 @@
                                             Role
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Nama Wisata
+                                            Penanggung Jawab
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             
@@ -85,11 +84,15 @@
                                                 {{ $user->username }}
                                             </p>
                                         </td>
-                                        {{-- <td class="">
-                                            <p class="text-xs font-weight-bold mb-0">
-                                                {{ $user->password }}
-                                            </p>
-                                        </td> --}}
+                                        <td class="">
+                                            <div class="input-group input-group-sm">
+                                                <input id="pass{{ $user->id }}" type="password" class="form-control text-xs font-weight-bold mb-0" 
+                                                    value={{ $user->pass }} @disabled(true)>
+                                                <button class="btn btn-outline-secondary mb-0" type="button" onclick="showPass({{ $user->id }})">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $user->email }}
@@ -100,11 +103,17 @@
                                                 <span class="badge badge-sm bg-gradient-danger">dinas</span>
                                             @elseif($user->role == 'wisata')
                                                 <span class="badge badge-sm bg-gradient-info">wisata</span>
+                                            @elseif($user->role == 'hotel')
+                                                <span class="badge badge-sm bg-gradient-secondary">hotel</span>
                                             @endif
                                           </td>
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $user->wisata->nama_wisata ?? "" }}
+                                                @if($user->role == 'wisata')
+                                                    {{ $user->wisata->nama_wisata ?? "" }}
+                                                @elseif($user->role == 'hotel')
+                                                    {{ $user->hotel->nama_hotel ?? "" }}
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="">
@@ -120,6 +129,17 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            <script>
+                                function showPass(id) {
+                                    var x = document.getElementById("pass"+id);
+                                    if (x.type === "password") {
+                                        x.type = "text";
+                                    } else {
+                                        x.type = "password";
+                                    }
+                                }
+                            </script>
 
                             <div class="p-4">
                                 {{ $users->links() }}

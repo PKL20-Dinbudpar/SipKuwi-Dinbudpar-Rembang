@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->belongsTo(Wisata::class, 'id_wisata', 'id_wisata');
     }
 
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class, 'id_hotel', 'id_hotel');
+    }
+
     public function transaksi()
     {
         return $this->hasMany(Transaksi::class, 'id_user', 'id_user');

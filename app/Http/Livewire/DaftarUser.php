@@ -40,15 +40,18 @@ class DaftarUser extends Component
 
     public function render()
     {
-        $users = User::with('wisata')
+        $users = User::with('wisata', 'hotel')
         ->leftjoin('wisata', 'users.id_wisata', '=', 'wisata.id_wisata')
+        ->leftjoin('hotel', 'users.id_hotel', '=', 'hotel.id_hotel')
         ->when($this->search, function($query){
             $query->where('name', 'like', '%'.$this->search.'%')
                 ->orWhere('username', 'like', '%'.$this->search.'%')
                 ->orWhere('email', 'like', '%'.$this->search.'%')
-                ->orWhere('wisata.nama_wisata', 'like', '%'.$this->search.'%');
+                ->orWhere('wisata.nama_wisata', 'like', '%'.$this->search.'%')
+                ->orWhere('hotel.nama_hotel', 'like', '%'.$this->search.'%')
+                ;
         })
-        ->orderBy($this->sortBy, $this->sortAsc ? 'asc' : 'desc');
+        ->orderBy('role', 'asc');
 
         $users = $users->paginate(10);
 
