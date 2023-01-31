@@ -20,9 +20,6 @@ class DaftarWisata extends Component
     public $sortAsc = true;
     public $objWisata;
 
-    public $deleteConfirmation = false;
-    public $addConfirmation = false;
-
     protected $queryString = [
         'search' => ['except' => ''],
         'sortBy' => ['except' => 'id_wisata'],

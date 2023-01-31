@@ -8,6 +8,7 @@ use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Billing;
+use App\Http\Livewire\DaftarHotel;
 use App\Http\Livewire\DaftarTransaksi;
 use App\Http\Livewire\DaftarUser;
 use App\Http\Livewire\DaftarWisata;
@@ -65,6 +66,7 @@ Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/rekap-wisata-tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
     Route::get('/edit-rekap-wisata{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
+    Route::get('/daftar-hotel', DaftarHotel::class)->name('daftar-hotel');
     Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');
 });
 

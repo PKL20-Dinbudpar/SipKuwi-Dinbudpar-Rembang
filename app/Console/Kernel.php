@@ -45,6 +45,9 @@ class Kernel extends ConsoleKernel
                 $rekap->total_pendapatan = 0;
                 $rekap->save();
             }
+        })->dailyAt('09.00');
+        
+        $schedule->call(function () {
             $hotel = Hotel::all();
             foreach ($hotel as $h) {
                 $rekap = new Rekap;

@@ -87,6 +87,12 @@
         window.livewire.on('passwordSaved', () => {
             $('#changePassModal').modal('hide');
         });
+        window.livewire.on('hotelSaved', () => {
+            $('#createHotelModal').modal('hide');
+        });
+        window.livewire.on('hotelDeleted', () => {
+            $('#deleteHotelModal').modal('hide');
+        });
     </script>
 </body>
 
