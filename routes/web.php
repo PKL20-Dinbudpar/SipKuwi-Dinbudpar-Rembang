@@ -14,6 +14,7 @@ use App\Http\Livewire\DaftarUser;
 use App\Http\Livewire\DaftarWisata;
 use App\Http\Livewire\DinasHome;
 use App\Http\Livewire\EditRekap;
+use App\Http\Livewire\EditRekapHotel;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\StaticSignIn;
@@ -66,11 +67,12 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/rekap-wisata', RekapBulanan::class)->name('rekap-wisata-bulanan');
     Route::get('/rekap-wisata-tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
-    Route::get('/edit-rekap-wisata{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
+    Route::get('/edit-rekap-wisata:{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
 
     Route::get('/rekap-hotel', RekapHotelBulanan::class)->name('rekap-hotel-bulanan');
     Route::get('/rekap-hotel-tahunan', RekapHotelTahunan::class)->name('rekap-hotel-tahunan');
+    Route::get('/edit-rekap-hotel:{idHotel?}', EditRekapHotel::class)->name('edit-rekap-hotel');
     Route::get('/daftar-hotel', DaftarHotel::class)->name('daftar-hotel');
 
     Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');

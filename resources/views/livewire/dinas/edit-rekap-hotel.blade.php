@@ -4,7 +4,7 @@
         <div class="row mt-0 py-2">
             {{-- Back link with icon --}}
             <div class="col-12">
-                <a href="{{ route('rekap-wisata-bulanan') }}" class="text-decoration-none">
+                <a href="{{ route('rekap-hotel-bulanan') }}" class="text-decoration-none">
                     <div class="d-flex flex-row align-items-center">
                         <i class="fa fa-arrow-left" style="font-size:12px"></i>
                         <span class="ms-2">Kembali</span>
@@ -30,7 +30,7 @@
                     @endif
                     <div class="card-header pb-0">
                         <div>
-                            <h4>Rekap Kunjungan {{ $wisata->nama_wisata }}</h4>
+                            <h4>Rekap Kunjungan {{ $hotel->nama_hotel }}</h4>
                         </div>
 
                         <div class="d-flex flex-row justify-content-between mt-3 mb-2">
