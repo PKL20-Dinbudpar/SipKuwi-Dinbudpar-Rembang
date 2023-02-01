@@ -24,6 +24,7 @@ use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
 use App\Http\Livewire\RekapBulanan;
 use App\Http\Livewire\RekapHotelBulanan;
+use App\Http\Livewire\RekapHotelTahunan;
 use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapKunjunganHotel;
 use App\Http\Livewire\RekapTahunan;
@@ -69,7 +70,7 @@ Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
 
     Route::get('/rekap-hotel', RekapHotelBulanan::class)->name('rekap-hotel-bulanan');
-    Route::get('/rekap-hotel-tahunan', RekapHotelBulanan::class)->name('rekap-hotel-tahunan');
+    Route::get('/rekap-hotel-tahunan', RekapHotelTahunan::class)->name('rekap-hotel-tahunan');
     Route::get('/daftar-hotel', DaftarHotel::class)->name('daftar-hotel');
 
     Route::get('/daftar-user', DaftarUser::class)->name('daftar-user');
