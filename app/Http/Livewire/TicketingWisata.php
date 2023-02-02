@@ -2,12 +2,20 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Rekap;
 use App\Models\Tiket;
+use App\Models\Transaksi;
 use Livewire\Component;
 
 class TicketingWisata extends Component
 {
     public $tiketWisata;
+
+    public $tiket;
+    public $jumlahTiket;
+    public $hargaTiket;
+
+    public $jenisWisatawan;
 
     protected $rules = [
         'tiketWisata.nama_tiket' => 'required',
@@ -18,14 +26,25 @@ class TicketingWisata extends Component
     public function mount()
     {
         $this->tiketWisata = new Tiket();
+
+        $this->tiket = Tiket::where('id_wisata', auth()->user()->id_wisata)->get();
+        $this->jumlahTiket = [];
+        $this->hargaTiket = [];
+
+        foreach ($this->tiket as $t) {
+            $this->jumlahTiket[$t->id_tiket] = 0;
+            $this->hargaTiket[$t->id_tiket] = $t->harga;
+        }
+
+        $this->jenisWisatawan = 'wisnus';
     }
 
     public function render()
     {
-        $tiket = Tiket::where('id_wisata', auth()->user()->id_wisata)->get();
-
         return view('livewire.wisata.ticketing-wisata', [
-            'tiket' => $tiket,
+            'tiket' => $this->tiket,
+            'jumlahTiket' => $this->jumlahTiket,
+            'hargaTiket' => $this->hargaTiket,
         ]);
     }
 
@@ -71,5 +90,70 @@ class TicketingWisata extends Component
 
         $this->resetInput();
         $this->emit('tiketDeleted');
+    }
+
+    // fungsi transaksi
+    public function resetInputTransaksi()
+    {
+        $this->jumlahTiket = [];
+        $this->hargaTiket = [];
+
+        foreach ($this->tiket as $t) {
+            $this->jumlahTiket[$t->id_tiket] = 0;
+            $this->hargaTiket[$t->id_tiket] = $t->harga;
+        }
+
+        $this->resetErrorBag();
+    }
+
+    public function submitTransaksi()
+    {
+        $this->validate([
+            'jumlahTiket.*' => 'required|numeric|min:0',
+        ]);
+
+        $totalPendapatan = 0;
+        foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
+            $totalPendapatan += $jumlahTiket * $this->hargaTiket[$ticketId];
+        }
+
+        $jumlahTiket = array_sum($this->jumlahTiket);
+
+        Transaksi::create([
+            'waktu_transaksi' => now(),
+            'id_wisata' => auth()->user()->id_wisata,
+            'id_user' => auth()->user()->id,
+            'id_tiket' => 1,
+            'jumlah_tiket' => $jumlahTiket,
+            'total_pendapatan' => $totalPendapatan,
+        ]);
+
+        $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+                ->where('tanggal', now()->format('Y-m-d'))        
+                ->first();
+
+        if ($rekap) {
+            if ($this->jenisWisatawan == 'wisnus') {
+                $rekap->wisatawan_domestik += $jumlahTiket;
+            }
+            else if ($this->jenisWisatawan == 'wisman') {
+                $rekap->wisatawan_mancanegara += $jumlahTiket;
+            }
+
+            $rekap->total_pendapatan += $totalPendapatan;
+            $rekap->save();
+        }
+        else {
+            Rekap::create([
+                'tanggal' => now()->format('Y-m-d'),
+                'id_wisata' => auth()->user()->id_wisata,
+                'wisatawan_domestik' => $jumlahTiket,
+                'total_pendapatan' => $totalPendapatan,
+            ]);
+        }
+
+        session()->flash('message', 'Order tiket berhasil disimpan.');
+
+        $this->emit('transaksiSaved');
     }
 }

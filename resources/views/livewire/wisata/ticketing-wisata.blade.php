@@ -37,12 +37,33 @@
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row mt-0 d-flex justify-content-center">
+            <div class="col-lg-5 mb-lg-0 mb-4">
+              <div class="card">
+                <div class="card-header pb-2">
+                    <div class="d-flex flex-row justify-content-center">
+                        <h5 class="mb-0">Tambah Pengunjung</h5>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <div class="d-flex flex-row justify-content-center">
+                     
+                        <button data-bs-toggle="modal" data-bs-target="#createTransaksiModal" wire:click="resetInputTransaksi()" 
+                            class="btn btn-lg btn-block bg-gradient-dark">
+                        +
+                        </button>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
         
 
         {{-- Modal createTiket --}}
@@ -108,6 +129,82 @@
                     <div class="modal-footer">
                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
                         <button type="submit" class="btn bg-gradient-primary">Hapus</button>
+                    </div>
+                </form>
+            </x-slot>
+        </x-modal>
+
+        {{-- Modal createTransaksi --}}
+        <x-modal> 
+            <x-slot name="id"> createTransaksiModal </x-slot>
+            <x-slot name="title">
+                Tambah Pengunjung
+            </x-slot>
+
+            <x-slot name="content">
+                <form wire:submit.prevent="submitTransaksi">
+                    <div class="modal-body">
+                        <table class="table mb-3">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Jumlah Tiket</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Harga</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($tiket as $tiket)
+                                    <tr>
+                                        <td>{{ $tiket->nama_tiket }}</td>
+                                        <td>
+                                            <input type="number" wire:model="jumlahTiket.{{ $tiket->id_tiket }}" class="form-control">
+                                        </td>
+                                        <td>Rp {{ number_format($tiket->harga,0,",",".") }}</td>
+                                        <td>
+                                            Rp {{ number_format($hargaTiket[$tiket->id_tiket] * (int)$jumlahTiket[$tiket->id_tiket],0,",",".") }}
+                                        </td>
+                                    </tr>
+                                    {{-- error message --}}
+                                    @error('jumlahTiket.'.$tiket->id_tiket)
+                                        <tr>
+                                            <td colspan="4">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </td>
+                                        </tr>
+                                    @enderror
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">Total</td>
+                                    <td>
+                                        Rp {{ number_format(array_sum(array_map(function($count, $price) {
+                                            return (int)$count * $price;
+                                        }, $jumlahTiket, $hargaTiket)),0,",",".") }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="mb-3">
+                            <label>Jenis Wisatawan</label>
+                            <select wire:model.defer="jenisWisatawan" class="form-control" aria-label="Default select example">
+                                <option value="wisnus">Wisatawan Domestik</option>
+                                <option value="wisman">Wisatawan Mancanegara</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <div>
+                            @isset($tiketWisata->id_tiket)
+                                <button type="button" wire:click="deleteTiket({{ $tiketWisata->id_tiket }})" class="btn bg-gradient-danger" 
+                                    data-bs-toggle="modal" data-bs-target="#deleteTiketModal" data-bs-dismiss="modal">Hapus</button>
+                            @endisset
+                        </div>
+                        <div>
+                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                            <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                        </div>
                     </div>
                 </form>
             </x-slot>
