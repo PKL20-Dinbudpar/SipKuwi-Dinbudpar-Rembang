@@ -16,6 +16,8 @@ class TicketingWisata extends Component
     public $hargaTiket;
 
     public $jenisWisatawan;
+    public $uangMasuk;
+    public $kembalian;
 
     protected $rules = [
         'tiketWisata.nama_tiket' => 'required',
@@ -103,13 +105,33 @@ class TicketingWisata extends Component
             $this->hargaTiket[$t->id_tiket] = $t->harga;
         }
 
+        $this->jenisWisatawan = 'wisnus';
+        $this->uangMasuk = '';
+        $this->kembalian = '';
+
         $this->resetErrorBag();
+    }
+
+    
+    public function updatedUangMasuk()
+    {
+        $this->validate([
+            'uangMasuk' => 'required|numeric|min:0',
+        ]);
+
+        $totalPendapatan = 0;
+        foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
+            $totalPendapatan += $jumlahTiket * $this->hargaTiket[$ticketId];
+        }
+
+        $this->kembalian = $this->uangMasuk - $totalPendapatan;
     }
 
     public function submitTransaksi()
     {
         $this->validate([
             'jumlahTiket.*' => 'required|numeric|min:0',
+            'uangMasuk' => 'required|numeric|min:0',
         ]);
 
         $totalPendapatan = 0;
@@ -125,7 +147,7 @@ class TicketingWisata extends Component
             'id_user' => auth()->user()->id,
             'id_tiket' => 1,
             'jumlah_tiket' => $jumlahTiket,
-            'total_pendapatan' => $totalPendapatan,
+            'total_pendapatan' => $this->uangMasuk - $this->kembalian,
         ]);
 
         $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
@@ -140,7 +162,7 @@ class TicketingWisata extends Component
                 $rekap->wisatawan_mancanegara += $jumlahTiket;
             }
 
-            $rekap->total_pendapatan += $totalPendapatan;
+            $rekap->total_pendapatan += $this->uangMasuk - $this->kembalian;
             $rekap->save();
         }
         else {
@@ -148,7 +170,6 @@ class TicketingWisata extends Component
                 'tanggal' => now()->format('Y-m-d'),
                 'id_wisata' => auth()->user()->id_wisata,
                 'wisatawan_domestik' => $jumlahTiket,
-                'total_pendapatan' => $totalPendapatan,
             ]);
         }
 
@@ -156,4 +177,18 @@ class TicketingWisata extends Component
 
         $this->emit('transaksiSaved');
     }
+
+    // public function updatedKembalian()
+    // {
+    //     $this->validate([
+    //         'kembalian' => 'required|numeric|min:0',
+    //     ]);
+
+    //     $totalPendapatan = 0;
+    //     foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
+    //         $totalPendapatan += $jumlahTiket * $this->hargaTiket[$ticketId];
+    //     }
+
+    //     $this->uangMasuk = $this->kembalian + $totalPendapatan;
+    // }
 }

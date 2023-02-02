@@ -144,6 +144,13 @@
             <x-slot name="content">
                 <form wire:submit.prevent="submitTransaksi">
                     <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Jenis Wisatawan</label>
+                            <select wire:model.defer="jenisWisatawan" class="form-control" aria-label="Default select example">
+                                <option value="wisnus">Wisatawan Domestik</option>
+                                <option value="wisman">Wisatawan Mancanegara</option>
+                            </select>
+                        </div>
                         <table class="table mb-3">
                             <thead>
                                 <tr>
@@ -187,11 +194,20 @@
                             </tfoot>
                         </table>
                         <div class="mb-3">
-                            <label>Jenis Wisatawan</label>
-                            <select wire:model.defer="jenisWisatawan" class="form-control" aria-label="Default select example">
-                                <option value="wisnus">Wisatawan Domestik</option>
-                                <option value="wisman">Wisatawan Mancanegara</option>
-                            </select>
+                            <label>Uang Masuk</label>
+                            <input type="number" wire:model.lazy="uangMasuk" placeholder="Uang Masuk" class="form-control">
+
+                            @error('uangMasuk')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label>Kembalian</label>
+                            <input type="number" wire:model.lazy="kembalian" placeholder="Kembalian" class="form-control">
+
+                            @error('kembalian')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
