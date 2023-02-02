@@ -50,7 +50,9 @@ Route::get('/', function () {
         if (Auth::user()->role == 'dinas'){
             return redirect('/rekap-wisata');
         } else if (Auth::user()->role == 'wisata'){
-            return redirect('/wisata-home');
+            return redirect('/rekap-kunjungan');
+        } else if (Auth::user()->role == 'hotel'){
+            return redirect('/rekap-kunjungan-hotel');
         }
     } else {
         return redirect('/login');
