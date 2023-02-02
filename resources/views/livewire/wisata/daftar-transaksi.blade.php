@@ -1,7 +1,6 @@
 <div class="container-fluid py-4">
     
     {{-- Tables --}}
-    {{-- @include('components.tables.table') --}}
     <div class="row">
         <div class="col-12">
             <div class="card mb-4 mx-4">
@@ -18,6 +17,50 @@
                 <div class="card-header pb-0">
                     <div>
                         <h5 class="mb-3">Daftar Transaksi Hari Ini</h5>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-between my-2">
+                        <div class="form-group mb-0 col-5">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">
+                                    &#x1F4C5;&#xFE0E;
+                                </span>
+                                <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                    <option value="">Tanggal</option>
+                                    @for ($i = 1; $i <= 31; $i++)
+                                        @if ($i < 10)
+                                            <option value="0{{ $i }}">0{{ $i }}</option>
+                                        @else
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endif
+                                    @endfor
+                                </select>
+                                <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                    <option value="">Bulan</option>
+                                    <option value="01">Januari</option>
+                                    <option value="02">Februari</option>
+                                    <option value="03">Maret</option>
+                                    <option value="04">April</option>
+                                    <option value="05">Mei</option>
+                                    <option value="06">Juni</option>
+                                    <option value="07">Juli</option>
+                                    <option value="08">Agustus</option>
+                                    <option value="09">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                                <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                    <option value="">Tahun</option>
+                                    @for ($i = date('Y'); $i >= 2021; $i--)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Transaksi</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">

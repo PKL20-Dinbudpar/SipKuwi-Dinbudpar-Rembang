@@ -93,6 +93,9 @@
         window.livewire.on('hotelDeleted', () => {
             $('#deleteHotelModal').modal('hide');
         });
+        window.livewire.on('transaksiSaved', () => {
+            $('#createTransaksiModal').modal('hide');
+        });
     </script>
 </body>
 
