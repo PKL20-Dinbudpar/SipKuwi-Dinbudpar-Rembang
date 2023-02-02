@@ -26,7 +26,7 @@ class RekapBulananExport extends RekapBulanan implements FromView
     public function view(): View
     {
         $tanggal = Rekap::with('wisata')
-                ->leftjoin('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
+                ->join('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
                 ->select('tanggal')
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->whereYear('tanggal', '=', $this->tahun)

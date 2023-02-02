@@ -49,7 +49,6 @@ class RekapBulanan extends Component
 
     public function export()
     {
-        // return Excel::download(new RekapKunjungan, 'RekapBulanan.xlsx');
-        return Excel::download(new RekapBulananExport($this->bulan, $this->tahun), 'RekapBulanan.xlsx');
+        return Excel::download(new RekapBulananExport($this->bulan, $this->tahun), 'RekapWisataHarian.xlsx');
     }
 }

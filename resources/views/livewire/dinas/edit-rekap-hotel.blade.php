@@ -4,7 +4,7 @@
         <div class="row mt-0 py-2">
             {{-- Back link with icon --}}
             <div class="col-12">
-                <a href="{{ route('rekap-hotel-bulanan') }}" class="text-decoration-none">
+                <a href="{{ route('rekap-hotel-harian') }}" class="text-decoration-none">
                     <div class="d-flex flex-row align-items-center">
                         <i class="fa fa-arrow-left" style="font-size:12px"></i>
                         <span class="ms-2">Kembali</span>

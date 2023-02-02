@@ -50,7 +50,7 @@ Route::get('/', function () {
         if (Auth::user()->role == 'dinas'){
             return redirect('/rekap-wisata');
         } else if (Auth::user()->role == 'wisata'){
-            return redirect('/rekap-kunjungan');
+            return redirect('/rekap-kunjungan-wisata');
         } else if (Auth::user()->role == 'hotel'){
             return redirect('/rekap-kunjungan-hotel');
         }
@@ -67,13 +67,13 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 
 // Route for Dinas
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
-    Route::get('/rekap-wisata', RekapBulanan::class)->name('rekap-wisata-bulanan');
-    Route::get('/rekap-wisata-tahunan', RekapTahunan::class)->name('rekap-wisata-tahunan');
+    Route::get('/rekap-wisata', RekapBulanan::class)->name('rekap-wisata-harian');
+    Route::get('/rekap-wisata-bulanan', RekapTahunan::class)->name('rekap-wisata-bulanan');
     Route::get('/edit-rekap-wisata:{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
 
-    Route::get('/rekap-hotel', RekapHotelBulanan::class)->name('rekap-hotel-bulanan');
-    Route::get('/rekap-hotel-tahunan', RekapHotelTahunan::class)->name('rekap-hotel-tahunan');
+    Route::get('/rekap-hotel', RekapHotelBulanan::class)->name('rekap-hotel-harian');
+    Route::get('/rekap-hotel-bulanan', RekapHotelTahunan::class)->name('rekap-hotel-bulanan');
     Route::get('/edit-rekap-hotel:{idHotel?}', EditRekapHotel::class)->name('edit-rekap-hotel');
     Route::get('/daftar-hotel', DaftarHotel::class)->name('daftar-hotel');
 
@@ -85,7 +85,7 @@ Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/wisata-home', WisataHome::class)->name('home-wisata');
     Route::get('/ticketing', TicketingWisata::class)->name('ticketing');
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
-    Route::get('/rekap-kunjungan', RekapKunjungan::class)->name('rekap-kunjungan');
+    Route::get('/rekap-kunjungan-wisata', RekapKunjungan::class)->name('rekap-kunjungan-wisata');
 });
 
 Route::middleware(['auth', 'user-role:hotel'])->group(function () {

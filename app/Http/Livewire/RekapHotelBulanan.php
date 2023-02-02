@@ -49,6 +49,6 @@ class RekapHotelBulanan extends Component
 
     public function export()
     {
-        return Excel::download(new HotelBulananExport($this->bulan, $this->tahun), 'RekapBulanan.xlsx');
+        return Excel::download(new HotelBulananExport($this->bulan, $this->tahun), 'RekapHotelHarian.xlsx');
     }
 }

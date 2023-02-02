@@ -26,7 +26,7 @@ class HotelBulananExport extends RekapHotelBulanan implements FromView
     public function view(): View
     {
         $tanggal = Rekap::with('hotel')
-                ->leftjoin('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
+                ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
                 ->select('tanggal')
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->whereYear('tanggal', '=', $this->tahun)
@@ -42,7 +42,7 @@ class HotelBulananExport extends RekapHotelBulanan implements FromView
         $hotel = Hotel::all();
 
 
-        return view('livewire.dinas.rekap-hotel-bulanan', [
+        return view('components.tables.tabel-rekap-hotel-bulanan', [
             'tanggal' => $tanggal,
             'rekap' => $rekap,
             'hotel' => $hotel,

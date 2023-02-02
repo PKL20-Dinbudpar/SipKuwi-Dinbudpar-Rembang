@@ -1,6 +1,6 @@
 <li class="nav-item pb-2">
-    <a class="nav-link {{ Route::currentRouteName() == 'rekap-wisata-bulanan' || Route::currentRouteName() == 'rekap-wisata-tahunan' ? 'active' : '' }}"
-        href="{{ route('rekap-wisata-bulanan') }}">
+    <a class="nav-link {{ Route::currentRouteName() == 'rekap-wisata-harian' || Route::currentRouteName() == 'rekap-wisata-bulanan' ? 'active' : '' }}"
+        href="{{ route('rekap-wisata-harian') }}">
         <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -28,8 +28,8 @@
 </li>
 
 <li class="nav-item pb-2">
-    <a class="nav-link {{ Route::currentRouteName() == 'rekap-hotel-bulanan' || Route::currentRouteName() == 'rekap-hotel-tahunan' ? 'active' : '' }}"
-        href="{{ route('rekap-hotel-bulanan') }}">
+    <a class="nav-link {{ Route::currentRouteName() == 'rekap-hotel-harian' || Route::currentRouteName() == 'rekap-hotel-bulanan' ? 'active' : '' }}"
+        href="{{ route('rekap-hotel-harian') }}">
         <div
             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"

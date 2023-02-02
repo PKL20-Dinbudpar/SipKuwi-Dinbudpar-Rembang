@@ -4,14 +4,14 @@
             {{-- Link to Halaman Rekap Tahunan --}}
             <div class="d-flex justify-content-start mb-3 text-center">
                 <a type="button" class="btn bg-gradient-info w-auto mt-4 mb-0 
+                {{ Route::currentRouteName() == 'rekap-wisata-harian' ? 'active' : '' }}"
+                href="{{ route('rekap-wisata-harian') }}">
+                    {{ __('Harian') }}
+                </a>
+                <a type="button" class="btn bg-gradient-secondary w-auto mx-2 mt-4 mb-0 
                 {{ Route::currentRouteName() == 'rekap-wisata-bulanan' ? 'active' : '' }}"
                 href="{{ route('rekap-wisata-bulanan') }}">
                     {{ __('Bulanan') }}
-                </a>
-                <a type="button" class="btn bg-gradient-secondary w-auto mx-2 mt-4 mb-0 
-                {{ Route::currentRouteName() == 'rekap-wisata-tahunan' ? 'active' : '' }}"
-                href="{{ route('rekap-wisata-tahunan') }}">
-                    {{ __('Tahunan') }}
                 </a>
             </div>
         </div>
@@ -66,7 +66,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5>Rekap Data Bulanan</h5>
+                            <h5>Rekap Data Wisata Harian</h5>
                         </div>
                         <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm mb-0"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
                     </div>

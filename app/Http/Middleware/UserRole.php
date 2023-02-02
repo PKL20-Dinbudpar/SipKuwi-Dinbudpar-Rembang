@@ -25,7 +25,7 @@ class UserRole
         // return response()->json("You don't have permission for this page");
 
         if (Auth::user()->role == 'dinas'){
-            return redirect('/rekap-wisata-bulanan');
+            return redirect('/rekap-wisata-harian');
         } else if (Auth::user()->role == 'wisata'){
             return redirect('/wisata-home');
         } else if (Auth::user()->role == 'hotel'){
