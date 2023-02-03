@@ -49,7 +49,11 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5>Rekap Data Wisata Bulanan</h5>
+                            <h5>Rekap Kunjungan Wisata Bulanan
+                                @if ($tahun != "")
+                                    {{ $tahun }}
+                                @endif
+                            </h5>
                         </div>
                         <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm mb-0"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
                     </div>

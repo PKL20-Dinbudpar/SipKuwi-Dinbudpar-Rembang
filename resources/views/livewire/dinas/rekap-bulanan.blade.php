@@ -29,27 +29,25 @@
                             <div class="form-group col-lg-6">
                                 <label for="bulan">Bulan</label>
                                 <select class="form-control" wire:model="bulan" id="bulan" name="bulan">
-                                    <option>Pilih Bulan</option>
-                                    <option value="01" @selected(date('m') == 1)>Januari</option>
-                                    <option value="02" @selected(date('m') == 2)>Februari</option>
-                                    <option value="03" @selected(date('m') == 3)>Maret</option>
-                                    <option value="04" @selected(date('m') == 4)>April</option>
-                                    <option value="05" @selected(date('m') == 5)>Mei</option>
-                                    <option value="06" @selected(date('m') == 6)>Juni</option>
-                                    <option value="07" @selected(date('m') == 7)>Juli</option>
-                                    <option value="08" @selected(date('m') == 8)>Agustus</option>
-                                    <option value="09" @selected(date('m') == 9)>September</option>
-                                    <option value="10" @selected(date('m') == 10)>Oktober</option>
-                                    <option value="11" @selected(date('m') == 11)>November</option>
-                                    <option value="12" @selected(date('m') == 12)>Desember</option>
+                                    <option value="01">Januari</option>
+                                    <option value="02">Februari</option>
+                                    <option value="03">Maret</option>
+                                    <option value="04">April</option>
+                                    <option value="05">Mei</option>
+                                    <option value="06">Juni</option>
+                                    <option value="07">Juli</option>
+                                    <option value="08">Agustus</option>
+                                    <option value="09">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="tahun">Tahun</label>
                                 <select class="form-control" wire:model="tahun" id="tahun" name="tahun">
-                                    <option>Pilih Tahun</option>
                                     @for ($i = date('Y'); $i >= 2021; $i--)
-                                        <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
+                                        <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -66,7 +64,23 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5>Rekap Data Wisata Harian</h5>
+                            <h5>Rekap Kunjungan Wisata Harian 
+                                @if ($bulan != "" && $tahun != "")
+                                    {{ $bulan == '01' ? 'Januari' : '' }}
+                                    {{ $bulan == '02' ? 'Februari' : '' }}
+                                    {{ $bulan == '03' ? 'Maret' : '' }}
+                                    {{ $bulan == '04' ? 'April' : '' }}
+                                    {{ $bulan == '05' ? 'Mei' : '' }}
+                                    {{ $bulan == '06' ? 'Juni' : '' }}
+                                    {{ $bulan == '07' ? 'Juli' : '' }}
+                                    {{ $bulan == '08' ? 'Agustus' : '' }}
+                                    {{ $bulan == '09' ? 'September' : '' }}
+                                    {{ $bulan == '10' ? 'Oktober' : '' }}
+                                    {{ $bulan == '11' ? 'November' : '' }}
+                                    {{ $bulan == '12' ? 'Desember' : '' }}
+                                    {{ $tahun }}
+                                @endif
+                            </h5>
                         </div>
                         <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm mb-0"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
                     </div>

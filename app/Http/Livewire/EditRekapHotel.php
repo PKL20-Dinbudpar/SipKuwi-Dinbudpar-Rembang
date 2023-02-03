@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\KunjunganHotelExport;
 use App\Models\Hotel;
 use App\Models\Rekap;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EditRekapHotel extends Component
 {
@@ -101,5 +103,11 @@ class EditRekapHotel extends Component
         $this->reset(['deleteRekap']);
         $this->resetInput();
         $this->emit('rekapDeleted');
+    }
+
+    public function export(){
+        $hotel = Hotel::findOrFail($this->idHotel);
+
+        return Excel::download(new KunjunganHotelExport($this->idHotel), 'Rekap_Kunjungan_' . $hotel->nama_hotel . '.xlsx');
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\KunjunganWisataExport;
 use App\Models\Rekap;
 use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EditRekap extends Component
 {
@@ -101,5 +103,12 @@ class EditRekap extends Component
         $this->reset(['deleteRekap']);
         $this->resetInput();
         $this->emit('rekapDeleted');
+    }
+
+    public function export()
+    {
+        $wisata = Wisata::findOrFail($this->idWisata);
+
+        return Excel::download(new KunjunganWisataExport($this->idWisata), 'Rekap_' . $wisata->nama_wisata . '.xlsx');
     }
 }

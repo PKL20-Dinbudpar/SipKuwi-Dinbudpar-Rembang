@@ -43,6 +43,6 @@ class RekapHotelTahunan extends Component
 
     public function export()
     {
-        return Excel::download(new HotelTahunanExport($this->tahun), 'RekapHotelBulanan.xlsx');
+        return Excel::download(new HotelTahunanExport($this->tahun), 'RekapHotelBulanan' . $this->tahun . '.xlsx');
     }
 }

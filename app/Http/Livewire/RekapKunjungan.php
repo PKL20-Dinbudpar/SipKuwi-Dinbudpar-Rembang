@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\KunjunganWisataExport;
 use App\Models\Rekap;
+use App\Models\Wisata;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RekapKunjungan extends Component
 {
@@ -100,5 +103,11 @@ class RekapKunjungan extends Component
         $this->reset(['deleteRekap']);
         $this->resetInput();
         $this->emit('rekapDeleted');
+    }
+
+    public function export(){
+        $wisata = Wisata::where('id_wisata', auth()->user()->id_wisata)->first();
+
+        return Excel::download(new KunjunganWisataExport(), 'Rekap_Kunjungan_' . $wisata->nama_wisata . '.xlsx');
     }
 }
