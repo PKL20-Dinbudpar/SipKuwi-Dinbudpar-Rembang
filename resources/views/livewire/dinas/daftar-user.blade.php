@@ -59,7 +59,7 @@
                                             Role
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Penanggung Jawab
+                                            Tempat Tanggung Jawab
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             
@@ -183,10 +183,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>Role</label>
-                                        <select wire:model.defer="userWisata.role" id="selectRole" onchange="hideWisata()" class="form-control" aria-label="Default select example">
+                                        <select wire:model.defer="userWisata.role" id="selectRole" onchange="showByRole()" class="form-control" aria-label="Default select example">
                                             <option value="">Pilih Role</option>
                                             <option value="dinas">Dinas</option>
                                             <option value="wisata">Wisata</option>
+                                            <option value="hotel">Hotel</option>
                                         </select>
                                         @error('userWisata.role')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
@@ -201,6 +202,16 @@
                                         </select>
                                         @error('userWisata.id_wisata')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
+                                    <div id="selectHotel" @if (!isset($userWisata->id) || $userWisata->role != 'hotel') hidden @endif class="mb-3">
+                                        <label>Nama Hotel</label>
+                                        <select wire:model.defer="userWisata.id_hotel" class="form-control" aria-label="Default select example">
+                                            <option value="">Pilih Hotel</option>
+                                            @foreach ($hotel as $item)
+                                                <option value="{{ $item->id_hotel }}">{{ $item->nama_hotel }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('userWisata.id_hotel')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
@@ -209,12 +220,17 @@
                             </form>
 
                             <script>
-                                function hideWisata() {
+                                function showByRole() {
                                     var role = document.getElementById("selectRole").value;
                                     if (role == 'wisata') {
                                         document.getElementById("selectWisata").hidden = false;
+                                        document.getElementById("selectHotel").hidden = true;
+                                    } else if (role == 'hotel') {
+                                        document.getElementById("selectHotel").hidden = false;
+                                        document.getElementById("selectWisata").hidden = true;
                                     } else {
                                         document.getElementById("selectWisata").hidden = true;
+                                        document.getElementById("selectHotel").hidden = true;
                                     }
                                 }    
                             </script>

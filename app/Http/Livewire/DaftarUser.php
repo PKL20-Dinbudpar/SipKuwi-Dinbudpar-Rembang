@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Exports\UserExport;
+use App\Models\Hotel;
 use App\Models\User;
 use App\Models\Wisata;
 use Livewire\Component;
@@ -36,6 +37,7 @@ class DaftarUser extends Component
         'userWisata.email' => 'email|max:255',
         'userWisata.role' => 'required',
         'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
+        'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
     ];
 
     public function render()
@@ -48,8 +50,7 @@ class DaftarUser extends Component
                 ->orWhere('username', 'like', '%'.$this->search.'%')
                 ->orWhere('email', 'like', '%'.$this->search.'%')
                 ->orWhere('wisata.nama_wisata', 'like', '%'.$this->search.'%')
-                ->orWhere('hotel.nama_hotel', 'like', '%'.$this->search.'%')
-                ;
+                ->orWhere('hotel.nama_hotel', 'like', '%'.$this->search.'%');
         })
         ->orderBy('role', 'asc');
 
@@ -57,9 +58,12 @@ class DaftarUser extends Component
 
         $wisata = Wisata::all();
 
+        $hotel = Hotel::all();
+
         return view('livewire.dinas.daftar-user', [
             'users' => $users,
             'wisata' => $wisata,
+            'hotel' => $hotel,
         ]);
     }
 
@@ -99,6 +103,7 @@ class DaftarUser extends Component
             session()->flash('message', 'Data user berhasil diubah');
         }
         else {
+            $this->userWisata += ['pass' => $this->userWisata['password']];
             $this->userWisata['password'] = bcrypt($this->userWisata['password']);
             User::create($this->userWisata);
             session()->flash('message', 'Data user berhasil ditambahkan');
@@ -116,7 +121,7 @@ class DaftarUser extends Component
     public function destroyUser()
     {
         User::destroy($this->userWisata->id);
-        session()->flash('message', 'User berhasil dihapus');
+        session()->flash('message', 'Data user berhasil dihapus');
 
         $this->resetInput();
         $this->emit('userDeleted');
