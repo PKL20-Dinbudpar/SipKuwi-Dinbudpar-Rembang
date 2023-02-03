@@ -17,7 +17,7 @@
                     @endif
                     <div class="card-header pb-0">
                         <div>
-                            <h5 class="mb-3">Daftar User Objek Wisata</h5>
+                            <h5 class="mb-3">Daftar User</h5>
                         </div>
                         
                         <div class="d-flex flex-row justify-content-between mb-1">

@@ -6,12 +6,12 @@
                 <a type="button" class="btn bg-gradient-secondary w-auto mt-4 mb-0 
                 {{ Route::currentRouteName() == 'rekap-hotel-harian' ? 'active' : '' }}"
                 href="{{ route('rekap-hotel-harian') }}">
-                    {{ __('Bulanan') }}
+                    {{ __('Harian') }}
                 </a>
                 <a type="button" class="btn bg-gradient-info w-auto mx-2 mt-4 mb-0 
                 {{ Route::currentRouteName() == 'rekap-hotel-bulanan' ? 'active' : '' }}"
                 href="{{ route('rekap-hotel-bulanan') }}">
-                    {{ __('Tahunan') }}
+                    {{ __('Bulanan') }}
                 </a>
             </div>
         </div>

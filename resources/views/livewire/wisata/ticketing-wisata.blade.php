@@ -13,7 +13,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="row justify-content-center">
-                            @foreach ($tiket as $tkt)    
+                            @foreach ($tikets as $tkt)    
                                 <div class="col-xl-3 col-sm-6 mb-0">
                                     <div data-bs-toggle="modal" data-bs-target="#createTiketModal" wire:click="editTiket({{ $tkt->id_tiket }})"
                                         class="card btn">
@@ -135,8 +135,13 @@
         </x-modal>
 
         {{-- Modal createTransaksi --}}
-        <x-modal> 
+        <x-modal-tiket> 
             <x-slot name="id"> createTransaksiModal </x-slot>
+
+            <x-slot name="customClass">
+                modal-xl
+            </x-slot>
+
             <x-slot name="title">
                 Tambah Pengunjung
             </x-slot>

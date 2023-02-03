@@ -43,7 +43,10 @@ class TicketingWisata extends Component
 
     public function render()
     {
+        $tikets = Tiket::where('id_wisata', auth()->user()->id_wisata)->get();
+
         return view('livewire.wisata.ticketing-wisata', [
+            'tikets' => $tikets,
             'tiket' => $this->tiket,
             'jumlahTiket' => $this->jumlahTiket,
             'hargaTiket' => $this->hargaTiket,
@@ -54,6 +57,19 @@ class TicketingWisata extends Component
     {
         $this->tiketWisata = new Tiket();
         $this->resetErrorBag();
+    }
+
+    public function refreshTiket()
+    {
+        $this->tiket = Tiket::where('id_wisata', auth()->user()->id_wisata)->get();
+
+        $this->jumlahTiket = [];
+        $this->hargaTiket = [];
+        
+        foreach ($this->tiket as $t) {
+            $this->jumlahTiket[$t->id_tiket] = 0;
+            $this->hargaTiket[$t->id_tiket] = $t->harga;
+        }
     }
 
     public function editTiket(Tiket $tiket)
@@ -76,6 +92,7 @@ class TicketingWisata extends Component
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }
 
+        $this->refreshTiket();
         $this->resetInput();
         $this->emit('tiketSaved');
     }
@@ -90,20 +107,16 @@ class TicketingWisata extends Component
         Tiket::destroy($this->tiketWisata->id_tiket);
         session()->flash('message', 'Tiket berhasil dihapus');
 
+        $this->refreshTiket();
         $this->resetInput();
+
         $this->emit('tiketDeleted');
     }
 
     // fungsi transaksi
     public function resetInputTransaksi()
     {
-        $this->jumlahTiket = [];
-        $this->hargaTiket = [];
-
-        foreach ($this->tiket as $t) {
-            $this->jumlahTiket[$t->id_tiket] = 0;
-            $this->hargaTiket[$t->id_tiket] = $t->harga;
-        }
+        $this->refreshTiket();
 
         $this->jenisWisatawan = 'wisnus';
         $this->uangMasuk = '';
