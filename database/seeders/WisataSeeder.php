@@ -193,7 +193,7 @@ class WisataSeeder extends Seeder
             ],
             [   
                 'id_wisata' => 999,
-                'nama_wisata' => 'tesWisata',
+                'nama_wisata' => 'Tes Objek Wisata',
             ],
         ];
 

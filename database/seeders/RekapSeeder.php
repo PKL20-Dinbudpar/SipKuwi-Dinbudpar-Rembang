@@ -17,55 +17,6 @@ class RekapSeeder extends Seeder
     {
         $rekap = [
             [
-                'tanggal' => '2023-01-01',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
-                'tanggal' => '2023-01-02',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
-                'tanggal' => '2023-01-03',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
-                'tanggal' => '2023-01-04',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
-                'tanggal' => '2023-01-05',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
-                'tanggal' => '2023-01-06',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
-                'tanggal' => '2023-01-07',
-                'id_wisata' => 1,
-                'wisatawan_domestik' => 100,
-                'wisatawan_mancanegara' => 50,
-                'total_pendapatan' => 1000000,
-            ],
-            [
                 'tanggal' => '2022-12-17',
                 'id_wisata' => 1,
                 'wisatawan_domestik' => 8127,

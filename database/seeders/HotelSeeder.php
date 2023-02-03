@@ -92,6 +92,11 @@ class HotelSeeder extends Seeder
                 'alamat' => 'Area Sawah/Kebun, Sluke',
                 'id_kecamatan' => '130',
             ],
+
+            [   
+                'id_hotel' => 999,
+                'nama_hotel' => 'Tes Hotel',
+            ],
         ];
 
         foreach ($hotel as $key => $value) {
