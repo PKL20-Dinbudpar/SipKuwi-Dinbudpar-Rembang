@@ -33,7 +33,7 @@ class DaftarUser extends Component
     protected $rules = [
         'userWisata.name' => 'required|string|max:255',
         'userWisata.username' => 'required|string|max:255',
-        'userWisata.password' => 'required_if:userWisata.id,null|string|min:8',
+        'userWisata.pass' => 'required|string|min:8',
         'userWisata.email' => 'email|max:255',
         'userWisata.role' => 'required',
         'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
@@ -103,8 +103,8 @@ class DaftarUser extends Component
             session()->flash('message', 'Data user berhasil diubah');
         }
         else {
-            $this->userWisata += ['pass' => $this->userWisata['password']];
-            $this->userWisata['password'] = bcrypt($this->userWisata['password']);
+            $this->userWisata += ['pass' => $this->userWisata['pass']];
+            $this->userWisata['password'] = bcrypt($this->userWisata['pass']);
             User::create($this->userWisata);
             session()->flash('message', 'Data user berhasil ditambahkan');
         }

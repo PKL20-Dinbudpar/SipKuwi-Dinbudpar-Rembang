@@ -9,9 +9,9 @@
                             <div >
                                 {{ session('message') }}
                             </div>
-                            <span @click=" show = false ">
-                                <i class="fa fa-times" style="font-size:12px"></i>
-                            </span>
+                            <div class="d-flex">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                            </div>
                         </div>
                     @endif
                     <div class="card-header pb-0">

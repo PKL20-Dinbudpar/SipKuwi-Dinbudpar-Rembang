@@ -10,9 +10,9 @@
                             <div >
                                 {{ session('message') }}
                             </div>
-                            <span @click=" show = false ">
-                                <i class="fa fa-times" style="font-size:12px"></i>
-                            </span>
+                            <div class="d-flex">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                            </div>
                         </div>
                     @endif
                     <div class="card-header pb-0">
@@ -171,10 +171,10 @@
                                         <input type="text" wire:model.defer="userWisata.username" class="form-control">
                                         @error('userWisata.username')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
-                                    <div @isset($userWisata->id) hidden @endisset class="mb-3">
+                                    <div class="mb-3">
                                         <label>Password</label>
-                                        <input type="text" wire:model.defer="userWisata.password" class="form-control">
-                                        @error('userWisata.password')<span class="text-danger">{{ $message }}</span>@enderror
+                                        <input type="password" wire:model.defer="userWisata.pass" class="form-control">
+                                        @error('userWisata.pass')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
                                         <label>Email</label>

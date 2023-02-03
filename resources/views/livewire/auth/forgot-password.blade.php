@@ -17,7 +17,7 @@
                                     </button>
                                 </div>
                             @endif
-                            <h4 class="mb-0">{{ __('Forgot your password? Enter your email here') }}</h4>
+                            <h4 class="mb-0">{{ __('Lupa password anda? Masukkan email anda disini') }}</h4>
                         </div>
                         <div class="card-body">
                             <form wire:submit.prevent="recoverPassword" action="#" method="POST" role="form text-left">
@@ -40,8 +40,8 @@
                                     class="mt-3 alert alert-primary alert-dismissible fade show" role="alert">
                                     <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
                                     <span
-                                        class="alert-text text-white">{{ __(' An email for resetting your password has been
-                                        sent!') }}</span>
+                                        class="alert-text text-white">{{ __(' Email untuk mereset password anda telah terkirim!') }}
+                                    </span>
                                     <button wire:click="$set('showSuccesNotification', false)" type="button"
                                         class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                     </button>
@@ -52,9 +52,8 @@
                                 <div wire:model="showFailureNotification"
                                     class="mt-3 alert alert-primary alert-dismissible fade show" role="alert">
                                     <span class="alert-text text-white">
-                                        {{ __('You are not registered as a user. Please sign
-                                        up') }}
-                                        <a class="text-info" href="{{ route('sign-up') }}">here</a></span>
+                                        {{ __('Anda tidak terdaftar sebagai user. Tolong hubungi dinbudpar Rembang') }}
+                                        {{-- <a class="text-info" href="{{ route('sign-up') }}">here</a></span> --}}
                                     <button wire:click="$set('showFailureNotification', false)" type="button"
                                         class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                                     </button>

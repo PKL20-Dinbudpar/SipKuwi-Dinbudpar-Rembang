@@ -30,7 +30,6 @@ use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapKunjunganHotel;
 use App\Http\Livewire\RekapTahunan;
 use App\Http\Livewire\TicketingWisata;
-use App\Http\Livewire\WisataHome;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,7 +81,6 @@ Route::middleware(['auth', 'user-role:dinas'])->group(function () {
 
 // Route for Wisata
 Route::middleware(['auth', 'user-role:wisata'])->group(function () {
-    Route::get('/wisata-home', WisataHome::class)->name('home-wisata');
     Route::get('/ticketing', TicketingWisata::class)->name('ticketing');
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
     Route::get('/rekap-kunjungan-wisata', RekapKunjungan::class)->name('rekap-kunjungan-wisata');

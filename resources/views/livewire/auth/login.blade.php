@@ -42,9 +42,9 @@
                             </form>
                         </div>
                         <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                            <small class="text-muted">{{ __('Forgot you password? Reset you password') }} <a
+                            <small class="text-muted">{{ __('Lupa password anda? Reset password anda') }} <a
                                     href="{{ route('forgot-password') }}"
-                                    class="text-info text-gradient font-weight-bold">{{ __('here') }}</a></small>
+                                    class="text-info text-gradient font-weight-bold">{{ __('disini') }}</a></small>
                         </div>
                     </div>
                 </div>
