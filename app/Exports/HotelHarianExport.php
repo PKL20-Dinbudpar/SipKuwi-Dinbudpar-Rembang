@@ -2,14 +2,12 @@
 
 namespace App\Exports;
 
-use App\Http\Livewire\RekapHotelBulanan;
 use App\Models\Hotel;
 use App\Models\Rekap;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class HotelBulananExport extends RekapHotelBulanan implements FromView
+class HotelHarianExport implements FromView
 {
     public $bulan;
     public $tahun;
@@ -41,8 +39,7 @@ class HotelBulananExport extends RekapHotelBulanan implements FromView
         
         $hotel = Hotel::all();
 
-
-        return view('components.tables.tabel-rekap-hotel-bulanan', [
+        return view('components.tables.tabel-rekap-hotel-harian', [
             'tanggal' => $tanggal,
             'rekap' => $rekap,
             'hotel' => $hotel,

@@ -29,7 +29,6 @@
                             <div class="form-group col-lg-6">
                                 <label for="bulan">Bulan</label>
                                 <select class="form-control" wire:model="bulan" id="bulan" name="bulan">
-                                    <option value="">Pilih Bulan</option>
                                     <option value="01">Januari</option>
                                     <option value="02">Februari</option>
                                     <option value="03">Maret</option>
@@ -47,7 +46,6 @@
                             <div class="form-group col-lg-6">
                                 <label for="tahun">Tahun</label>
                                 <select class="form-control" wire:model="tahun" id="tahun" name="tahun">
-                                    <option value="">Pilih Tahun</option>
                                     @for ($i = date('Y'); $i >= 2021; $i--)
                                         <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
                                     @endfor
@@ -88,15 +86,15 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    {{-- @if ($rekap->count() > 0) --}}
+                    @if ($rekap->count() > 0)
                         <div class="table-responsive p-0">
-                            @include('components.tables.tabel-rekap-hotel-bulanan')
+                            @include('components.tables.tabel-rekap-hotel-harian')
                         </div>
-                    {{-- @else
+                    @else
                         <div class="text-center m-5">
                             <p class="text-gray-500">Tidak ada data</p>
                         </div>
-                    @endif --}}
+                    @endif
                 </div>
               </div>
             </div>

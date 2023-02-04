@@ -15,7 +15,7 @@ use App\Http\Livewire\EditRekapHotel;
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\RekapWisataHarian;
-use App\Http\Livewire\RekapHotelBulanan;
+use App\Http\Livewire\RekapHotelHarian;
 use App\Http\Livewire\RekapHotelTahunan;
 use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapKunjunganHotel;
@@ -61,7 +61,7 @@ Route::middleware(['auth', 'user-role:dinas'])->group(function () {
     Route::get('/edit-rekap-wisata:{idWisata?}', EditRekap::class)->name('edit-rekap-wisata');
     Route::get('/daftar-wisata', DaftarWisata::class)->name('daftar-wisata');
 
-    Route::get('/rekap-hotel', RekapHotelBulanan::class)->name('rekap-hotel-harian');
+    Route::get('/rekap-hotel', RekapHotelHarian::class)->name('rekap-hotel-harian');
     Route::get('/rekap-hotel-bulanan', RekapHotelTahunan::class)->name('rekap-hotel-bulanan');
     Route::get('/edit-rekap-hotel:{idHotel?}', EditRekapHotel::class)->name('edit-rekap-hotel');
     Route::get('/daftar-hotel', DaftarHotel::class)->name('daftar-hotel');

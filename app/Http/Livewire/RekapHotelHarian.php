@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Exports\HotelBulananExport;
+use App\Exports\HotelHarianExport;
 use App\Models\Hotel;
 use App\Models\Rekap;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
-class RekapHotelBulanan extends Component
+class RekapHotelHarian extends Component
 {
     public $bulan;
     public $tahun;
@@ -40,7 +40,7 @@ class RekapHotelBulanan extends Component
         $hotel = Hotel::all();
 
 
-        return view('livewire.dinas.rekap-hotel-bulanan', [
+        return view('livewire.dinas.rekap-hotel-harian', [
             'tanggal' => $tanggal,
             'rekap' => $rekap,
             'hotel' => $hotel,
@@ -49,6 +49,6 @@ class RekapHotelBulanan extends Component
 
     public function export()
     {
-        return Excel::download(new HotelBulananExport($this->bulan, $this->tahun), 'RekapHotelHarian' . $this->bulan . $this->tahun . '.xlsx');
+        return Excel::download(new HotelHarianExport($this->bulan, $this->tahun), 'RekapHotelHarian' . $this->bulan . $this->tahun . '.xlsx');
     }
 }

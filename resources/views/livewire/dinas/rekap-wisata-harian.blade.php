@@ -92,7 +92,7 @@
                         </div>
                     @elseif ($bulan != "" && $tahun != "")
                         <div class="text-center m-5">
-                            <p class="text-gray-500">Tidak ada Data</p>
+                            <p class="text-gray-500">Tidak ada data</p>
                         </div>
                     @endif
                 </div>
