@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Exports\RekapHarianExport;
+use App\Exports\WisataHarianExport;
 use App\Models\Rekap;
 use App\Models\Wisata;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
-class RekapHarian extends Component
+class RekapWisataHarian extends Component
 {
     public $bulan;
     public $tahun;
@@ -49,6 +49,6 @@ class RekapHarian extends Component
 
     public function export()
     {
-        return Excel::download(new RekapHarianExport($this->bulan, $this->tahun), 'RekapWisataHarian' . $this->bulan . $this->tahun . '.xlsx');
+        return Excel::download(new WisataHarianExport($this->bulan, $this->tahun), 'RekapWisataHarian' . $this->bulan . $this->tahun . '.xlsx');
     }
 }

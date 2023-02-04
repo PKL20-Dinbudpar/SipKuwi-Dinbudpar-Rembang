@@ -7,7 +7,7 @@ use App\Models\Wisata;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class RekapHarianExport implements FromView
+class WisataHarianExport implements FromView
 {
     public $bulan;
     public $tahun;
