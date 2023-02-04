@@ -12,7 +12,7 @@
                             <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
                         
                         @else
-                            <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            <img src="../assets/img/enjoyRembang.jpeg" alt="..." class="w-100 border-radius-lg shadow-sm">
                         @endif
                         {{-- <a href="javascript:;"
                             class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">

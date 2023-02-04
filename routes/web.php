@@ -13,7 +13,6 @@ use App\Http\Livewire\DaftarWisata;
 use App\Http\Livewire\EditRekap;
 use App\Http\Livewire\EditRekapHotel;
 
-use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\RekapWisataHarian;
 use App\Http\Livewire\RekapHotelHarian;
 use App\Http\Livewire\RekapHotelBulanan;
@@ -21,6 +20,7 @@ use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapKunjunganHotel;
 use App\Http\Livewire\RekapWisataBulanan;
 use App\Http\Livewire\TicketingWisata;
+use App\Http\Livewire\UserProfile;
 use Illuminate\Support\Facades\Auth;
 
 /*

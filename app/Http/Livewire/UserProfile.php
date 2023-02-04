@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\LaravelExamples;
+namespace App\Http\Livewire;
 
 use App\Models\Hotel;
 use App\Models\User;
@@ -95,15 +95,15 @@ class UserProfile extends Component
         if (auth()->user()->role == 'wisata'){
             $wisata = Wisata::where('id_wisata', auth()->user()->id_wisata)->first();
 
-            return view('livewire.laravel-examples.user-profile', compact('wisata'));
+            return view('livewire.user-profile', compact('wisata'));
 
         } else if (auth()->user()->role == 'hotel'){
             $hotel = Hotel::where('id_hotel', auth()->user()->id_hotel)->first();
 
-            return view('livewire.laravel-examples.user-profile', compact('hotel'));
+            return view('livewire.user-profile', compact('hotel'));
 
         } else {
-            return view('livewire.laravel-examples.user-profile');
+            return view('livewire.user-profile');
         }
     }
 }
