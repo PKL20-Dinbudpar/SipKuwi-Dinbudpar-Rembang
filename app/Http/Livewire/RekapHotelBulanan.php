@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Exports;
+namespace App\Http\Livewire;
 
+use App\Exports\HotelBulananExport;
 use App\Models\Hotel;
 use App\Models\Rekap;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\FromView;
+use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
-class HotelTahunanExport implements FromView
+class RekapHotelBulanan extends Component
 {
     public $tahun;
-
-    public function __construct($tahun)
+    public $totalWisatawan;
+    public $totalPendapatan;
+    
+    public function mount()
     {
-        $this->tahun = $tahun;
+        $this->tahun = date('Y');
     }
 
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function view(): View
+    public function render()
     {
         $bulan = Rekap::selectRaw('MONTH(tanggal) bulan, YEAR(tanggal) tahun')
                 ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
@@ -35,10 +34,15 @@ class HotelTahunanExport implements FromView
 
         $hotel = Hotel::all();
                 
-        return view('components.tables.tabel-rekap-hotel-tahunan', [
+        return view('livewire.dinas.rekap-hotel-bulanan', [
             'rekap' => $rekap,
             'bulan' => $bulan,
             'hotel' => $hotel,
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new HotelBulananExport($this->tahun), 'RekapHotelBulanan' . $this->tahun . '.xlsx');
     }
 }

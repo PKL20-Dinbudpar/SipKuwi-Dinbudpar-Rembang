@@ -57,7 +57,7 @@
                 <div class="card-body px-0 pt-0 pb-2">
                     @if ($rekap->count() > 0)
                         <div class="table-responsive p-0">
-                            @include('components.tables.tabel-rekap-hotel-tahunan')
+                            @include('components.tables.tabel-rekap-hotel-bulanan')
                         </div>
                     @elseif ($tahun != "")
                         <div class="text-center m-5">
