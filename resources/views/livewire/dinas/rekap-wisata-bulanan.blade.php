@@ -31,7 +31,7 @@
                                 <label for="tahun">Tahun</label>
                                 <select class="form-control" wire:model="tahun" id="tahun" name="tahun">
                                     <option>Pilih Tahun</option>
-                                    @for ($i = date('Y'); $i >= 2021; $i--)
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
                                         <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
                                     @endfor
                                 </select>
@@ -61,7 +61,7 @@
                 <div class="card-body px-0 pt-0 pb-2">
                     @if ($rekap->count() > 0)
                         <div class="table-responsive p-0">
-                            @include('components.tables.tabel-rekap-tahunan')
+                            @include('components.tables.tabel-rekap-wisata-bulanan')
                         </div>
                     @elseif ($tahun != "")
                         <div class="text-center m-5">

@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Exports;
 
-use App\Exports\RekapTahunanExport;
 use App\Models\Rekap;
 use App\Models\Wisata;
-use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class RekapTahunan extends Component
+class WisataBulananExport implements FromView
 {
     public $tahun;
-    public $totalWisatawan;
-    public $totalPendapatan;
-    
-    public function mount()
+
+    public function __construct($tahun)
     {
-        $this->tahun = date('Y');
+        $this->tahun = $tahun;
     }
 
-    public function render()
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function view(): View
     {
         $bulan = Rekap::selectRaw('MONTH(tanggal) bulan, YEAR(tanggal) tahun')
-                ->join('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('bulan', 'tahun')
                 ->get();
@@ -33,16 +32,11 @@ class RekapTahunan extends Component
                 ->get();
 
         $wisata = Wisata::all();
-                
-        return view('livewire.dinas.rekap-tahunan', [
+
+        return view('components.tables.tabel-rekap-wisata-bulanan', [
             'rekap' => $rekap,
             'bulan' => $bulan,
-            'wisata' => $wisata,
-        ]);
-    }
-
-    public function export()
-    {
-        return Excel::download(new RekapTahunanExport($this->tahun), 'RekapWisataBulanan'. $this->tahun .'.xlsx');
+            'wisata' => $wisata,]
+        );
     }
 }
