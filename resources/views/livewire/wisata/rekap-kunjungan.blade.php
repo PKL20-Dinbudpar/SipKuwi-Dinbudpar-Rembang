@@ -91,7 +91,7 @@
                         </div>
 
                         <div class="d-flex flex-row justify-content-between my-2">
-                            <div class="form-group mb-0 col-5">
+                            <div class="form-group mb-0">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
@@ -127,7 +127,8 @@
                             </div>
                             <div class="d-flex">
                                 <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm d-none d-lg-block mb-0 mx-2"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
-                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Data</button>
+                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm d-sm-block d-md-none mx-2 mb-0">+&nbsp;</button>
+                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm mb-0 d-none d-md-block">+&nbsp; Tambah Data</button>
                             </div>
                         </div>
                     </div>
