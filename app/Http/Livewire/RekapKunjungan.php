@@ -64,6 +64,11 @@ class RekapKunjungan extends Component
     {
         $this->resetErrorBag();
         $this->dataRekap = $rekap;
+
+        // Set date time to Asia Jakarta
+        $dateTime = new \DateTime($this->dataRekap->tanggal);
+        $dateTime->setTime(7, 0, 0);
+        $this->dataRekap->tanggal = $dateTime->format('Y-m-d\TH:i:s');
     }
     
     public function saveRekap()
