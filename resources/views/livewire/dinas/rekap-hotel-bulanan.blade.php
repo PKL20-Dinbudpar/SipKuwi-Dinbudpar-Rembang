@@ -59,9 +59,9 @@
                         <div class="table-responsive p-0">
                             @include('components.tables.tabel-rekap-hotel-bulanan')
                         </div>
-                    @elseif ($tahun != "")
+                    @else
                         <div class="text-center m-5">
-                            <p class="text-gray-500">Tidak ada Data</p>
+                            <p class="text-gray-500">Belum ada Data</p>
                         </div>
                     @endif
                 </div>

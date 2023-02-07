@@ -86,13 +86,13 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    @if ($bulan <= date('M') && $tahun <= date('Y'))
+                    @if ($bulan <= date('m') && $tahun <= date('Y'))
                         <div class="table-responsive p-0">
                             @include('components.tables.tabel-rekap-hotel-harian')
                         </div>
                     @else
                         <div class="text-center m-5">
-                            <p class="text-gray-500">Tidak ada data</p>
+                            <p class="text-gray-500">Belum ada data</p>
                         </div>
                     @endif
                 </div>
