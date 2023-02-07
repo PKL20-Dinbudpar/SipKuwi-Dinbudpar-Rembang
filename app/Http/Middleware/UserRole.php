@@ -27,7 +27,7 @@ class UserRole
         if (Auth::user()->role == 'dinas'){
             return redirect('/rekap-wisata');
         } else if (Auth::user()->role == 'wisata'){
-            return redirect('/wisata-home');
+            return redirect('/rekap-kunjungan-wisata');
         } else if (Auth::user()->role == 'hotel'){
             return redirect('/rekap-kunjungan-hotel');
         }
