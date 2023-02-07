@@ -17,17 +17,18 @@
     @guest
         {{-- If the user is on the login page --}}
         @if (!auth()->check() && in_array(request()->route()->getName(),['login'],))
-        @include('layouts.navbars.auth.sidebar')
-
             {{ $slot }}
-
-            {{-- If the user is on the sign up page --}}
-        @elseif (!auth()->check() && in_array(request()->route()->getName(),['sign-up'],))
-            <div>
-                @include('layouts.navbars.guest.sign-up')
-                {{ $slot }}
-                @include('layouts.footers.guest.with-socials')
-            </div>
+        @else
+            @include('layouts.navbars.guest.nav')
+            @include('layouts.navbars.auth.sidebar')
+            {{ $slot }}
+            <main>
+                <div class="container-fluid">
+                    <div class="row">
+                        @include('layouts.footers.auth.footer')
+                    </div>
+                </div>
+            </main>
         @endif
     @endguest
 </x-layouts.base>

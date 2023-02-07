@@ -44,19 +44,9 @@
     <div class="container-fluid py-4">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Profile Information') }}</h6>
+                <h6 class="mb-0">{{ __('Informasi Profil') }}</h6>
             </div>
             <div class="card-body pt-4 p-3">
-
-                @if ($showDemoNotification)
-                    <div wire:model="showDemoNotification" class="mt-3  alert alert-primary alert-dismissible fade show"
-                        role="alert">
-                        <span class="alert-text text-white">
-                            {{ __('You are in a demo version, you can\'t update the profile.') }}</span>
-                        <button wire:click="$set('showDemoNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        </button>
-                    </div>
-                @endif
 
                 @if ($showSuccesNotification)
                     <div wire:model="showSuccesNotification"
@@ -74,9 +64,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
+                                <label for="user-name" class="form-control-label">{{ __('Nama Pengguna') }}</label>
                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                    <input wire:model="user.name" class="form-control" type="text" placeholder="Name"
+                                    <input wire:model="user.name" class="form-control" type="text" placeholder="Nama"
                                         id="user-name">
                                 </div>
                                 @error('user.name') <div class="text-danger">{{ $message }}</div> @enderror
@@ -106,10 +96,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
+                                <label for="user.phone" class="form-control-label">{{ __('Kontak') }}</label>
                                 <div class="@error('user.phone')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.phone" class="form-control" type="tel"
-                                        placeholder="088888888888" id="phone">
+                                        placeholder="08xxxxxxxxxx" id="phone">
                                 </div>
                                 @error('user.phone') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
