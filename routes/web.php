@@ -12,7 +12,7 @@ use App\Http\Livewire\DaftarUser;
 use App\Http\Livewire\DaftarWisata;
 use App\Http\Livewire\EditRekap;
 use App\Http\Livewire\EditRekapHotel;
-
+use App\Http\Livewire\Guest\KunjunganWisataHarian;
 use App\Http\Livewire\RekapWisataHarian;
 use App\Http\Livewire\RekapHotelHarian;
 use App\Http\Livewire\RekapHotelBulanan;
@@ -53,6 +53,9 @@ Route::get('/', function () {
 Route::get('/login', Login::class)->name('login');
 Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-password');
 Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')->middleware('signed');
+
+// Guest Routes
+Route::get('/wisata-harian', KunjunganWisataHarian::class)->name('kunjungan-wisata-harian');
 
 // Route for Dinas
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
