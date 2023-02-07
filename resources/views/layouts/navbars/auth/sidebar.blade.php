@@ -11,14 +11,18 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            @if (Auth::user()->role == 'dinas')
-                <x-side-nav-dinas />
-            @elseif (Auth::user()->role == 'wisata')
-                <x-side-nav-wisata />
-            @elseif (Auth::user()->role == 'hotel')
-                <x-side-nav-hotel />
+            {{-- check if user auth --}}
+            @if (Auth::user())
+                @if (Auth::user()->role == 'dinas')
+                    <x-side-nav-dinas />
+                @elseif (Auth::user()->role == 'wisata')
+                    <x-side-nav-wisata />
+                @elseif (Auth::user()->role == 'hotel')
+                    <x-side-nav-hotel />
+                @endif
+            @else
+                {{-- <x-side-nav-guest /> --}}
             @endif
-            {{-- <x-side-nav-link /> --}}
         </ul>
     </div>
     <div class="sidenav-footer mx-3 mt-3 pt-3">
