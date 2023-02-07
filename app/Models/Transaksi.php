@@ -12,7 +12,7 @@ class Transaksi extends Model
     // Table
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = ['waktu_transaksi', 'id_wisata', 'id_user', 'id_tiket', 'jumlah_tiket', 'total_pendapatan'];
+    protected $fillable = ['waktu_transaksi', 'id_wisata', 'id_user', 'jenis_wisatawan', 'jumlah_tiket', 'total_pendapatan'];
 
     // Timestamp
     public $timestamps = false;
@@ -26,11 +26,6 @@ class Transaksi extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
-    }
-
-    public function tiket()
-    {
-        return $this->belongsTo(Tiket::class, 'id_tiket', 'id_tiket');
     }
 
     // Getter

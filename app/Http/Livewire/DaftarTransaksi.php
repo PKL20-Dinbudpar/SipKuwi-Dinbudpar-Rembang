@@ -24,7 +24,7 @@ class DaftarTransaksi extends Component
 
     public function render()
     {
-        $transaksi = Transaksi::with('user', 'tiket')
+        $transaksi = Transaksi::with('user')
                     ->where('id_wisata', auth()->user()->id_wisata)
                     ->whereDay('waktu_transaksi', $this->tanggal)
                     ->whereMonth('waktu_transaksi', $this->bulan)

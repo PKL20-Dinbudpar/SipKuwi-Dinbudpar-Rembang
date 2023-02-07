@@ -158,7 +158,7 @@ class TicketingWisata extends Component
             'waktu_transaksi' => now(),
             'id_wisata' => auth()->user()->id_wisata,
             'id_user' => auth()->user()->id,
-            'id_tiket' => 1,
+            'jenis_wisatawan' => $this->jenisWisatawan,
             'jumlah_tiket' => $jumlahTiket,
             'total_pendapatan' => $this->uangMasuk - $this->kembalian,
         ]);

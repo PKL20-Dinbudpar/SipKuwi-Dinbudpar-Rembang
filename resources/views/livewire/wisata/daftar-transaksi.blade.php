@@ -78,7 +78,7 @@
                                         Penanggung Jawab
                                     </th>
                                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Jenis Tiket
+                                        Jenis Wisatawan
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Jumlah   
@@ -102,13 +102,17 @@
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-left text-xs font-weight-bold mb-0">
+                                            <p class="text-xs font-weight-bold mb-0">
                                                 {{ $data->user->name ?? '-' }}
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-left text-xs font-weight-bold mb-0">
-                                                {{ $data->tiket->nama_tiket }}
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                @if ($data->jenis_wisatawan == 'wisnus')
+                                                    <span class="badge badge-sm bg-gradient-success">Domestik</span>
+                                                @else
+                                                    <span class="badge badge-sm bg-gradient-warning">Mancanegara</span>
+                                                @endif
                                             </p>
                                         </td>
                                         <td class="">
