@@ -46,7 +46,7 @@
                             <div class="form-group col-lg-6">
                                 <label for="tahun">Tahun</label>
                                 <select class="form-control" wire:model="tahun" id="tahun" name="tahun">
-                                    @for ($i = date('Y'); $i >= 2021; $i--)
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
