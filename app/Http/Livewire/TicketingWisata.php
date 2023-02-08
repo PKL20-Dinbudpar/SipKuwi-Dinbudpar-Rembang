@@ -183,6 +183,7 @@ class TicketingWisata extends Component
                 'tanggal' => now()->format('Y-m-d'),
                 'id_wisata' => auth()->user()->id_wisata,
                 'wisatawan_domestik' => $jumlahTiket,
+                'total_pendapatan'  => $this->uangMasuk - $this->kembalian,
             ]);
         }
 

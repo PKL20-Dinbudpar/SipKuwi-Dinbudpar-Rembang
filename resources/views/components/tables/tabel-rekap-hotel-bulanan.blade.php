@@ -47,7 +47,7 @@
                 Total Pengunjung
             </th>
             <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                Total Pendapatan
+                Total Kamar Terjual
             </th>
         </tr>
         <tr>
@@ -59,7 +59,7 @@
                     WisMan
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Pendapatan
+                    Kamar Terjual
                 </th>
             @endforeach 
         </tr>

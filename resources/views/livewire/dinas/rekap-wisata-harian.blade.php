@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    @if ($bulan <= date('m') && $tahun <= date('Y'))
+                    @if ($tahun < date('Y') || ($tahun == date('Y') && $bulan <= date('m')))
                         <div class="table-responsive p-0">
                             @include('components.tables.tabel-rekap-wisata-harian')
                         </div>

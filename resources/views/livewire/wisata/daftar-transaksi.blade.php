@@ -59,7 +59,9 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Transaksi</a>
+                            {{-- <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Transaksi</a> --}}
+                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm d-sm-block d-md-none mx-2 mb-0">+&nbsp;</a>
+                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0 d-none d-md-block">+&nbsp; Tambah Transaksi</a>
                         </div>
                     </div>
                 </div>
