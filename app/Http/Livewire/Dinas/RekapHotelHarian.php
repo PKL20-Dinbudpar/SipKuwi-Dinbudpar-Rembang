@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dinas;
 
 use App\Exports\HotelHarianExport;
 use App\Models\Hotel;

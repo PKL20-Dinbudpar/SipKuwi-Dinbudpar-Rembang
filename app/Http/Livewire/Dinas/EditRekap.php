@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dinas;
 
-use App\Exports\KunjunganHotelExport;
-use App\Models\Hotel;
+use App\Exports\KunjunganWisataExport;
 use App\Models\Rekap;
+use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
-class EditRekapHotel extends Component
+class EditRekap extends Component
 {
-    public $idHotel;
+    public $idWisata;
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -30,17 +30,17 @@ class EditRekapHotel extends Component
         'dataRekap.total_pendapatan' => 'required|int',
     ];
 
-    public function mount($idHotel = null)
+    public function mount($idWisata = null)
     {
-        $this->idHotel = $idHotel;
+        $this->idWisata = $idWisata;
         $this->dataRekap = new Rekap();
     }
 
     public function render()
     {
-        $hotel = Hotel::findOrFail($this->idHotel);
+        $wisata = Wisata::findOrFail($this->idWisata);
                     
-        $rekap = Rekap::where('id_hotel', $this->idHotel)
+        $rekap = Rekap::where('id_wisata', $this->idWisata)
                     ->when($this->tahun, function($query){
                         return $query->whereYear('tanggal', '=', $this->tahun);
                     })
@@ -54,8 +54,8 @@ class EditRekapHotel extends Component
 
         $rekap = $rekap->paginate(10);
 
-        return view('livewire.dinas.edit-rekap-hotel', [
-            'hotel' => $hotel,
+        return view('livewire.dinas.edit-rekap', [
+            'wisata' => $wisata,
             'rekap' => $rekap,
         ]);
     }
@@ -80,7 +80,7 @@ class EditRekapHotel extends Component
             session()->flash('message', 'Data rekap berhasil diubah');
         }
         else {
-            $this->dataRekap->id_hotel = $this->idHotel;
+            $this->dataRekap->id_wisata = $this->idWisata;
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }
@@ -110,9 +110,10 @@ class EditRekapHotel extends Component
         $this->emit('rekapDeleted');
     }
 
-    public function export(){
-        $hotel = Hotel::findOrFail($this->idHotel);
+    public function export()
+    {
+        $wisata = Wisata::findOrFail($this->idWisata);
 
-        return Excel::download(new KunjunganHotelExport($this->idHotel), 'Rekap_Kunjungan_' . $hotel->nama_hotel . '.xlsx');
+        return Excel::download(new KunjunganWisataExport($this->idWisata), 'Rekap_' . $wisata->nama_wisata . '.xlsx');
     }
 }

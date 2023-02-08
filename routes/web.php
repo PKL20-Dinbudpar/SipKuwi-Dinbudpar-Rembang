@@ -6,22 +6,24 @@ use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\SignUp;
-use App\Http\Livewire\DaftarHotel;
+use App\Http\Livewire\UserProfile;
+
+use App\Http\Livewire\Dinas\DaftarHotel;
+use App\Http\Livewire\Dinas\DaftarUser;
+use App\Http\Livewire\Dinas\DaftarWisata;
+use App\Http\Livewire\Dinas\EditRekap;
+use App\Http\Livewire\Dinas\EditRekapHotel;
+use App\Http\Livewire\Dinas\RekapWisataHarian;
+use App\Http\Livewire\Dinas\RekapHotelHarian;
+use App\Http\Livewire\Dinas\RekapHotelBulanan;
+use App\Http\Livewire\Dinas\RekapWisataBulanan;
+
 use App\Http\Livewire\DaftarTransaksi;
-use App\Http\Livewire\DaftarUser;
-use App\Http\Livewire\DaftarWisata;
-use App\Http\Livewire\EditRekap;
-use App\Http\Livewire\EditRekapHotel;
 use App\Http\Livewire\Guest\KunjunganWisataBulanan;
 use App\Http\Livewire\Guest\KunjunganWisataHarian;
-use App\Http\Livewire\RekapWisataHarian;
-use App\Http\Livewire\RekapHotelHarian;
-use App\Http\Livewire\RekapHotelBulanan;
 use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapKunjunganHotel;
-use App\Http\Livewire\RekapWisataBulanan;
 use App\Http\Livewire\TicketingWisata;
-use App\Http\Livewire\UserProfile;
 use Illuminate\Support\Facades\Auth;
 
 /*
