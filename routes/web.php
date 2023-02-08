@@ -8,6 +8,7 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\UserProfile;
 
+// Dinas
 use App\Http\Livewire\Dinas\DaftarHotel;
 use App\Http\Livewire\Dinas\DaftarUser;
 use App\Http\Livewire\Dinas\DaftarWisata;
@@ -18,13 +19,18 @@ use App\Http\Livewire\Dinas\RekapHotelHarian;
 use App\Http\Livewire\Dinas\RekapHotelBulanan;
 use App\Http\Livewire\Dinas\RekapWisataBulanan;
 
+// Wisata
 use App\Http\Livewire\Wisata\DaftarTransaksi;
 use App\Http\Livewire\Wisata\RekapKunjungan;
 use App\Http\Livewire\Wisata\TicketingWisata;
 
+// Hotel
+use App\Http\Livewire\Hotel\RekapKunjunganHotel;
+
+// Guest
 use App\Http\Livewire\Guest\KunjunganWisataBulanan;
 use App\Http\Livewire\Guest\KunjunganWisataHarian;
-use App\Http\Livewire\RekapKunjunganHotel;
+
 use Illuminate\Support\Facades\Auth;
 
 /*

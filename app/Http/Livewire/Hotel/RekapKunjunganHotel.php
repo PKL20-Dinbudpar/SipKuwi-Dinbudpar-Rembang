@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Hotel;
 
 use App\Exports\KunjunganHotelExport;
 use App\Models\Hotel;
