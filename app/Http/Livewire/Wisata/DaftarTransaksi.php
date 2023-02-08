@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Wisata;
 
 use Livewire\Component;
 use App\Models\Transaksi;

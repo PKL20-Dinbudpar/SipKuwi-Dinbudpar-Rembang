@@ -18,12 +18,13 @@ use App\Http\Livewire\Dinas\RekapHotelHarian;
 use App\Http\Livewire\Dinas\RekapHotelBulanan;
 use App\Http\Livewire\Dinas\RekapWisataBulanan;
 
-use App\Http\Livewire\DaftarTransaksi;
+use App\Http\Livewire\Wisata\DaftarTransaksi;
+use App\Http\Livewire\Wisata\RekapKunjungan;
+use App\Http\Livewire\Wisata\TicketingWisata;
+
 use App\Http\Livewire\Guest\KunjunganWisataBulanan;
 use App\Http\Livewire\Guest\KunjunganWisataHarian;
-use App\Http\Livewire\RekapKunjungan;
 use App\Http\Livewire\RekapKunjunganHotel;
-use App\Http\Livewire\TicketingWisata;
 use Illuminate\Support\Facades\Auth;
 
 /*
