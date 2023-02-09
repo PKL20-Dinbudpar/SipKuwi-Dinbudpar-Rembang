@@ -12,9 +12,7 @@ class RekapHotelHarian extends Component
 {
     public $bulan;
     public $tahun;
-    public $totalPengunjung;
-    public $totalPendapatan;
-
+    
     public function mount()
     {
         $this->bulan = date('m');

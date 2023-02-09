@@ -80,6 +80,8 @@ class RekapKunjungan extends Component
         }
         else {
             $this->dataRekap->id_wisata = auth()->user()->id_wisata;
+            $dateTime = new \DateTime($this->dataRekap->tanggal);
+            $dateTime->setTime(7, 0, 0);
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }

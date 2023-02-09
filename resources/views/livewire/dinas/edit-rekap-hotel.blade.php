@@ -112,7 +112,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->total_pendapatan }}
+                                            {{ $item->kamar_terjual }}
                                         </p>
                                     </td>
                                     <td class="align-middle">
@@ -168,8 +168,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Jumlah Kamar Terjual</label>
-                                    <input type="number" wire:model.defer="dataRekap.total_pendapatan" class="form-control">
-                                    @error('dataRekap.total_pendapatan')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <input type="number" wire:model.defer="dataRekap.kamar_terjual" class="form-control">
+                                    @error('dataRekap.kamar_terjual')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                             <div class="modal-footer">

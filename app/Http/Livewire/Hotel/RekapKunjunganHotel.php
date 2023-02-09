@@ -25,7 +25,7 @@ class RekapKunjunganHotel extends Component
         'dataRekap.tanggal' => 'required',
         'dataRekap.wisatawan_nusantara' => 'required|int',
         'dataRekap.wisatawan_mancanegara' => 'required|int',
-        'dataRekap.total_pendapatan' => 'required|int',
+        'dataRekap.kamar_terjual' => 'required|int',
     ];
 
     public function mount()
@@ -80,6 +80,8 @@ class RekapKunjunganHotel extends Component
         }
         else {
             $this->dataRekap->id_hotel = auth()->user()->id_hotel;
+            $dateTime = new \DateTime($this->dataRekap->tanggal);
+            $dateTime->setTime(7, 0, 0);
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }

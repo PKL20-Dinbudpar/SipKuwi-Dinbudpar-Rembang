@@ -55,7 +55,7 @@
                 </a>
                 @php
                     $totalPengunjung = 0;
-                    $totalPendapatan = 0;
+                    $totalKamarTerjual = 0;
                 @endphp
             </th>
             @foreach ($tanggal as $tgl)
@@ -64,7 +64,7 @@
 
                     if ($data) {
                         $totalPengunjung += $data->wisatawan_nusantara + $data->wisatawan_mancanegara;
-                        $totalPendapatan += $data->total_pendapatan;
+                        $totalKamarTerjual += $data->kamar_terjual;
                     }
                 @endphp
                 <td scope="row" class="align-middle text-center">
@@ -74,7 +74,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
                 </td>
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->kamar_terjual ?? "" }}</span>
                 </td>
             @endforeach
             <td scope="row" class="align-middle text-center">
@@ -84,7 +84,7 @@
             </td>
             <td scope="row" class="align-middle text-center">
                 <span class="text-secondary text-xs font-weight-bold">
-                    {{ $totalPendapatan == 0 ? 0 : $totalPendapatan }}
+                    {{ $totalKamarTerjual == 0 ? 0 : $totalKamarTerjual }}
                 </span>
             </td>
             </tr>

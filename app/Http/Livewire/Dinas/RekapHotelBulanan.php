@@ -11,8 +11,6 @@ use Maatwebsite\Excel\Facades\Excel;
 class RekapHotelBulanan extends Component
 {
     public $tahun;
-    public $totalWisatawan;
-    public $totalPendapatan;
     
     public function mount()
     {
@@ -27,7 +25,7 @@ class RekapHotelBulanan extends Component
                 ->groupBy('bulan', 'tahun')
                 ->get();
 
-        $rekap = Rekap::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(total_pendapatan) total_pendapatan')
+        $rekap = Rekap::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(kamar_terjual) kamar_terjual')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('id_hotel', 'bulan', 'tahun')
                 ->get();

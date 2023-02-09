@@ -27,7 +27,7 @@ class EditRekapHotel extends Component
         'dataRekap.tanggal' => 'required',
         'dataRekap.wisatawan_nusantara' => 'required|int',
         'dataRekap.wisatawan_mancanegara' => 'required|int',
-        'dataRekap.total_pendapatan' => 'required|int',
+        'dataRekap.kamar_terjual' => 'required|int',
     ];
 
     public function mount($idHotel = null)

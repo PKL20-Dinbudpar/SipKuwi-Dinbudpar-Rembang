@@ -51,9 +51,9 @@ class Kernel extends ConsoleKernel
                 $rekap = new Rekap;
                 $rekap->tanggal = date('Y-m-d');
                 $rekap->id_hotel = $h->id_hotel;
-                $rekap->hotel_domestik = 0;
-                $rekap->hotel_mancanegara = 0;
-                $rekap->total_pendapatan = 0;
+                $rekap->wisatawan_nusantara = 0;
+                $rekap->wisatawan_nusantara = 0;
+                $rekap->kamar_terjual = 0;
                 $rekap->save();
             }
         })->dailyAt('10.00');
