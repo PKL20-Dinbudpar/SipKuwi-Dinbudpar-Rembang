@@ -1,6 +1,6 @@
 ## How to Install
 
-#### Preset
+#### Preset Laravel Excel
 ```
 pastikan uncomment `extension=gd` pada `php.ini` server xampp
 ```
