@@ -1,5 +1,12 @@
 ## How to Install
 
+#### Check php.ini for laravel excel
+pastikan uncomment
+```
+extension=gd
+```
+pada php.ini server xampp
+
 #### 1. Install composer dependencies
 ```
 composer install
