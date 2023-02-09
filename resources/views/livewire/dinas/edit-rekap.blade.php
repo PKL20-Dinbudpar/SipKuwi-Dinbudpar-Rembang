@@ -81,7 +81,7 @@
                             <tr>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Domestik</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Nusantara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Mancanegara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pendapatan</th>
                               <th class="text-secondary opacity-7"></th>
@@ -102,7 +102,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_domestik }}
+                                            {{ $item->wisatawan_nusantara }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
@@ -157,9 +157,9 @@
                                     @isset($dataRekap->id_rekap) disabled @endisset>
                                 </div>
                                 <div class="mb-3">
-                                    <label>Jumlah Wisatawan Domestik</label>
-                                    <input type="number" wire:model.defer="dataRekap.wisatawan_domestik" class="form-control">
-                                    @error('dataRekap.wisatawan_domestik')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <label>Jumlah Wisatawan Nusantara</label>
+                                    <input type="number" wire:model.defer="dataRekap.wisatawan_nusantara" class="form-control">
+                                    @error('dataRekap.wisatawan_nusantara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label>Jumlah Wisatawan Mancanegara</label>

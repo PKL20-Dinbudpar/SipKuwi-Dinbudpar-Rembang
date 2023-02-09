@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
                 $rekap = new Rekap;
                 $rekap->tanggal = date('Y-m-d');
                 $rekap->id_wisata = $w->id_wisata;
-                $rekap->wisatawan_domestik = 0;
+                $rekap->wisatawan_nusantara = 0;
                 $rekap->wisatawan_mancanegara = 0;
                 $rekap->total_pendapatan = 0;
                 $rekap->save();

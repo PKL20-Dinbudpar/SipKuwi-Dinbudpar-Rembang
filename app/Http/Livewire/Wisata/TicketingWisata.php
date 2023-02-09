@@ -169,7 +169,7 @@ class TicketingWisata extends Component
 
         if ($rekap) {
             if ($this->jenisWisatawan == 'wisnus') {
-                $rekap->wisatawan_domestik += $jumlahTiket;
+                $rekap->wisatawan_nusantara += $jumlahTiket;
             }
             else if ($this->jenisWisatawan == 'wisman') {
                 $rekap->wisatawan_mancanegara += $jumlahTiket;
@@ -182,7 +182,7 @@ class TicketingWisata extends Component
             Rekap::create([
                 'tanggal' => now()->format('Y-m-d'),
                 'id_wisata' => auth()->user()->id_wisata,
-                'wisatawan_domestik' => $jumlahTiket,
+                'wisatawan_nusantara' => $jumlahTiket,
                 'total_pendapatan'  => $this->uangMasuk - $this->kembalian,
             ]);
         }

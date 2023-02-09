@@ -22,7 +22,7 @@
                                             <h6 class="text-center mb-0">Pengunjung Domestik</h6>
                                             <hr class="horizontal dark my-3">
                                             <h5 class="mb-0">
-                                                {{ $todayRekap->wisatawan_domestik ?? "-" }}
+                                                {{ $todayRekap->wisatawan_nusantara ?? "-" }}
                                             </h5>
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body pt-0 p-3 text-center">
-                                            <h6 class="text-center mb-0">Total Pendapatan</h6>
+                                            <h6 class="text-center mb-0">Kamar Terjual</h6>
                                             <hr class="horizontal dark my-3">
                                             <h5 class="mb-0">
                                                 {{ $todayRekap->total_pendapatan ?? "-" }}
@@ -141,7 +141,7 @@
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Domestik</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Mancanegara</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pendapatan</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kamar Terjual</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -160,7 +160,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_domestik }}
+                                            {{ $item->wisatawan_nusantara }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
@@ -216,8 +216,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label>Jumlah Pengunjung Domestik</label>
-                                    <input type="number" wire:model.defer="dataRekap.wisatawan_domestik" class="form-control">
-                                    @error('dataRekap.wisatawan_domestik')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <input type="number" wire:model.defer="dataRekap.wisatawan_nusantara" class="form-control">
+                                    @error('dataRekap.wisatawan_nusantara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label>Jumlah Pengunjung Mancanegara</label>
@@ -225,7 +225,7 @@
                                     @error('dataRekap.wisatawan_mancanegara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label>Total Pendapatan</label>
+                                    <label>Jumlah Kamar Terjual</label>
                                     <input type="number" wire:model.defer="dataRekap.total_pendapatan" class="form-control">
                                     @error('dataRekap.total_pendapatan')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>

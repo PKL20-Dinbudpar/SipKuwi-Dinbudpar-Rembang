@@ -25,7 +25,7 @@ class KunjunganWisataBulanan extends Component
                 ->groupBy('bulan', 'tahun')
                 ->get();
 
-        $rekap = Rekap::selectRaw('id_wisata, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_domestik) wisatawan_domestik, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(total_pendapatan) total_pendapatan')
+        $rekap = Rekap::selectRaw('id_wisata, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(total_pendapatan) total_pendapatan')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('id_wisata', 'bulan', 'tahun')
                 ->get();

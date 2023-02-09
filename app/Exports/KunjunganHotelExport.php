@@ -20,7 +20,7 @@ class KunjunganHotelExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $rekap = Rekap::select('tanggal', 'wisatawan_domestik', 'wisatawan_mancanegara', 'total_pendapatan')
+        $rekap = Rekap::select('tanggal', 'wisatawan_nusantara', 'wisatawan_mancanegara', 'total_pendapatan')
                     ->where('id_hotel', $this->idHotel ?? auth()->user()->id_hotel)
                     ->orderBy('tanggal', 'desc');
 

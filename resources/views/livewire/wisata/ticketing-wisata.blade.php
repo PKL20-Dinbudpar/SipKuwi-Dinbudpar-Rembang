@@ -152,7 +152,7 @@
                         <div class="mb-3">
                             <label>Jenis Wisatawan</label>
                             <select wire:model.defer="jenisWisatawan" class="form-control" aria-label="Default select example">
-                                <option value="wisnus">Wisatawan Domestik</option>
+                                <option value="wisnus">Wisatawan Nusantara</option>
                                 <option value="wisman">Wisatawan Mancanegara</option>
                             </select>
                         </div>

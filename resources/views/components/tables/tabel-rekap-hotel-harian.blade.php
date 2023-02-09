@@ -63,12 +63,12 @@
                     $data = $rekap->where('id_hotel', $objek->id_hotel)->where('tanggal', $tgl->tanggal)->first();
 
                     if ($data) {
-                        $totalPengunjung += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
+                        $totalPengunjung += $data->wisatawan_nusantara + $data->wisatawan_mancanegara;
                         $totalPendapatan += $data->total_pendapatan;
                     }
                 @endphp
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_domestik ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_nusantara ?? "" }}</span>
                 </td>
                 <td scope="row" class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>

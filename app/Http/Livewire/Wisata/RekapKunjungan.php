@@ -23,7 +23,7 @@ class RekapKunjungan extends Component
 
     protected $rules = [
         'dataRekap.tanggal' => 'required',
-        'dataRekap.wisatawan_domestik' => 'required|int',
+        'dataRekap.wisatawan_nusantara' => 'required|int',
         'dataRekap.wisatawan_mancanegara' => 'required|int',
         'dataRekap.total_pendapatan' => 'required|int',
     ];
