@@ -18,7 +18,7 @@ use App\Http\Livewire\Dinas\RekapWisataHarian;
 use App\Http\Livewire\Dinas\RekapHotelHarian;
 use App\Http\Livewire\Dinas\RekapHotelBulanan;
 use App\Http\Livewire\Dinas\RekapWisataBulanan;
-
+use App\Http\Livewire\Guest\Dashboard;
 // Wisata
 use App\Http\Livewire\Wisata\DaftarTransaksi;
 use App\Http\Livewire\Wisata\RekapKunjungan;
@@ -55,6 +55,7 @@ Route::get('/', function () {
         }
     } else {
         return redirect('/login');
+        // return redirect('/dashboard');
     }
 })->name('home');
 
@@ -65,6 +66,7 @@ Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-passwo
 Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')->middleware('signed');
 
 // Guest Routes
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
 Route::get('/wisata-harian', KunjunganWisataHarian::class)->name('kunjungan-wisata-harian');
 Route::get('/wisata-bulanan', KunjunganWisataBulanan::class)->name('kunjungan-wisata-bulanan');
 

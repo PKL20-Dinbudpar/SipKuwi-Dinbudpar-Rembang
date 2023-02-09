@@ -19,9 +19,8 @@
         @if (!auth()->check() && in_array(request()->route()->getName(),['login'],))
             {{ $slot }}
         @else
-            @include('layouts.navbars.auth.nav')
-        {{-- @include('layouts.navbars.guest.nav') --}}
-            @include('layouts.navbars.auth.sidebar')
+            @include('layouts.navbars.guest.sidebar')
+            @include('layouts.navbars.guest.nav')
             {{ $slot }}
             <main>
                 <div class="container-fluid">
