@@ -1,5 +1,10 @@
 ## How to Install
 
+#### Preset Laravel Excel
+```
+pastikan uncomment `extension=gd` pada `php.ini` server xampp
+```
+
 #### 1. Install composer dependencies
 ```
 composer install
