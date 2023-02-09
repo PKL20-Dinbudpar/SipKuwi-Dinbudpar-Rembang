@@ -96,6 +96,9 @@
         window.livewire.on('transaksiSaved', () => {
             $('#createTransaksiModal').modal('hide');
         });
+        window.livewire.on('transaksiDeleted', () => {
+            $('#deleteTransaksiModal').modal('hide');
+        });
     </script>
 </body>
 

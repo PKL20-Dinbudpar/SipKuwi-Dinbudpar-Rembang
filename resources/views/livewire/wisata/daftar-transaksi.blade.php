@@ -88,6 +88,9 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Pendapatan  
                                     </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,9 +114,9 @@
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 @if ($data->jenis_wisatawan == 'wisnus')
-                                                    <span class="badge badge-sm bg-gradient-success">Domestik</span>
+                                                    <span class="badge badge-sm bg-gradient-success">Nusantara</span>
                                                 @else
-                                                    <span class="badge badge-sm bg-gradient-warning">Mancanegara</span>
+                                                    <span class="badge badge-sm bg-gradient-warning">Manca</span>
                                                 @endif
                                             </p>
                                         </td>
@@ -127,6 +130,11 @@
                                                 {{ $data->total_pendapatan }}
                                             </p>
                                         </td>
+                                        <td>
+                                            <span data-bs-toggle="modal" data-bs-target="#deleteTransaksiModal" wire:click="deleteTransaksi({{ $data->id_transaksi }})">
+                                                <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                                            </span>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -139,5 +147,25 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+
+    {{-- Modal Delete --}}
+    <x-modal> 
+        <x-slot name="id"> deleteTransaksiModal </x-slot>
+        <x-slot name="title">
+            Hapus Transaksi
+        </x-slot>
+
+        <x-slot name="content">
+            <form wire:submit.prevent="destroyTransaksi">
+                <div class="modal-body">
+                    <h6>Apa anda yakin ingin menghapus transaksi ini?</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn bg-gradient-primary">Hapus</button>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
 </div>

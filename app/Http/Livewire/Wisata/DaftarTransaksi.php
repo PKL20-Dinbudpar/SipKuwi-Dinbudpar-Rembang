@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Wisata;
 
+use App\Models\Rekap;
 use Livewire\Component;
 use App\Models\Transaksi;
 use Livewire\WithPagination;
@@ -14,6 +15,8 @@ class DaftarTransaksi extends Component
     public $tanggal;
     public $bulan;
     public $tahun;
+
+    public $dataTransaksi;
 
     public function mount()
     {
@@ -36,6 +39,34 @@ class DaftarTransaksi extends Component
         return view('livewire.wisata.daftar-transaksi', [
             'transaksi' => $transaksi
         ]);
+    }
+
+    public function deleteTransaksi(Transaksi $transaksi)
+    {
+        $this->dataTransaksi = $transaksi;
+    }
+
+    public function destroyTransaksi()
+    {
+        $rekap = Rekap::where('id_wisata', $this->dataTransaksi->id_wisata)
+                ->where('tanggal', date('Y-m-d', strtotime($this->dataTransaksi->waktu_transaksi)))
+                ->first();
+        // dd($rekap);
+        if ($rekap) {
+            if ($this->dataTransaksi->jenis_wisatawan == 'wisnus')
+                $rekap->wisatawan_nusantara = $rekap->wisatawan_nusantara - $this->dataTransaksi->jumlah_tiket;
+            else if ($this->dataTransaksi->jenis_wisatawan == 'wisman')
+                $rekap->wisatawan_mancanegara = $rekap->wisatawan_mancanegara - $this->dataTransaksi->jumlah_tiket;
+            
+            $rekap->total_pendapatan = $rekap->total_pendapatan - $this->dataTransaksi->total_pendapatan;
+            $rekap->save();
+        }
+
+        Transaksi::destroy($this->dataTransaksi->id_transaksi);
+        $this->dataTransaksi = null;
+
+        session()->flash('message', 'Transaksi berhasil dihapus');
+        $this->emit('transaksiDeleted');
     }
 }
 
