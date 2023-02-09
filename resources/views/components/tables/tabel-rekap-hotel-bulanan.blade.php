@@ -53,10 +53,10 @@
         <tr>
             @foreach ($bulan as $bln)
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    WisNus
+                    Nusantara
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    WisMan
+                    Manca
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Kamar Terjual
