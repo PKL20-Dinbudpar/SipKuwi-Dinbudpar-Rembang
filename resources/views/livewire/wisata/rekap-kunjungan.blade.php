@@ -96,30 +96,30 @@
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
                                     </span>
-                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tahun</option>
-                                        @for ($i = date('Y'); $i >= 2021; $i--)
+                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tgl &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = 1; $i <= 31; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                     <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Bulan</option>
-                                        <option value="01">Januari</option>
-                                        <option value="02">Februari</option>
-                                        <option value="03">Maret</option>
-                                        <option value="04">April</option>
+                                        <option value="">Bln &nbsp; &nbsp; &nbsp;</option>
+                                        <option value="01">Jan</option>
+                                        <option value="02">Feb</option>
+                                        <option value="03">Mar</option>
+                                        <option value="04">Apr</option>
                                         <option value="05">Mei</option>
-                                        <option value="06">Juni</option>
-                                        <option value="07">Juli</option>
-                                        <option value="08">Agustus</option>
-                                        <option value="09">September</option>
-                                        <option value="10">Oktober</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Desember</option>
+                                        <option value="06">Jun</option>
+                                        <option value="07">Jul</option>
+                                        <option value="08">Aug</option>
+                                        <option value="09">Sep</option>
+                                        <option value="10">Okt</option>
+                                        <option value="11">Nov</option>
+                                        <option value="12">Des</option>
                                     </select>
-                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tanggal</option>
-                                        @for ($i = 1; $i <= 31; $i++)
+                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Thn &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>

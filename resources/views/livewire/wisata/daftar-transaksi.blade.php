@@ -3,7 +3,7 @@
     {{-- Tables --}}
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4 mx-4">
+            <div class="card">
                 @if (session()->has('message'))
                     <div class=" d-flex flex-row alert alert-success mx-3 mb-0 justify-content-between" style="margin-top:30px;" x-data="{ show: true }" x-show="show">
                         <div >
@@ -20,39 +20,35 @@
                     </div>
 
                     <div class="d-flex flex-row justify-content-between my-2">
-                        <div class="form-group mb-0 col-5">
+                        <div class="form-group mb-0">
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">
                                     &#x1F4C5;&#xFE0E;
                                 </span>
                                 <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <option value="">Tanggal</option>
+                                    <option value="">Tgl &nbsp; &nbsp; &nbsp;</option>
                                     @for ($i = 1; $i <= 31; $i++)
-                                        @if ($i < 10)
-                                            <option value="0{{ $i }}">0{{ $i }}</option>
-                                        @else
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endif
+                                        <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
                                 <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <option value="">Bulan</option>
-                                    <option value="01">Januari</option>
-                                    <option value="02">Februari</option>
-                                    <option value="03">Maret</option>
-                                    <option value="04">April</option>
+                                    <option value="">Bln &nbsp; &nbsp; &nbsp;</option>
+                                    <option value="01">Jan</option>
+                                    <option value="02">Feb</option>
+                                    <option value="03">Mar</option>
+                                    <option value="04">Apr</option>
                                     <option value="05">Mei</option>
-                                    <option value="06">Juni</option>
-                                    <option value="07">Juli</option>
-                                    <option value="08">Agustus</option>
-                                    <option value="09">September</option>
-                                    <option value="10">Oktober</option>
-                                    <option value="11">November</option>
-                                    <option value="12">Desember</option>
+                                    <option value="06">Jun</option>
+                                    <option value="07">Jul</option>
+                                    <option value="08">Aug</option>
+                                    <option value="09">Sep</option>
+                                    <option value="10">Okt</option>
+                                    <option value="11">Nov</option>
+                                    <option value="12">Des</option>
                                 </select>
                                 <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <option value="">Tahun</option>
-                                    @for ($i = date('Y'); $i >= 2021; $i--)
+                                    <option value="">Thn &nbsp; &nbsp; &nbsp;</option>
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
                                         <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
@@ -60,8 +56,8 @@
                         </div>
                         <div class="d-flex align-items-center">
                             {{-- <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Transaksi</a> --}}
-                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm d-sm-block d-md-none mx-2 mb-0">+&nbsp;</a>
-                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0 d-none d-md-block">+&nbsp; Tambah Transaksi</a>
+                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary d-sm-block d-md-none mx-2 mb-0">+&nbsp;</a>
+                            <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm d-none d-md-block mb-0">+&nbsp; Tambah Transaksi</a>
                         </div>
                     </div>
                 </div>

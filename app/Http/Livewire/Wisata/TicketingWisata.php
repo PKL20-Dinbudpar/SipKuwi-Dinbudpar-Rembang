@@ -84,12 +84,12 @@ class TicketingWisata extends Component
 
         if (isset($this->tiketWisata->id_tiket)) {
             $this->tiketWisata->save();
-            session()->flash('message', 'Data rekap berhasil diubah');
+            session()->flash('message', 'Tiket berhasil diubah');
         }
         else {
             $this->tiketWisata->id_wisata = auth()->user()->id_wisata;
             $this->tiketWisata->save();
-            session()->flash('message', 'Data rekap berhasil ditambahkan');
+            session()->flash('message', 'Tiket berhasil ditambahkan');
         }
 
         $this->refreshTiket();

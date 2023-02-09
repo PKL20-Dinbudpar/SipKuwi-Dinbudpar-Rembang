@@ -98,7 +98,7 @@
                                     </span>
                                     <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                                         <option value="">Tahun</option>
-                                        @for ($i = date('Y'); $i >= 2021; $i--)
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
