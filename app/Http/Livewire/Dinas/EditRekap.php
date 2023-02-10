@@ -81,6 +81,24 @@ class EditRekap extends Component
         }
         else {
             $this->dataRekap->id_wisata = $this->idWisata;
+            // make datetime to Asia Jakarta
+            $dateTime = new \DateTime($this->dataRekap->tanggal);
+            $dateTime->setTime(7, 0, 0);
+
+            // Exception for non duplicate date in same hotel
+            $rekap = Rekap::where('id_wisata', $this->idWisata)
+                        ->where('tanggal', $dateTime->format('Y-m-d'))
+                        ->first();
+            if ($rekap) {
+                $this->tanggal = $dateTime->format('d');
+                $this->bulan = $dateTime->format('m');
+                $this->tahun = $dateTime->format('Y');
+                
+                session()->flash('message', 'Data rekap sudah ada');
+                $this->emit('rekapSaved');
+                return;
+            }
+
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }

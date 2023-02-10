@@ -99,6 +99,10 @@
                                     <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                                         <option value="">Tanggal &nbsp; &nbsp; &nbsp;</option>
                                         @for ($i = 1; $i <= 31; $i++)
+                                            @if ($i < 10)
+                                                <option value="0{{ $i }}">0{{ $i }}</option>
+                                                @continue
+                                            @endif
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>

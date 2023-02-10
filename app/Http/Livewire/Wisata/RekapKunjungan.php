@@ -80,8 +80,24 @@ class RekapKunjungan extends Component
         }
         else {
             $this->dataRekap->id_wisata = auth()->user()->id_wisata;
+            // make datetime to Asia Jakarta
             $dateTime = new \DateTime($this->dataRekap->tanggal);
             $dateTime->setTime(7, 0, 0);
+
+            // Exception for non duplicate date in same wisata
+            $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+                        ->where('tanggal', $dateTime->format('Y-m-d'))
+                        ->first();
+            if ($rekap) {
+                $this->tanggal = $dateTime->format('d');
+                $this->bulan = $dateTime->format('m');
+                $this->tahun = $dateTime->format('Y');
+                
+                session()->flash('message', 'Data rekap sudah ada');
+                $this->emit('rekapSaved');
+                return;
+            }
+
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }
