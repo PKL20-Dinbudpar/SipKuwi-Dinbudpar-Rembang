@@ -7,10 +7,16 @@ use App\Models\User;
 use App\Models\Wisata;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class UserProfile extends Component
 {
+    use WithFileUploads;
+    
     public User $user;
+
+    public $newPhoto;
+
     public $newPassword;
     public $newPasswordConfirmation;
     public $oldPassword;
@@ -31,6 +37,19 @@ class UserProfile extends Component
 
     public function mount() { 
         $this->user = auth()->user();
+    }
+
+    public function updatePhoto()
+    {
+        $this->validate([
+            'newPhoto' => 'image|max:1024',
+        ]);
+
+        $photo = $this->newPhoto->store('photos', 'public');
+
+        $this->user->photo = $photo;
+        $this->user->save();
+        return redirect()->route('user-profile');
     }
 
     public function save() {

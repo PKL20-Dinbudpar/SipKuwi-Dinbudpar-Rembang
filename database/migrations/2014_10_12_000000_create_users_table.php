@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('phone')->nullable()->unique();
             $table->string('alamat')->nullable();
+            $table->string('photo')->nullable();
             $table->string('password');
             $table->string('pass')->nullable();
             $table->string('role')->default('dinas');

@@ -99,6 +99,9 @@
         window.livewire.on('transaksiDeleted', () => {
             $('#deleteTransaksiModal').modal('hide');
         });
+        window.livewire.on('photoSaved', () => {
+            $('#updateImgModal').modal('hide');
+        });
     </script>
 </body>
 

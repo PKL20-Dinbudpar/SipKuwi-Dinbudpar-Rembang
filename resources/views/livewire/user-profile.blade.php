@@ -8,17 +8,20 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        @if (auth()->user()->role == 'dinas')
-                            <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
-                        
+                        @if (auth()->user()->photo)
+                            <img src="{{ Storage::url(auth()->user()->photo) }}" alt="..." class="w-100 border-radius-lg shadow-sm">
                         @else
-                            <img src="../assets/img/enjoyRembang.jpeg" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            @if (auth()->user()->role == 'dinas')
+                                <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            @else
+                                <img src="{{ asset('assets/img/enjoyRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            @endif
                         @endif
-                        {{-- <a href="javascript:;"
+                        <button wire:click="resetPass" data-bs-toggle="modal" data-bs-target="#updateImgModal"
                             class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                             <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Edit Image"></i>
-                        </a> --}}
+                        </button>
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -144,7 +147,7 @@
         </div>
     </div>
 
-    {{-- Modal Tambah Wisata --}}
+    {{-- Modal Ganti Password --}}
     <x-modal> 
         <x-slot name="id"> changePassModal </x-slot>
         <x-slot name="title">
@@ -168,6 +171,38 @@
                         <label>Password Lama</label>
                         <input type="password" wire:model.defer="oldPassword" class="form-control">
                         @error('oldPassword')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
+
+    {{-- Modal Update Photo --}}
+    <x-modal>
+        <x-slot name="id"> updateImgModal </x-slot>
+        <x-slot name="title">
+            Upload Gambar
+        </x-slot>
+
+        <x-slot name="content">
+            <form wire:submit.prevent="updatePhoto">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Upload Gambar</label>
+                        @if ($newPhoto)
+                            <div class="d-flex">
+                                <label for="photo" class="d-flex align-items-center">Preview:&nbsp;</label>
+                                <div class="d-flex justify-content-center mb-2">
+                                    <img src="{{ $newPhoto->temporaryUrl() }}" alt="" class="img-thumbnail" width="100px" height="100px">
+                                </div>
+                            </div>
+                        @endif
+                        <input type="file" wire:model="newPhoto" name="photo" class="form-control" placeholder="photo">
+                        @error('newPhoto')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </div>
                 <div class="modal-footer">
