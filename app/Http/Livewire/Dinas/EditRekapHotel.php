@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Dinas;
 
 use App\Exports\KunjunganHotelExport;
 use App\Models\Hotel;
-use App\Models\Rekap;
+use App\Models\RekapHotel;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -25,22 +25,22 @@ class EditRekapHotel extends Component
 
     protected $rules = [
         'dataRekap.tanggal' => 'required',
-        'dataRekap.wisatawan_nusantara' => 'required|int',
-        'dataRekap.wisatawan_mancanegara' => 'required|int',
+        'dataRekap.pengunjung_nusantara' => 'required|int',
+        'dataRekap.pengunjung_mancanegara' => 'required|int',
         'dataRekap.kamar_terjual' => 'required|int',
     ];
 
     public function mount($idHotel = null)
     {
         $this->idHotel = $idHotel;
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapHotel();
     }
 
     public function render()
     {
         $hotel = Hotel::findOrFail($this->idHotel);
                     
-        $rekap = Rekap::where('id_hotel', $this->idHotel)
+        $rekap = RekapHotel::where('id_hotel', $this->idHotel)
                     ->when($this->tahun, function($query){
                         return $query->whereYear('tanggal', '=', $this->tahun);
                     })
@@ -60,7 +60,7 @@ class EditRekapHotel extends Component
         ]);
     }
 
-    public function editRekap(Rekap $rekap)
+    public function editRekap(RekapHotel $rekap)
     {
         $this->resetErrorBag();
         $this->dataRekap = $rekap;
@@ -86,7 +86,7 @@ class EditRekapHotel extends Component
             $dateTime->setTime(7, 0, 0);
 
             // Exception for non duplicate date in same hotel
-            $rekap = Rekap::where('id_hotel', $this->idHotel)
+            $rekap = RekapHotel::where('id_hotel', $this->idHotel)
                         ->where('tanggal', $dateTime->format('Y-m-d'))
                         ->first();
             if ($rekap) {
@@ -109,18 +109,18 @@ class EditRekapHotel extends Component
 
     public function resetInput()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapHotel();
         $this->resetErrorBag();
     }
 
-    public function deleteRekap(Rekap $rekap)
+    public function deleteRekap(RekapHotel $rekap)
     {
         $this->deleteRekap = $rekap;
     }
 
     public function destroyRekap()
     {
-        Rekap::destroy($this->deleteRekap->id_rekap);
+        RekapHotel::destroy($this->deleteRekap->id_rekap);
         session()->flash('message', 'Rekap data berhasil dihapus');
 
         $this->reset(['deleteRekap']);

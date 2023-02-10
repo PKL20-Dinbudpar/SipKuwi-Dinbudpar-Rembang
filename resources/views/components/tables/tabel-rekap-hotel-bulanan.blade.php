@@ -87,16 +87,16 @@
                 $data = $rekap->where('id_hotel', $objek->id_hotel)->where('bulan', $bln->bulan)->first();
                 
                 if ($data) {
-                    $totalWisatawan += $data->wisatawan_nusantara + $data->wisatawan_mancanegara;
+                    $totalWisatawan += $data->pengunjung_nusantara + $data->pengunjung_mancanegara;
                     $totalKamarTerjual += $data->kamar_terjual;
                 }
             @endphp
 
             <td scope="row" class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_nusantara ?? "" }}</span>
+                <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_nusantara ?? "" }}</span>
             </td>
             <td scope="row" class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
+                <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_mancanegara ?? "" }}</span>
             </td>
             <td scope="row" class="align-middle text-center">
                 <span class="text-secondary text-xs font-weight-bold">{{ $data->kamar_terjual ?? "" }}</span>

@@ -32,7 +32,7 @@
                     Nusantara
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    WisMan
+                    Manca
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Kamar Terjual
@@ -63,15 +63,15 @@
                     $data = $rekap->where('id_hotel', $objek->id_hotel)->where('tanggal', $tgl->tanggal)->first();
 
                     if ($data) {
-                        $totalPengunjung += $data->wisatawan_nusantara + $data->wisatawan_mancanegara;
+                        $totalPengunjung += $data->pengunjung_nusantara + $data->pengunjung_mancanegara;
                         $totalKamarTerjual += $data->kamar_terjual;
                     }
                 @endphp
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_nusantara ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_nusantara ?? "" }}</span>
                 </td>
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_mancanegara ?? "" }}</span>
                 </td>
                 <td scope="row" class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{ $data->kamar_terjual ?? "" }}</span>

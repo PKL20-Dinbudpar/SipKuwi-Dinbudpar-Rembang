@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Hotel;
-use App\Models\Rekap;
+use App\Models\RekapHotel;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
@@ -23,16 +23,16 @@ class HotelHarianExport implements FromView
     */
     public function view(): View
     {
-        $tanggal = Rekap::with('hotel')
-                ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
+        $tanggal = RekapHotel::with('hotel')
+                ->join('hotel', 'rekap_hotel.id_hotel', '=', 'hotel.id_hotel')
                 ->select('tanggal')
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('tanggal')
                 ->get();
         
-        $rekap = Rekap::with('hotel')
-                ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
+        $rekap = RekapHotel::with('hotel')
+                ->join('hotel', 'rekap_hotel.id_hotel', '=', 'hotel.id_hotel')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->get();

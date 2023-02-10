@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Dinas;
 
 use App\Exports\HotelBulananExport;
 use App\Models\Hotel;
-use App\Models\Rekap;
+use App\Models\RekapHotel;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -19,13 +19,13 @@ class RekapHotelBulanan extends Component
 
     public function render()
     {
-        $bulan = Rekap::selectRaw('MONTH(tanggal) bulan, YEAR(tanggal) tahun')
-                ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
+        $bulan = RekapHotel::selectRaw('MONTH(tanggal) bulan, YEAR(tanggal) tahun')
+                ->join('hotel', 'rekap_hotel.id_hotel', '=', 'hotel.id_hotel')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('bulan', 'tahun')
                 ->get();
 
-        $rekap = Rekap::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(kamar_terjual) kamar_terjual')
+        $rekap = RekapHotel::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(pengunjung_nusantara) pengunjung_nusantara, SUM(pengunjung_mancanegara) pengunjung_mancanegara, SUM(kamar_terjual) kamar_terjual')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('id_hotel', 'bulan', 'tahun')
                 ->get();
