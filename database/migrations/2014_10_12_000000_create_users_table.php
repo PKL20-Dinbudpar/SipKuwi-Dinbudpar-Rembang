@@ -27,6 +27,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_hotel')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            // $table->foreign('id_wisata', 'fk_users_wisata')->references('id_wisata')->on('wisata');
+            // $table->foreign('id_hotel', 'fk_users_hotel')->references('id_hotel')->on('hotel');
         });
     }
 

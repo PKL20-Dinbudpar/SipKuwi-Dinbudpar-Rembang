@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dinas;
 use App\Exports\HotelExport;
 use App\Models\Hotel;
 use App\Models\Kecamatan;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -90,6 +91,7 @@ class DaftarHotel extends Component
     public function destroyHotel()
     {
         Hotel::destroy($this->hotelWisata->id_hotel);
+        User::where('id_hotel', $this->hotelWisata->id_hotel)->delete();
         session()->flash('message', 'Hotel berhasil dihapus');
 
         $this->resetInput();

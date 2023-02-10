@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Dinas;
 
 use App\Exports\WisataExport;
 use App\Models\Kecamatan;
+use App\Models\User;
 use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -105,6 +106,7 @@ class DaftarWisata extends Component
     public function destroyWisata()
     {
         Wisata::destroy($this->objWisata->id_wisata);
+        User::where('id_wisata', $this->objWisata->id_wisata)->delete();
         session()->flash('message', 'Objek Wisata berhasil dihapus');
 
         $this->resetInput();

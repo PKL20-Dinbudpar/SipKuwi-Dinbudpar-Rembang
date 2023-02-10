@@ -152,7 +152,7 @@
                         <x-slot name="content">
                             <form wire:submit.prevent="destroyHotel">
                                 <div class="modal-body">
-                                    <h6>Apa anda yakin ingin menghapus hotel ini?</h6>
+                                    <h6>Apa anda yakin ingin menghapus hotel ini beserta usernya?</h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
