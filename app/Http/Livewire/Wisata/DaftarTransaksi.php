@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Wisata;
 
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use Livewire\Component;
 use App\Models\Transaksi;
 use Livewire\WithPagination;
@@ -48,7 +48,7 @@ class DaftarTransaksi extends Component
 
     public function destroyTransaksi()
     {
-        $rekap = Rekap::where('id_wisata', $this->dataTransaksi->id_wisata)
+        $rekap = RekapWisata::where('id_wisata', $this->dataTransaksi->id_wisata)
                 ->where('tanggal', date('Y-m-d', strtotime($this->dataTransaksi->waktu_transaksi)))
                 ->first();
         // dd($rekap);

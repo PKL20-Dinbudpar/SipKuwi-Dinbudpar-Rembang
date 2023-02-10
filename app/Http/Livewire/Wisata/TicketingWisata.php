@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Wisata;
 
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use App\Models\Tiket;
 use App\Models\Transaksi;
 use Livewire\Component;
@@ -163,7 +163,7 @@ class TicketingWisata extends Component
             'total_pendapatan' => $this->uangMasuk - $this->kembalian,
         ]);
 
-        $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                 ->where('tanggal', now()->format('Y-m-d'))        
                 ->first();
 
@@ -179,7 +179,7 @@ class TicketingWisata extends Component
             $rekap->save();
         }
         else {
-            Rekap::create([
+            RekapWisata::create([
                 'tanggal' => now()->format('Y-m-d'),
                 'id_wisata' => auth()->user()->id_wisata,
                 'wisatawan_nusantara' => $jumlahTiket,

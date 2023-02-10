@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use App\Models\Wisata;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -21,12 +21,13 @@ class WisataBulananExport implements FromView
     */
     public function view(): View
     {
-        $bulan = Rekap::selectRaw('MONTH(tanggal) bulan, YEAR(tanggal) tahun')
+        $bulan = RekapWisata::selectRaw('MONTH(tanggal) bulan, YEAR(tanggal) tahun')
+                ->join('wisata', 'rekap_wisata.id_wisata', '=', 'wisata.id_wisata')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('bulan', 'tahun')
                 ->get();
 
-        $rekap = Rekap::selectRaw('id_wisata, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(total_pendapatan) total_pendapatan')
+        $rekap = RekapWisata::selectRaw('id_wisata, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(total_pendapatan) total_pendapatan')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('id_wisata', 'bulan', 'tahun')
                 ->get();

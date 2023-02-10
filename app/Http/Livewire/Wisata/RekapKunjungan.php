@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Wisata;
 
 use App\Exports\KunjunganWisataExport;
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -30,16 +30,16 @@ class RekapKunjungan extends Component
 
     public function mount()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapWisata();
     }
 
     public function render()
     {
-        $todayRekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $todayRekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                     ->where('tanggal', date('Y-m-d'))
                     ->first();
 
-        $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                     ->when($this->tahun, function($query){
                         return $query->whereYear('tanggal', '=', $this->tahun);
                     })
@@ -59,7 +59,7 @@ class RekapKunjungan extends Component
         ]);
     }
 
-    public function editRekap(Rekap $rekap)
+    public function editRekap(RekapWisata $rekap)
     {
         $this->resetErrorBag();
         $this->dataRekap = $rekap;
@@ -85,7 +85,7 @@ class RekapKunjungan extends Component
             $dateTime->setTime(7, 0, 0);
 
             // Exception for non duplicate date in same wisata
-            $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+            $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                         ->where('tanggal', $dateTime->format('Y-m-d'))
                         ->first();
             if ($rekap) {
@@ -108,18 +108,18 @@ class RekapKunjungan extends Component
 
     public function resetInput()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapWisata();
         $this->resetErrorBag();
     }
 
-    public function deleteRekap(Rekap $rekap)
+    public function deleteRekap(RekapWisata $rekap)
     {
         $this->deleteRekap = $rekap;
     }
 
     public function destroyRekap()
     {
-        Rekap::destroy($this->deleteRekap->id_rekap);
+        RekapWisata::destroy($this->deleteRekap->id_rekap);
         session()->flash('message', 'Rekap data berhasil dihapus');
 
         $this->reset(['deleteRekap']);

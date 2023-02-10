@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Dinas;
 
 use App\Exports\WisataHarianExport;
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use App\Models\Wisata;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,16 +23,16 @@ class RekapWisataHarian extends Component
 
     public function render()
     {
-        $tanggal = Rekap::with('wisata')
-                ->join('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
+        $tanggal = RekapWisata::with('wisata')
+                ->join('wisata', 'rekap_wisata.id_wisata', '=', 'wisata.id_wisata')
                 ->select('tanggal')
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('tanggal')
                 ->get();
         
-        $rekap = Rekap::with('wisata')
-                ->join('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
+        $rekap = RekapWisata::with('wisata')
+                ->join('wisata', 'rekap_wisata.id_wisata', '=', 'wisata.id_wisata')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->get();
