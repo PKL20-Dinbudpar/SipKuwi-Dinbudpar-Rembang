@@ -34,41 +34,33 @@ class UserProfile extends Component
     }
 
     public function save() {
-        if(env('IS_DEMO')) {
-           $this->showDemoNotification = true;
-        } else {
-            $this->validate();
-            $this->user->save();
-            $this->showSuccesNotification = true;
-        }
+        $this->validate();
+        $this->user->save();
+        $this->showSuccesNotification = true;
     }
 
     public function savePassword(){
-        if(env('IS_DEMO')) {
-            $this->showDemoNotification = true;
-         } else {
-            $this->validate([
-                'oldPassword' => 'required',
-                'newPassword' => 'required|min:8',
-                'newPasswordConfirmation' => 'required|same:newPassword',
-            ]);
-            if ($this->newPassword == $this->oldPassword) {
-                $this->addError('newPassword', 'The new password must be different from the old password');
-                return;
-            }
-            if ($this->newPasswordConfirmation != $this->newPassword) {
-                $this->addError('newPasswordConfirmation', 'The new password confirmation does not match');
-                return;
-            }
-            if (Hash::check($this->oldPassword, $this->user->password)) {
-                $this->user->password = bcrypt($this->newPassword);
-                $this->user->pass = $this->newPassword;
-                $this->user->save();
-                $this->showSuccesNotification = true;
-                $this->emit('passwordSaved');
-            } else {
-                $this->addError('oldPassword', 'The old password is incorrect');
-            }
+        $this->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:8',
+            'newPasswordConfirmation' => 'required|same:newPassword',
+        ]);
+        if ($this->newPassword == $this->oldPassword) {
+            $this->addError('newPassword', 'The new password must be different from the old password');
+            return;
+        }
+        if ($this->newPasswordConfirmation != $this->newPassword) {
+            $this->addError('newPasswordConfirmation', 'The new password confirmation does not match');
+            return;
+        }
+        if (Hash::check($this->oldPassword, $this->user->password)) {
+            $this->user->password = bcrypt($this->newPassword);
+            $this->user->pass = $this->newPassword;
+            $this->user->save();
+            $this->showSuccesNotification = true;
+            $this->emit('passwordSaved');
+        } else {
+            $this->addError('oldPassword', 'The old password is incorrect');
         }
     }
 
