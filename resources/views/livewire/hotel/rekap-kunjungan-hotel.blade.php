@@ -96,14 +96,14 @@
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
                                     </span>
-                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tahun</option>
-                                        @for ($i = date('Y'); $i >= 2022; $i--)
+                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tanggal &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = 1; $i <= 31; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                     <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Bulan</option>
+                                        <option value="">Bulan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
                                         <option value="01">Januari</option>
                                         <option value="02">Februari</option>
                                         <option value="03">Maret</option>
@@ -117,9 +117,9 @@
                                         <option value="11">November</option>
                                         <option value="12">Desember</option>
                                     </select>
-                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tanggal</option>
-                                        @for ($i = 1; $i <= 31; $i++)
+                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tahun &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>

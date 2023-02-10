@@ -34,19 +34,19 @@
                         </div>
 
                         <div class="d-flex flex-row justify-content-between mt-3 mb-2">
-                            <div class="form-group mb-0 col-5">
+                            <div class="form-group mb-0">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
                                     </span>
-                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tahun</option>
-                                        @for ($i = date('Y'); $i >= 2022; $i--)
+                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tanggal &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = 1; $i <= 31; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                     <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Bulan</option>
+                                        <option value="">Bulan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
                                         <option value="01">Januari</option>
                                         <option value="02">Februari</option>
                                         <option value="03">Maret</option>
@@ -60,14 +60,15 @@
                                         <option value="11">November</option>
                                         <option value="12">Desember</option>
                                     </select>
-                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tanggal</option>
-                                        @for ($i = 1; $i <= 31; $i++)
+                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tahun &nbsp;</option>
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="d-flex">
                                 <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm d-none d-lg-block mb-0 mx-2"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
                                 <button wire:click="resetInput" data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Data</button>
