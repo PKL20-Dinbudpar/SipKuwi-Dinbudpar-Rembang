@@ -100,7 +100,7 @@ class DaftarUser extends Component
 
         if (isset($this->userWisata->id)) {
             $this->userWisata->save();
-            session()->flash('message', 'Data user berhasil diubah');
+            session()->flash('message', 'User berhasil diubah');
         }
         else {
             // Exception for non duplicate username
@@ -116,7 +116,7 @@ class DaftarUser extends Component
             $this->userWisata += ['pass' => $this->userWisata['pass']];
             $this->userWisata['password'] = bcrypt($this->userWisata['pass']);
             User::create($this->userWisata);
-            session()->flash('message', 'Data user berhasil ditambahkan');
+            session()->flash('message', 'User berhasil ditambahkan');
         }
 
         $this->resetInput();
@@ -130,8 +130,14 @@ class DaftarUser extends Component
 
     public function destroyUser()
     {
+        if ($this->userWisata->id == auth()->user()->id) {
+            session()->flash('message', 'User gagal dihapus');
+            $this->emit('userDeleted');
+            return;
+        }
+
         User::destroy($this->userWisata->id);
-        session()->flash('message', 'Data user berhasil dihapus');
+        session()->flash('message', 'User berhasil dihapus');
 
         $this->resetInput();
         $this->emit('userDeleted');
