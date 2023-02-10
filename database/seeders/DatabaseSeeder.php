@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             RekapSeeder::class,
             TransaksiSeeder::class,
             HotelSeeder::class,
+            RekapHotelSeeder::class,
+            RekapWisataSeeder::class,
         ]);
     }
 }

@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rekap', function (Blueprint $table) {
+        Schema::create('rekap_wisata', function (Blueprint $table) {
             $table->id('id_rekap');
             $table->date('tanggal');
             $table->unsignedBigInteger('id_wisata')->nullable();
-            $table->unsignedBigInteger('id_hotel')->nullable();
             $table->integer('wisatawan_nusantara')->default(0);
             $table->integer('wisatawan_mancanegara')->default(0);
-            $table->integer('kamar_terjual')->nullable();
             $table->integer('total_pendapatan')->default(0);
 
-            // $table->foreign('id_wisata', 'fk_rekap_wisata')->references('id_wisata')->on('wisata')->onDelete('cascade');
+            $table->foreign('id_wisata', 'fk_rekap_wisata')->references('id_wisata')->on('wisata')->onDelete('cascade');
 
             $table->unique(['tanggal', 'id_wisata']);
         });
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rekap');
+        Schema::dropIfExists('rekap_wisata');
     }
 };
