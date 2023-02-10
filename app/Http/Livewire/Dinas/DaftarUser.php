@@ -56,9 +56,9 @@ class DaftarUser extends Component
 
         $users = $users->paginate(10);
 
-        $wisata = Wisata::all();
+        $wisata = Wisata::all()->sortBy('nama_wisata');
 
-        $hotel = Hotel::all();
+        $hotel = Hotel::all()->sortBy('nama_hotel');
 
         return view('livewire.dinas.daftar-user', [
             'users' => $users,
@@ -103,6 +103,16 @@ class DaftarUser extends Component
             session()->flash('message', 'Data user berhasil diubah');
         }
         else {
+            // Exception for non duplicate username
+            $this->validate([
+                'userWisata.username' => 'unique:users,username',
+            ]);
+
+            // Exception for non duplicate email
+            $this->validate([
+                'userWisata.email' => 'unique:users,email',
+            ]);
+
             $this->userWisata += ['pass' => $this->userWisata['pass']];
             $this->userWisata['password'] = bcrypt($this->userWisata['pass']);
             User::create($this->userWisata);
