@@ -16,16 +16,12 @@ class DaftarHotel extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search;
-    public $sortBy = 'id_hotel';
-    public $sortAsc = true;
 
     public $deleteConfirmation = false;
     public $hotelWisata;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'id_hotel'],
-        'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
@@ -43,7 +39,7 @@ class DaftarHotel extends Component
                         ->orWhere('alamat', 'like', '%'.$this->search.'%')
                         ->orWhere('kecamatan.nama_kecamatan', 'like', '%'.$this->search.'%');
                 })
-                ->orderBy($this->sortBy, $this->sortAsc ? 'asc' : 'desc');
+                ->orderBy('id_hotel', 'asc');
 
         $hotels = $hotels->paginate(10);
 

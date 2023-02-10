@@ -17,8 +17,6 @@ class DaftarUser extends Component
 
     
     public $search;
-    public $sortBy = 'wisata.id_wisata';
-    public $sortAsc = true;
     public $userWisata;
 
     public $deleteConfirmation = false;
@@ -26,8 +24,6 @@ class DaftarUser extends Component
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'wisata.id_wisata'],
-        'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
@@ -52,7 +48,9 @@ class DaftarUser extends Component
                 ->orWhere('wisata.nama_wisata', 'like', '%'.$this->search.'%')
                 ->orWhere('hotel.nama_hotel', 'like', '%'.$this->search.'%');
         })
-        ->orderBy('role', 'asc');
+        ->orderBy('role', 'asc')
+        ->orderBy('users.id_hotel', 'asc')
+        ->orderBy('users.id_wisata', 'asc');
 
         $users = $users->paginate(10);
 
@@ -70,16 +68,6 @@ class DaftarUser extends Component
     public function updatingSearch()
     {
         $this->resetPage();
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->sortBy == $field) {
-            $this->sortAsc = !$this->sortAsc;
-        } else {
-            $this->sortAsc = true;
-        }
-        $this->sortBy = $field;
     }
 
     public function resetInput()

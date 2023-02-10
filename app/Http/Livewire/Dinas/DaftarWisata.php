@@ -17,14 +17,10 @@ class DaftarWisata extends Component
 
 
     public $search;
-    public $sortBy = 'id_wisata';
-    public $sortAsc = true;
     public $objWisata;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'id_wisata'],
-        'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
@@ -42,7 +38,7 @@ class DaftarWisata extends Component
                         ->orWhere('alamat', 'like', '%'.$this->search.'%')
                         ->orWhere('kecamatan.nama_kecamatan', 'like', '%'.$this->search.'%');
                 })
-                ->orderBy($this->sortBy, $this->sortAsc ? 'asc' : 'desc');
+                ->orderBy('id_wisata', 'asc');
 
         $wisata = $wisata->paginate(10);
 
@@ -57,16 +53,6 @@ class DaftarWisata extends Component
     public function updatingSearch()
     {
         $this->resetPage();
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->sortBy == $field) {
-            $this->sortAsc = !$this->sortAsc;
-        } else {
-            $this->sortAsc = true;
-        }
-        $this->sortBy = $field;
     }
 
     public function resetInput()
