@@ -20,7 +20,7 @@
                         <button wire:click="resetPass" data-bs-toggle="modal" data-bs-target="#updateImgModal"
                             class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                             <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit Image"></i>
+                                title="Edit Photo"></i>
                         </button>
                     </div>
                 </div>
