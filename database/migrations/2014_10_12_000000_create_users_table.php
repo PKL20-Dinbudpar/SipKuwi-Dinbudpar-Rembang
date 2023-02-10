@@ -22,15 +22,16 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('photo')->nullable();
             $table->string('password');
-            $table->string('pass')->nullable();
+            $table->string('pass');
             $table->string('role')->default('dinas');
             $table->unsignedBigInteger('id_wisata')->nullable();
             $table->unsignedBigInteger('id_hotel')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
-            // $table->foreign('id_wisata', 'fk_users_wisata')->references('id_wisata')->on('wisata');
-            // $table->foreign('id_hotel', 'fk_users_hotel')->references('id_hotel')->on('hotel');
+            // foreign key
+            // $table->foreign('id_wisata', 'fk_users_wisata')->references('id_wisata')->on('wisata')->onDelete('CASCADE');
+            // $table->foreign('id_hotel', 'fk_users_hotel')->references('id_hotel')->on('hotel')->onDelete('CASCADE');
         });
     }
 

@@ -41,27 +41,6 @@ class Wisata extends Model
 
     public function rekap()
     {
-        return $this->hasMany(Rekap::class, 'id_wisata', 'id_wisata');
-    }
-
-    // Getter
-    public function getKecamatan()
-    {
-        return $this->kecamatan->nama_kecamatan;
-    }
-
-    public function getNamaWisata()
-    {
-        return $this->nama_wisata;
-    }
-
-    public function getAlamat()
-    {
-        return $this->alamat;
-    }
-
-    public function getTiket()
-    {
-        return $this->tiket->count();
+        return $this->hasMany(RekapWisata::class, 'id_wisata', 'id_wisata');
     }
 }

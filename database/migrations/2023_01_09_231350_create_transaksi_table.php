@@ -19,14 +19,11 @@ return new class extends Migration
             $table->dateTime('waktu_transaksi')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedBigInteger('id_wisata');
             $table->unsignedBigInteger('id_user');
-            // $table->unsignedBigInteger('id_tiket');
             $table->string('jenis_wisatawan');
             $table->integer('jumlah_tiket')->default(0);
             $table->integer('total_pendapatan');
 
-            // $table->foreign('id_wisata', 'fk_transaksi_wisata')->references('id_wisata')->on('wisata');
-            // $table->foreign('id_tiket', 'fk_transaksi_tiket')->references('id_tiket')->on('tiket');
-
+            $table->foreign('id_wisata', 'fk_transaksi_wisata')->references('id_wisata')->on('wisata')->onDelete('CASCADE');
         });
     }
 

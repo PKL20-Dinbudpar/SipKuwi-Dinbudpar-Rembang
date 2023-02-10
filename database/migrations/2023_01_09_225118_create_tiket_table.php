@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->string('deskripsi')->nullable();
 
-            $table->foreign('id_wisata', 'fk_tiket_wisata')->references('id_wisata')->on('wisata')->onDelete('cascade')->onDelete('cascade');
+            $table->foreign('id_wisata', 'fk_tiket_wisata')->references('id_wisata')->on('wisata')->onDelete('CASCADE');
         });
     }
 
