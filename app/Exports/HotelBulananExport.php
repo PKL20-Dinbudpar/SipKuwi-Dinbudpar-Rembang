@@ -27,7 +27,7 @@ class HotelBulananExport implements FromView
                 ->groupBy('bulan', 'tahun')
                 ->get();
 
-        $rekap = RekapHotel::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(pengunjung_nusantara) pengunjung_nusantara, SUM(pengunjung_mancanegara) pengunjung_mancanegara, SUM(total_pendapatan) total_pendapatan')
+        $rekap = RekapHotel::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(pengunjung_nusantara) pengunjung_nusantara, SUM(pengunjung_mancanegara) pengunjung_mancanegara, SUM(kamar_terjual) kamar_terjual')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('id_hotel', 'bulan', 'tahun')
                 ->get();
