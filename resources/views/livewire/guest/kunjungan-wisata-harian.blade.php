@@ -87,8 +87,8 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     @if ($tahun < date('Y') || ($tahun == date('Y') && $bulan <= date('m')))
-                        <div class="table-responsive p-0">
-                            <table class="table table-hover align-items-center mb-0">
+                        <div class="table-responsive table-sticky p-0">
+                            <table class="table table-hover table-sticky align-items-center mb-0">
                                 <col>
                                 <col>
                                 @foreach ($tanggal as $tgl)
@@ -101,9 +101,9 @@
                                         <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             No
                                         </th>
-                                        <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        <td scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                                             Nama Objek Wisata
-                                        </th>
+                                        </td>
                                         @foreach ($tanggal as $tgl)
                                             <th scope="col" colspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 {{ $tgl->tanggal->format('d M Y') }}
@@ -116,7 +116,7 @@
                                     <tr>
                                         @foreach ($tanggal as $tgl)
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nusantara
+                                                WisNus
                                             </th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 WisMan

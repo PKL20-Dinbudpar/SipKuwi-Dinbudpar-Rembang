@@ -1,4 +1,4 @@
-<table class="table table-hover align-items-center mb-0">
+<table class="table table-hover table-sticky align-items-center mb-0">
     <col>
     <col>
     @foreach ($bulan as $bln)
@@ -11,9 +11,9 @@
             <th scope="col" rowspan="2" class="text-center text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 No
             </th>
-            <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+            <td scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                 Nama Hotel
-            </th>
+            </td>
             @foreach ($bulan as $bln)
                 <th scope="col" colspan="3" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     @if ($bln->bulan == "1")

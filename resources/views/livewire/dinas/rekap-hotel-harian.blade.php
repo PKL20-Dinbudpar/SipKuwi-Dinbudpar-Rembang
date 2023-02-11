@@ -87,7 +87,7 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     @if ($tahun < date('Y') || ($tahun == date('Y') && $bulan <= date('m')))
-                        <div class="table-responsive p-0">
+                        <div class="table-responsive table-sticky p-0">
                             @include('components.tables.tabel-rekap-hotel-harian')
                         </div>
                     @else
