@@ -28,10 +28,15 @@ php artisan key:generate
 
 #### 4. Run the migration
 ```
-php artisan migrate:fresh --seed
+php artisan migrate --seed
 ```
 
-#### 5. Run the server
+#### 5. Connect storage
+```
+php artisan storage:link
+```
+
+#### 6. Run the server
 ```
 php artisan serve
 ```
