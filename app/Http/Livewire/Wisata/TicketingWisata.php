@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Wisata;
 
+use App\Models\Receipt;
 use App\Models\RekapWisata;
 use App\Models\Tiket;
 use App\Models\Transaksi;
@@ -154,15 +155,32 @@ class TicketingWisata extends Component
 
         $jumlahTiket = array_sum($this->jumlahTiket);
 
-        Transaksi::create([
-            'waktu_transaksi' => now(),
-            'id_wisata' => auth()->user()->id_wisata,
-            'id_user' => auth()->user()->id,
-            'jenis_wisatawan' => $this->jenisWisatawan,
-            'jumlah_tiket' => $jumlahTiket,
-            'total_pendapatan' => $this->uangMasuk - $this->kembalian,
-        ]);
+        // insert transaksi
+        $transaksi = new Transaksi();
+        $transaksi->waktu_transaksi = now();
+        $transaksi->id_wisata = auth()->user()->id_wisata;
+        $transaksi->id_user = auth()->user()->id;
+        $transaksi->jenis_wisatawan = $this->jenisWisatawan;
+        $transaksi->jumlah_tiket = $jumlahTiket;
+        $transaksi->total_pendapatan = $totalPendapatan;
 
+        $transaksi->save();
+
+        // insert to receipt
+        foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
+            if ($jumlahTiket > 0) {
+                $receipt = new Receipt();
+                $receipt->id_transaksi = $transaksi->id_transaksi;
+                $receipt->id_tiket = $ticketId;
+                $receipt->jumlah_tiket = $jumlahTiket;
+                $receipt->total_pendapatan = $jumlahTiket * $this->hargaTiket[$ticketId];
+
+                $receipt->save();
+            }
+        }
+        
+
+        // update rekap
         $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                 ->where('tanggal', now()->format('Y-m-d'))        
                 ->first();
@@ -191,18 +209,4 @@ class TicketingWisata extends Component
 
         $this->emit('transaksiSaved');
     }
-
-    // public function updatedKembalian()
-    // {
-    //     $this->validate([
-    //         'kembalian' => 'required|numeric|min:0',
-    //     ]);
-
-    //     $totalPendapatan = 0;
-    //     foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
-    //         $totalPendapatan += $jumlahTiket * $this->hargaTiket[$ticketId];
-    //     }
-
-    //     $this->uangMasuk = $this->kembalian + $totalPendapatan;
-    // }
 }

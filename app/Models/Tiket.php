@@ -28,30 +28,8 @@ class Tiket extends Model
         return $this->hasMany(Transaksi::class, 'id_tiket', 'id_tiket');
     }
 
-    // Getter
-    public function getWisata()
+    public function receipt()
     {
-        return $this->wisata->nama_wisata;
+        return $this->hasMany(Receipt::class, 'id_tiket', 'id_tiket');
     }
-
-    public function getHarga()
-    {
-        return 'Rp. ' . number_format($this->harga, 0, ',', '.');
-    }
-
-    public function getDeskripsi()
-    {
-        return $this->deskripsi;
-    }
-
-    public function getTransaksi()
-    {
-        return $this->transaksi->count();
-    }
-
-    public function getNamaTiket()
-    {
-        return $this->nama_tiket;
-    }
-    
 }
