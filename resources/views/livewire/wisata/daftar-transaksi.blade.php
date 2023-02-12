@@ -131,6 +131,9 @@
                                             </p>
                                         </td>
                                         <td>
+                                            <span data-bs-toggle="modal" data-bs-target="#viewTransaksiModal" wire:click="viewTransaksi({{ $data->id_transaksi }})" class="mx-3">
+                                                <i class="cursor-pointer fas fa-file-alt text-secondary"></i>
+                                            </span>
                                             <span data-bs-toggle="modal" data-bs-target="#deleteTransaksiModal" wire:click="deleteTransaksi({{ $data->id_transaksi }})">
                                                 <i class="cursor-pointer fas fa-trash text-secondary"></i>
                                             </span>
@@ -164,6 +167,81 @@
                 <div class="modal-footer">
                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn bg-gradient-primary">Hapus</button>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
+
+    {{-- Modal View --}}
+    <x-modal-tiket> 
+        <x-slot name="id"> viewTransaksiModal </x-slot>
+
+        <x-slot name="customClass">
+            modal-xl
+        </x-slot>
+
+        <x-slot name="title">
+            Tambah Pengunjung
+        </x-slot>
+
+        <x-slot name="content">
+            <form wire:submit.prevent="submitTransaksi">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Jenis Wisatawan</label>
+                        @if ($jenisWisatawan == "wisnus")
+                            <p class="form-control"> Wisatawan Nusantara </p>
+                        @else
+                            <p class="form-control"> Wisatawan Mancanegara </p>
+                        @endif
+                    </div>
+                    <div>
+                        <label>Transaksi</label>
+                        <table class="table mb-3">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Jumlah</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Harga</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($tiket as $tiket)
+                                    <tr>
+                                        <td>{{ $tiket->nama_tiket }}</td>
+                                        <td class="text-center">
+                                            {{ $jumlahTiket[$tiket->id_tiket] }}
+                                        </td>
+                                        <td>Rp {{ number_format($tiket->harga,0,",",".") }}</td>
+                                        <td>
+                                            Rp {{ number_format($hargaTiket[$tiket->id_tiket] * (int)$jumlahTiket[$tiket->id_tiket],0,",",".") }}
+                                        </td>
+                                    </tr>
+                                    @error('jumlahTiket.'.$tiket->id_tiket)
+                                        <tr>
+                                            <td colspan="4">
+                                                <span class="text-danger">{{ $message }}</span>
+                                            </td>
+                                        </tr>
+                                    @enderror
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">Total Pendapatan</td>
+                                    <td>
+                                        Rp {{ number_format(array_sum(array_map(function($count, $price) {
+                                            return (int)$count * $price;
+                                        }, $jumlahTiket, $hargaTiket)),0,",",".") }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
                 </div>
             </form>
         </x-slot>

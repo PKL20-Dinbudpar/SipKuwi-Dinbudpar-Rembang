@@ -225,17 +225,9 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <div>
-                            @isset($tiketWisata->id_tiket)
-                                <button type="button" wire:click="deleteTiket({{ $tiketWisata->id_tiket }})" class="btn bg-gradient-danger" 
-                                    data-bs-toggle="modal" data-bs-target="#deleteTiketModal" data-bs-dismiss="modal">Hapus</button>
-                            @endisset
-                        </div>
-                        <div>
-                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" class="btn bg-gradient-primary">Simpan</button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn bg-gradient-primary">Simpan</button>
                     </div>
                 </form>
             </x-slot>

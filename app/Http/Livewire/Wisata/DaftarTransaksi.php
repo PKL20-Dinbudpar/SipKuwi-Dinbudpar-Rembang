@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Wisata;
 
+use App\Models\Receipt;
 use App\Models\RekapWisata;
+use App\Models\Tiket;
 use Livewire\Component;
 use App\Models\Transaksi;
 use Livewire\WithPagination;
@@ -16,6 +18,12 @@ class DaftarTransaksi extends Component
     public $bulan;
     public $tahun;
 
+    public $tiket;
+    public $namaTiket;
+    public $jumlahTiket;
+    public $hargaTiket;
+    public $jenisWisatawan;
+
     public $dataTransaksi;
 
     public function mount()
@@ -23,6 +31,17 @@ class DaftarTransaksi extends Component
         $this->tanggal = date('d');
         $this->bulan = date('m');
         $this->tahun = date('Y');
+
+        $this->tiket = [];
+        $this->jumlahTiket = [];
+        $this->hargaTiket = [];
+
+        foreach ($this->tiket as $t) {
+            $this->jumlahTiket[$t->id_tiket] = 0;
+            $this->hargaTiket[$t->id_tiket] = $t->harga;
+        }
+
+        $this->jenisWisatawan = 'wisnus';
     }
 
     public function render()
@@ -39,6 +58,28 @@ class DaftarTransaksi extends Component
         return view('livewire.wisata.daftar-transaksi', [
             'transaksi' => $transaksi
         ]);
+    }
+
+    public function viewTransaksi($idTransaksi)
+    {
+        $receipt = Receipt::where('id_transaksi', $idTransaksi)->get();
+
+        $this->tiket = Tiket::where('id_wisata', auth()->user()->id_wisata)->get();
+        $this->jumlahTiket = [];
+        $this->hargaTiket = [];
+
+        foreach ($this->tiket as $t) {
+            if ($receipt)
+                $this->jumlahTiket[$t->id_tiket] = $receipt->where('id_tiket', $t->id_tiket)->first()->jumlah_tiket;
+            else
+                $this->jumlahTiket[$t->id_tiket] = 0;
+
+            $this->hargaTiket[$t->id_tiket] = $t->harga;
+        }
+        
+        $this->jenisWisatawan = Transaksi::find($idTransaksi)->jenis_wisatawan;
+
+        // dd($this->hargaTiket);
     }
 
     public function deleteTransaksi(Transaksi $transaksi)

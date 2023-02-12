@@ -168,15 +168,13 @@ class TicketingWisata extends Component
 
         // insert to receipt
         foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
-            if ($jumlahTiket > 0) {
-                $receipt = new Receipt();
-                $receipt->id_transaksi = $transaksi->id_transaksi;
-                $receipt->id_tiket = $ticketId;
-                $receipt->jumlah_tiket = $jumlahTiket;
-                $receipt->total_pendapatan = $jumlahTiket * $this->hargaTiket[$ticketId];
+            $receipt = new Receipt();
+            $receipt->id_transaksi = $transaksi->id_transaksi;
+            $receipt->id_tiket = $ticketId;
+            $receipt->jumlah_tiket = $jumlahTiket;
+            $receipt->total_pendapatan = $jumlahTiket * $this->hargaTiket[$ticketId];
 
-                $receipt->save();
-            }
+            $receipt->save();
         }
         
 
