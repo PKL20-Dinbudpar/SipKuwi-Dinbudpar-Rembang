@@ -56,7 +56,7 @@
                                             <h6 class="text-center mb-0">Total Pendapatan</h6>
                                             <hr class="horizontal dark my-3">
                                             <h5 class="mb-0">
-                                                {{ $todayRekap->total_pendapatan ?? "-" }}
+                                                Rp {{ number_format($todayRekap->total_pendapatan,0,",",".") ?? "-" }}
                                             </h5>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->total_pendapatan }}
+                                            Rp {{ number_format($item->total_pendapatan,0,",",".") }}
                                         </p>
                                     </td>
                                     <td class="align-middle">

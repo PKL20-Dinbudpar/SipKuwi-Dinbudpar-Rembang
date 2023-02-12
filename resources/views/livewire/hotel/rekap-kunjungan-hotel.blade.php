@@ -49,7 +49,7 @@
                                         <div class="card-header mx-4 p-3 text-center">
                                             <div
                                                 class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-                                                <i class="fas fa-money opacity-10"></i>
+                                                <i class="fas fa-bed opacity-10"></i>
                                             </div>
                                         </div>
                                         <div class="card-body pt-0 p-3 text-center">
