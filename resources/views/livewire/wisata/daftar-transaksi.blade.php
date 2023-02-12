@@ -195,7 +195,7 @@
                         @endif
                     </div>
                     <div>
-                        <label>Transaksi</label>
+                        <label>Penjualan Tiket</label>
                         <table class="table mb-3">
                             <thead>
                                 <tr>
@@ -243,7 +243,7 @@
                         <p class="form-control"> Rp {{ number_format($dataTransaksi->uang_masuk,0,",",".") }} </p>
                     </div>
                     <div class="mb-3">
-                        <label>Jenis Wisatawan</label>
+                        <label>Kembalian</label>
                         <p class="form-control"> Rp {{ number_format($dataTransaksi->kembalian,0,",",".") }} </p>
                     </div>
                     <div class="mb-3">
