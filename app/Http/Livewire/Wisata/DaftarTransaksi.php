@@ -22,7 +22,6 @@ class DaftarTransaksi extends Component
     public $namaTiket;
     public $jumlahTiket;
     public $hargaTiket;
-    public $jenisWisatawan;
 
     public $dataTransaksi;
 
@@ -41,7 +40,7 @@ class DaftarTransaksi extends Component
             $this->hargaTiket[$t->id_tiket] = $t->harga;
         }
 
-        $this->jenisWisatawan = 'wisnus';
+        $this->dataTransaksi = new Transaksi();
     }
 
     public function render()
@@ -77,9 +76,7 @@ class DaftarTransaksi extends Component
             $this->hargaTiket[$t->id_tiket] = $t->harga;
         }
         
-        $this->jenisWisatawan = Transaksi::find($idTransaksi)->jenis_wisatawan;
-
-        // dd($this->hargaTiket);
+        $this->dataTransaksi = Transaksi::find($idTransaksi);
     }
 
     public function deleteTransaksi(Transaksi $transaksi)

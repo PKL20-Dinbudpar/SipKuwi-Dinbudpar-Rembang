@@ -12,7 +12,7 @@ class Transaksi extends Model
     // Table
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = ['waktu_transaksi', 'id_wisata', 'id_user', 'jenis_wisatawan', 'jumlah_tiket', 'total_pendapatan'];
+    protected $fillable = ['waktu_transaksi', 'id_wisata', 'id_user', 'jenis_wisatawan', 'jumlah_tiket', 'uang_masuk', 'kembalian', 'total_pendapatan'];
 
     // dates
     protected $dates = ['waktu_transaksi'];

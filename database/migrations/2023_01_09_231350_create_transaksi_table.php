@@ -21,6 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->string('jenis_wisatawan');
             $table->integer('jumlah_tiket')->default(0);
+            $table->integer('uang_masuk')->default(0);
+            $table->integer('kembalian')->default(0);
             $table->integer('total_pendapatan');
 
             $table->foreign('id_wisata', 'fk_transaksi_wisata')->references('id_wisata')->on('wisata')->onDelete('CASCADE');

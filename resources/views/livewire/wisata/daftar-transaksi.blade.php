@@ -59,7 +59,6 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            {{-- <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm mb-0">+&nbsp; Tambah Transaksi</a> --}}
                             <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary d-sm-block d-md-none mx-2 mb-0">+&nbsp;</a>
                             <a href="{{ route('ticketing') }}" class="btn bg-gradient-primary btn-sm d-none d-md-block mb-0">+&nbsp; Tambah Transaksi</a>
                         </div>
@@ -127,7 +126,7 @@
                                         </td>
                                         <td class="">
                                             <p class="text-center text-xs font-weight-bold mb-0">
-                                                {{ $data->total_pendapatan }}
+                                                Rp {{ number_format($data->total_pendapatan,0,",",".") }}
                                             </p>
                                         </td>
                                         <td>
@@ -189,7 +188,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label>Jenis Wisatawan</label>
-                        @if ($jenisWisatawan == "wisnus")
+                        @if ($dataTransaksi->jenis_wisatawan == "wisnus")
                             <p class="form-control"> Wisatawan Nusantara </p>
                         @else
                             <p class="form-control"> Wisatawan Mancanegara </p>
@@ -238,6 +237,18 @@
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+                    <div class="mb-3">
+                        <label>Uang Masuk</label>
+                        <p class="form-control"> Rp {{ number_format($dataTransaksi->uang_masuk,0,",",".") }} </p>
+                    </div>
+                    <div class="mb-3">
+                        <label>Jenis Wisatawan</label>
+                        <p class="form-control"> Rp {{ number_format($dataTransaksi->kembalian,0,",",".") }} </p>
+                    </div>
+                    <div class="mb-3">
+                        <label>Pendapatan Bersih</label>
+                        <p class="form-control"> Rp {{ number_format($dataTransaksi->total_pendapatan,0,",",".") }} </p>
                     </div>
                 </div>
                 <div class="modal-footer">

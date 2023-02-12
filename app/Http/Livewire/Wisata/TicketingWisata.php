@@ -162,6 +162,8 @@ class TicketingWisata extends Component
         $transaksi->id_user = auth()->user()->id;
         $transaksi->jenis_wisatawan = $this->jenisWisatawan;
         $transaksi->jumlah_tiket = $jumlahTiket;
+        $transaksi->uang_masuk = $this->uangMasuk;
+        $transaksi->kembalian = $this->kembalian;
         $transaksi->total_pendapatan = $totalPendapatan;
 
         $transaksi->save();
