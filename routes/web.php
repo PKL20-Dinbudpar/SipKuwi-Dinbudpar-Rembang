@@ -31,6 +31,7 @@ use App\Http\Livewire\Hotel\ChartKunjunganHotel;
 // Guest
 use App\Http\Livewire\Guest\KunjunganWisataBulanan;
 use App\Http\Livewire\Guest\KunjunganWisataHarian;
+use App\Http\Livewire\Wisata\ChartKunjunganWisata;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -90,6 +91,7 @@ Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/ticketing', TicketingWisata::class)->name('ticketing');
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
     Route::get('/rekap-kunjungan-wisata', RekapKunjungan::class)->name('rekap-kunjungan-wisata');
+    Route::get('/grafik-kunjungan-wisata', ChartKunjunganWisata::class)->name('grafik-kunjungan-wisata');
 });
 
 Route::middleware(['auth', 'user-role:hotel'])->group(function () {
