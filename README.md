@@ -41,7 +41,7 @@ php artisan storage:link
 php artisan serve
 ```
 
-Credit Theme: 
+### Credit Theme: 
 Soft UI Dashboard Laravel Livewire by Creative Tim & UPDIVISION
-* [www.creative-tim.com](https://www.creative-tim.com/product/soft-ui-dashboard-laravel-livewire)
-* Documentation: https://soft-ui-dashboard-laravel-livewire.creative-tim.com/documentation/bootstrap/overview/soft-ui-dashboard/index.html
+* Download      : [www.creative-tim.com](https://www.creative-tim.com/product/soft-ui-dashboard-laravel-livewire)
+* Documentation : https://soft-ui-dashboard-laravel-livewire.creative-tim.com/documentation/bootstrap/overview/soft-ui-dashboard/index.html
