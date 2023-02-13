@@ -17,7 +17,7 @@ cp .env.example .env
 Edit the configuration inside .env, for example:
 - DB_HOST=127.0.0.1
 - DB_PORT=3306
-- DB_DATABASE=koperasi_kejujuran
+- DB_DATABASE=sipkuwi-dinbudpar
 
 In the example above we create database named koperasi_kejujuran which runs on Localhost (127.0.0.1) on port 3306
 
