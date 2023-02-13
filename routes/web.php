@@ -26,11 +26,11 @@ use App\Http\Livewire\Wisata\TicketingWisata;
 
 // Hotel
 use App\Http\Livewire\Hotel\RekapKunjunganHotel;
+use App\Http\Livewire\Hotel\ChartKunjunganHotel;
 
 // Guest
 use App\Http\Livewire\Guest\KunjunganWisataBulanan;
 use App\Http\Livewire\Guest\KunjunganWisataHarian;
-
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -94,6 +94,7 @@ Route::middleware(['auth', 'user-role:wisata'])->group(function () {
 
 Route::middleware(['auth', 'user-role:hotel'])->group(function () {
     Route::get('/rekap-kunjungan-hotel', RekapKunjunganHotel::class)->name('rekap-kunjungan-hotel');
+    Route::get('/grafik-kunjungan-hotel', ChartKunjunganHotel::class)->name('grafik-kunjungan-hotel');
 });
 
 Route::middleware('auth')->group(function () {
