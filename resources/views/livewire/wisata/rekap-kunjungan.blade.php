@@ -55,8 +55,12 @@
                                         <div class="card-body pt-0 p-3 text-center">
                                             <h6 class="text-center mb-0">Total Pendapatan</h6>
                                             <hr class="horizontal dark my-3">
-                                            <h5 class="mb-0">
-                                                Rp {{ number_format($todayRekap->total_pendapatan,0,",",".") ?? "-" }}
+                                            <h5 class="mb-0">Rp 
+                                                @if ($todayRekap)
+                                                    {{ number_format($todayRekap->total_pendapatan,0,",",".") }}
+                                                @else
+                                                    -
+                                                @endif
                                             </h5>
                                         </div>
                                     </div>
