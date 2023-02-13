@@ -29,7 +29,7 @@ class ChartKunjunganHotel extends Component
 
     public function handleOnColumnClick($column)
     {
-        dd($this->tahun);
+        dd($column);
     }
 
     public function updatedTahun()

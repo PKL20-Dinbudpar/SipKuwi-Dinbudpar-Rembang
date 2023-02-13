@@ -1,18 +1,6 @@
 <main class="main-content">
     <div class="container-fluid pt-0">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                    </div>
-                    <div class="card-body px-4 pt-0 pb-2">
-                        
-                    </div>
-                </div>    
-            </div>
-        </div>
-
-        {{-- Tabel Rekap Tahunan --}}
+        {{-- Grafik Kunjungan Hotel Tahunan --}}
         <div class="row">
             <div class="col-12">
               <div class="card mb-4">
