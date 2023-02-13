@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_wisata')->nullable();
             $table->integer('wisatawan_nusantara')->default(0);
             $table->integer('wisatawan_mancanegara')->default(0);
-            $table->integer('total_pendapatan')->default(0);
+            $table->bigInteger('total_pendapatan')->default(0);
 
             $table->foreign('id_wisata', 'fk_rekap_wisata')->references('id_wisata')->on('wisata')->onDelete('cascade');
 
