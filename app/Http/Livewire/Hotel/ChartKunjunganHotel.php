@@ -90,7 +90,7 @@ class ChartKunjunganHotel extends Component
 
                 return $columnChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
             }, LivewireCharts::columnChartModel()
-                ->setTitle('Jumlah Pengunjung')
+                ->setTitle('Kamar Terjual')
                 ->setAnimated($this->firstRun)
                 ->withOnColumnClickEventName('onColumnClick')
                 ->withGrid()
