@@ -32,14 +32,14 @@
 
                     {{-- Chart --}}
                     @if ($showGraph)
-                    <div class="d-flex justify-content-between">
-                        <div class="shadow rounded p-4 border bg-white" style="height: 32rem; width: 50%;">
+                    <div class="d-lg-flex">
+                        <div class="shadow rounded p-4 border bg-white col-lg-6 col-md-12" style="height: 32rem;">
                             <livewire:livewire-line-chart
                                 key="{{ $multiLineChartModel->reactiveKey() }}"
                                 :line-chart-model="$multiLineChartModel"
                             />
                         </div>
-                        <div class="shadow rounded p-4 border bg-white" style="height: 32rem; width: 50%;">
+                        <div class="shadow rounded p-4 border bg-white col-lg-6 col-md-12" style="height: 32rem;">
                             <livewire:livewire-column-chart
                                 :column-chart-model="$columnChartModel"
                             />
