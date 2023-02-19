@@ -50,7 +50,7 @@ class ChartKunjunganWisata extends Component
 
     public function render()
     {
-        $rekap = RekapWisata::selectRaw('id_wisata, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara')
+        $rekap = RekapWisata::selectRaw('id_wisata, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(wisatawan_nusantara) wisatawan_nusantara, SUM(wisatawan_mancanegara) wisatawan_mancanegara, SUM(total_pendapatan) total_pendapatan')
                     ->where('id_wisata', auth()->user()->id_wisata)
                     ->whereYear('tanggal', $this->tahun)
                     ->groupBy('id_wisata', 'bulan', 'tahun')

@@ -28,6 +28,53 @@
 
         <div class="row">
             <div class="col-12">
+                {{-- Grafik Kunjungan Wisata --}}
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <div>
+                            <h5>Grafik Kunjungan {{ $wisata->nama_wisata }}</h5>
+                        </div>
+                    </div>
+                    <div class="card-body px-4 pt-0 pb-4">
+                        {{-- Tahun Selector --}}
+                        <div class="flex-row d-flex justify-content-between">
+                            <div class="form-group d-flex">
+                                <select class="form-control px-5" wire:model="tahunChart" id="tahun" name="tahun">
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
+                                        <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <button class="btn bg-gradient-success" wire:click="showGraph">
+                                    @if (!$showGraph)
+                                        Tampilkan Grafik
+                                    @else
+                                        Sembunyikan Grafik
+                                    @endif
+                                </button>
+                            </div>
+                        </div>
+        
+                        {{-- Chart --}}
+                        @if ($showGraph)
+                        <div class="d-lg-flex">
+                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 16rem;">
+                                <livewire:livewire-line-chart
+                                    key="{{ $wisatawanChart->reactiveKey() }}"
+                                    :line-chart-model="$wisatawanChart"
+                                />
+                            </div>
+                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 16rem;">
+                                <livewire:livewire-column-chart
+                                    :column-chart-model="$pendapatanChart"
+                                />
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                
                 {{-- Tabel --}}
                 <div class="card mb-4">
                     <div class="card-header pb-0">
