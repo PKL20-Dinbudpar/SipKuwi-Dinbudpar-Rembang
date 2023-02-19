@@ -14,20 +14,23 @@
             
         </div>
 
+        @if (session()->has('message'))
+        <div x-data="{ show: true }" x-show="show">
+            <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
+                <div >
+                    {{ session('message') }}
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
                 {{-- Tabel --}}
                 <div class="card mb-4">
-                    @if (session()->has('message'))
-                        <div class=" d-flex flex-row alert alert-success mx-3 mb-0 justify-content-between" style="margin-top:30px;" x-data="{ show: true }" x-show="show">
-                            <div >
-                                {{ session('message') }}
-                            </div>
-                            <div class="d-flex">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
-                            </div>
-                        </div>
-                    @endif
                     <div class="card-header pb-0">
                         <div>
                             <h4>Rekap Kunjungan {{ $hotel->nama_hotel }}</h4>
