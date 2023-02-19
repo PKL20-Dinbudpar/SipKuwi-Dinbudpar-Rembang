@@ -101,8 +101,8 @@ class DaftarTransaksi extends Component
         }
 
         Transaksi::destroy($this->dataTransaksi->id_transaksi);
-        $this->dataTransaksi = null;
-
+        $this->dataTransaksi = new Transaksi();
+        
         session()->flash('message', 'Transaksi berhasil dihapus');
         $this->emit('transaksiDeleted');
     }

@@ -114,7 +114,7 @@
                                             <p class="text-xs font-weight-bold mb-0">
                                                 @if ($data->jenis_wisatawan == 'wisnus')
                                                     <span class="badge badge-sm bg-gradient-success">Nusantara</span>
-                                                @else
+                                                @elseif ($data->jenis_wisatawan == 'wisman')
                                                     <span class="badge badge-sm bg-gradient-warning">Manca</span>
                                                 @endif
                                             </p>

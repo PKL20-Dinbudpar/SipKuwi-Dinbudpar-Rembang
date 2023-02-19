@@ -168,18 +168,6 @@ class TicketingWisata extends Component
 
         $transaksi->save();
 
-        // insert to receipt
-        foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
-            $receipt = new Receipt();
-            $receipt->id_transaksi = $transaksi->id_transaksi;
-            $receipt->id_tiket = $ticketId;
-            $receipt->jumlah_tiket = $jumlahTiket;
-            $receipt->total_pendapatan = $jumlahTiket * $this->hargaTiket[$ticketId];
-
-            $receipt->save();
-        }
-        
-
         // update rekap
         $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                 ->where('tanggal', now()->format('Y-m-d'))        
@@ -197,13 +185,32 @@ class TicketingWisata extends Component
             $rekap->save();
         }
         else {
-            RekapWisata::create([
-                'tanggal' => now()->format('Y-m-d'),
-                'id_wisata' => auth()->user()->id_wisata,
-                'wisatawan_nusantara' => $jumlahTiket,
-                'total_pendapatan'  => $this->uangMasuk - $this->kembalian,
-            ]);
+            $newRekap = new RekapWisata();
+
+            if ($this->jenisWisatawan == 'wisnus') {
+                $newRekap->wisatawan_nusantara = $jumlahTiket;
+            }
+            else if ($this->jenisWisatawan == 'wisman') {
+                $newRekap->wisatawan_mancanegara = $jumlahTiket;
+            }
+
+            $newRekap->tanggal = now()->format('Y-m-d');
+            $newRekap->id_wisata = auth()->user()->id_wisata;
+            $newRekap->total_pendapatan = $this->uangMasuk - $this->kembalian;
+            $newRekap->save();
         }
+
+        // insert to receipt
+        foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
+            $receipt = new Receipt();
+            $receipt->id_transaksi = $transaksi->id_transaksi;
+            $receipt->id_tiket = $ticketId;
+            $receipt->jumlah_tiket = $jumlahTiket;
+            $receipt->total_pendapatan = $jumlahTiket * $this->hargaTiket[$ticketId];
+
+            $receipt->save();
+        }
+        
 
         session()->flash('message', 'Order tiket berhasil disimpan.');
 
