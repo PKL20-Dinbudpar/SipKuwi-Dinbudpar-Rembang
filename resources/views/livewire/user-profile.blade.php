@@ -124,17 +124,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user.pass" class="form-control-label">{{ __('Password') }}</label>
-                                <div class="@error('user.pass')border border-danger rounded-3 @enderror">
-                                    <div class="input-group">
-                                        <input wire:model="user.pass" class="form-control" type="{{ $typePass }}"
-                                        placeholder="password" id="pass" disabled>
-                                        <button class="btn btn-outline-secondary mb-0" type="button" wire:click="showPass">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </div>
+                                <div class="@error('user.password')border border-danger rounded-3 @enderror">
+                                    <button wire:click="resetPass" type="button" data-bs-toggle="modal" data-bs-target="#changePassModal" 
+                                        class="btn bg-gradient-danger btn-sm mt-2">{{ 'Ganti Password' }}</button>
                                 </div>
-                                <button wire:click="resetPass" type="button" data-bs-toggle="modal" data-bs-target="#changePassModal" 
-                                    class="btn bg-gradient-danger btn-sm mt-2">{{ 'Ganti Password' }}</button>
                             </div>
                         </div>
                     </div>

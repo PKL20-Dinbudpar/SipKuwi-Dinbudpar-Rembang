@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('photo')->nullable();
             $table->string('password');
-            $table->string('pass');
             $table->string('role')->default('dinas');
             $table->unsignedBigInteger('id_wisata')->nullable();
             $table->unsignedBigInteger('id_hotel')->nullable();

@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
             [
                 'username' => 'dinas',
                 'password' => Hash::make('dinas'),
-                'pass' => 'dinas',
                 'name' => 'Pegawai Dinas',
                 'email' => 'dinas@gmail.com',
                 'alamat' => 'Jl. Dinas',
@@ -29,7 +28,6 @@ class UserSeeder extends Seeder
             [
                 'username' => 'wisata',
                 'password' => Hash::make('wisata'),
-                'pass' => 'wisata',
                 'name' => 'Pemilik TesWisata',
                 'email' => 'wisata@gmail.com',
                 'alamat' => 'Jl. Wisata',
@@ -39,7 +37,6 @@ class UserSeeder extends Seeder
             [
                 'username' => 'hotel',
                 'password' => Hash::make('hotel'),
-                'pass' => 'hotel',
                 'name' => 'Pemilik TesHotel',
                 'email' => 'hotel@gmail.com',
                 'alamat' => 'Jl. Hotel',

@@ -32,7 +32,6 @@ class UserProfile extends Component
         'user.email' => 'email:rfc,dns',
         'user.phone' => 'max:10',
         'user.alamat' => 'max:200',
-        'user.pass' => 'max:200',
     ];
 
     public function mount() { 
@@ -61,10 +60,10 @@ class UserProfile extends Component
     public function savePassword(){
         $this->validate([
             'oldPassword' => 'required',
-            'newPassword' => 'required|min:8',
+            'newPassword' => 'required',
             'newPasswordConfirmation' => 'required|same:newPassword',
         ]);
-        if ($this->newPassword == $this->oldPassword) {
+        if (Hash::check($this->newPassword, $this->user->password)) {
             $this->addError('newPassword', 'The new password must be different from the old password');
             return;
         }
@@ -74,11 +73,11 @@ class UserProfile extends Component
         }
         if (Hash::check($this->oldPassword, $this->user->password)) {
             $this->user->password = bcrypt($this->newPassword);
-            $this->user->pass = $this->newPassword;
             $this->user->save();
             $this->showSuccesNotification = true;
             $this->emit('passwordSaved');
-        } else {
+        } 
+        else {
             $this->addError('oldPassword', 'The old password is incorrect');
         }
     }

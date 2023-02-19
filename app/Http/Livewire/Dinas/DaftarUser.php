@@ -15,9 +15,9 @@ class DaftarUser extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    
     public $search;
     public $userWisata;
+    public $pass;
 
     public $deleteConfirmation = false;
     public $addConfirmation = false;
@@ -29,11 +29,12 @@ class DaftarUser extends Component
     protected $rules = [
         'userWisata.name' => 'required|string|max:255',
         'userWisata.username' => 'required|string|max:255',
-        'userWisata.pass' => 'required|string|min:8',
         'userWisata.email' => 'email|max:255',
         'userWisata.role' => 'required',
         'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
         'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
+
+        'pass' => 'required|string',
     ];
 
     public function render()
@@ -87,6 +88,7 @@ class DaftarUser extends Component
         $this->validate();
 
         if (isset($this->userWisata->id)) {
+            $this->userWisata->password = bcrypt($this->pass);
             $this->userWisata->save();
             session()->flash('message', 'User berhasil diubah');
         }
@@ -101,8 +103,7 @@ class DaftarUser extends Component
                 'userWisata.email' => 'unique:users,email',
             ]);
 
-            $this->userWisata += ['pass' => $this->userWisata['pass']];
-            $this->userWisata['password'] = bcrypt($this->userWisata['pass']);
+            $this->userWisata['password'] = bcrypt($this->pass);
             User::create($this->userWisata);
             session()->flash('message', 'User berhasil ditambahkan');
         }

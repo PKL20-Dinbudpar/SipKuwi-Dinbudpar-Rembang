@@ -1,6 +1,6 @@
 <main class="main-content">
     <div class="container-fluid py-4">
-        
+
         @if (session()->has('message'))
         <div x-data="{ show: true }" x-show="show">
             <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
@@ -53,9 +53,6 @@
                                             Username
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Password
-                                        </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Email
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -86,15 +83,6 @@
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $user->username }}
                                             </p>
-                                        </td>
-                                        <td class="">
-                                            <div class="input-group input-group-sm">
-                                                <input id="pass{{ $user->id }}" type="password" class="form-control text-xs font-weight-bold mb-0" 
-                                                    value={{ $user->pass }} @disabled(true)>
-                                                <button class="btn btn-outline-secondary mb-0" type="button" onclick="showPass({{ $user->id }})">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </div>
                                         </td>
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
@@ -133,17 +121,6 @@
                                 </tbody>
                             </table>
 
-                            <script>
-                                function showPass(id) {
-                                    var x = document.getElementById("pass"+id);
-                                    if (x.type === "password") {
-                                        x.type = "text";
-                                    } else {
-                                        x.type = "password";
-                                    }
-                                }
-                            </script>
-
                             <div class="p-4">
                                 {{ $users->links() }}
                             </div>
@@ -176,8 +153,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>Password</label>
-                                        <input type="password" wire:model.defer="userWisata.pass" class="form-control">
-                                        @error('userWisata.pass')<span class="text-danger">{{ $message }}</span>@enderror
+                                        <input type="password" wire:model.defer="pass" class="form-control">
+                                        @error('pass')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
                                         <label>Email</label>
