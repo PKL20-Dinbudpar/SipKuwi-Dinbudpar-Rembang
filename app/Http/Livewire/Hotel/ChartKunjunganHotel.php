@@ -97,7 +97,7 @@ class ChartKunjunganHotel extends Component
             );
 
         $multiLineChartModel = $rekap
-            ->reduce(function ($multiLineChartModel, $data) use ($rekap) {
+            ->reduce(function ($multiLineChartModel, $data) {
                 $month = $data->bulan;
                 if ($month == 1) {
                     $nama_bulan = 'Januari';
