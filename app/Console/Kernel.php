@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Models\Hotel;
-use App\Models\Rekap;
 use App\Models\RekapHotel;
 use App\Models\RekapWisata;
 use App\Models\Wisata;
