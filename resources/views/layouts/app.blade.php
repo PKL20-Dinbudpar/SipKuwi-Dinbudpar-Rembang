@@ -16,7 +16,7 @@
     {{-- If the user is not authenticated (if the user is a guest) --}}
     @guest
         {{-- If the user is on the login page --}}
-        @if (!auth()->check() && in_array(request()->route()->getName(),['login'],))
+        @if (!auth()->check() && in_array(request()->route()->getName(),['login', 'forgot-password'],))
             {{ $slot }}
         @else
             @include('layouts.navbars.guest.sidebar')
