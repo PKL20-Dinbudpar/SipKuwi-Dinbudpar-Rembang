@@ -42,7 +42,7 @@ class EditRekapHotel extends Component
         $this->dataRekap = new RekapHotel();
 
         $this->tahunChart = date('Y');
-        $this->showGraph = true;
+        $this->showGraph = false;
     }
 
     public function render()
@@ -156,6 +156,11 @@ class EditRekapHotel extends Component
             'kunjunganChart' => $kunjunganChart,
             'kamarChart' => $kamarChart,
         ]);
+    }
+
+    public function updatedTahunChart()
+    {
+        $this->showGraph = false;
     }
 
     public function editRekap(RekapHotel $rekap)
