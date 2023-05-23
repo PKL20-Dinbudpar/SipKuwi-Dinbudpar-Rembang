@@ -64,7 +64,16 @@ class DaftarHotel extends Component
     }
 
     public function saveHotel(){
-        $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'hotelWisata.nama_hotel' => 'required|string|max:255',
+            'hotelWisata.alamat' => 'required|string|max:255',
+            'hotelWisata.id_kecamatan' => 'required',
+        ], [
+            'hotelWisata.nama_hotel.required' => 'Nama hotel tidak boleh kosong',
+            'hotelWisata.alamat.required' => 'Alamat tidak boleh kosong',
+            'hotelWisata.id_kecamatan.required' => 'Kecamatan tidak boleh kosong',
+        ]);
         
         if (isset($this->hotelWisata->id_hotel)) {
             $this->hotelWisata->save();

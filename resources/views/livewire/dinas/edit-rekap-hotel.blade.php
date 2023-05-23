@@ -210,6 +210,7 @@
                                     <label>Tanggal</label>
                                     <input type="date" wire:model.defer="dataRekap.tanggal" class="form-control" 
                                     @isset($dataRekap->id_rekap) disabled @endisset>
+                                    @error('dataRekap.tanggal')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label>Jumlah Pengunjung Nusantara</label>

@@ -69,7 +69,16 @@ class DaftarWisata extends Component
 
     public function saveWisata()
     {
-        $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'objWisata.nama_wisata' => 'required|string|max:255',
+            'objWisata.alamat' => 'required|string|max:255',
+            'objWisata.id_kecamatan' => 'required',
+        ], [
+            'objWisata.nama_wisata.required' => 'Nama objek wisata tidak boleh kosong',
+            'objWisata.alamat.required' => 'Alamat objek wisata tidak boleh kosong',
+            'objWisata.id_kecamatan.required' => 'Kecamatan objek wisata tidak boleh kosong',
+        ]);
 
         if (isset($this->objWisata->id_wisata)) {
             $this->objWisata->save();

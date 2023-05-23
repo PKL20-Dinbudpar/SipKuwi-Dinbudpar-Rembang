@@ -171,7 +171,19 @@ class EditRekapHotel extends Component
     
     public function saveRekap()
     {
-        $this->validate();
+        // $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'dataRekap.tanggal' => 'required',
+            'dataRekap.pengunjung_nusantara' => 'required|int',
+            'dataRekap.pengunjung_mancanegara' => 'required|int',
+            'dataRekap.kamar_terjual' => 'int',
+        ], [
+            'dataRekap.tanggal.required' => 'Tanggal tidak boleh kosong',
+            'dataRekap.pengunjung_nusantara.required' => 'Pengunjung nusantara tidak boleh kosong',
+            'dataRekap.pengunjung_mancanegara.required' => 'Pengunjung mancanegara tidak boleh kosong',
+            'dataRekap.kamar_terjual.required' => 'Kamar terjual tidak boleh kosong',
+        ]);
 
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();

@@ -85,7 +85,27 @@ class DaftarUser extends Component
 
     public function saveUser()
     {
-        $this->validate();
+        // $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'userWisata.name' => 'required|string|max:255',
+            'userWisata.username' => 'required|string|max:255',
+            'userWisata.email' => 'email|max:255',
+            'userWisata.role' => 'required',
+            'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
+            'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
+            'pass' => 'required|string',
+        ], [
+            'userWisata.name.required' => 'Nama tidak boleh kosong',
+            'userWisata.username.required' => 'Username tidak boleh kosong',
+            'userWisata.email.email' => 'Email tidak valid',
+            'userWisata.role.required' => 'Role tidak boleh kosong',
+            'userWisata.id_wisata.required_if' => 'Wisata tidak boleh kosong',
+            'userWisata.id_hotel.required_if' => 'Hotel tidak boleh kosong',
+            'pass.required' => 'Password tidak boleh kosong',
+        ]);
+
+
 
         if (isset($this->userWisata->id)) {
             $this->userWisata->password = bcrypt($this->pass);

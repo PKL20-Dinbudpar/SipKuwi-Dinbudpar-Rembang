@@ -123,7 +123,7 @@
                                         @error('hotelWisata.nama_hotel')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label>Alamat (Desa)</label>
+                                        <label>Alamat</label>
                                         <input type="text" wire:model.defer="hotelWisata.alamat" class="form-control">
                                         @error('hotelWisata.alamat')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
