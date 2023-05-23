@@ -99,7 +99,7 @@
                             @error('tiketWisata.nama_tiket')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                         <div class="mb-3">
-                            <label>Deskripsi Tiket</label>
+                            <label>Deskripsi Tiket (Opsional)</label>
                             <textarea wire:model.defer="tiketWisata.deskripsi" class="form-control" rows="3"></textarea>
                             @error('tiketWisata.deskripsi')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>

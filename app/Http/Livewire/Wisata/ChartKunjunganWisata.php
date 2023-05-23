@@ -57,7 +57,7 @@ class ChartKunjunganWisata extends Component
                     ->get();
 
         $chartModel = $rekap
-            ->reduce(function (ColumnChartModel $columnChartModel, $data) {
+            ->reduce(function ($multiLineChartModel, $data) {
                 $month = $data->bulan;
                 if ($month == 1) {
                     $nama_bulan = 'Januari';
@@ -87,11 +87,11 @@ class ChartKunjunganWisata extends Component
                 $value = $data->wisatawan_nusantara + $data->wisatawan_mancanegara;
                 $warna[$data->first()->bulan] = '#'.dechex(rand(0x000000, 0xFFFFFF));
 
-                return $columnChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
-            }, LivewireCharts::columnChartModel()
+                return $multiLineChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
+            }, LivewireCharts::multiLineChartModel()
                 ->setTitle('Jumlah Wisatawan')
                 ->setAnimated($this->firstRun)
-                ->withOnColumnClickEventName('onColumnClick')
+                ->withOnPointClickEvent('onColumnClick')
                 ->withGrid()
             );
 

@@ -81,7 +81,14 @@ class TicketingWisata extends Component
 
     public function saveTiket()
     {
-        $this->validate();
+        $this->validate([
+            'tiketWisata.nama_tiket' => 'required',
+            'tiketWisata.deskripsi' => '',
+            'tiketWisata.harga' => 'required|int',
+        ], [
+            'tiketWisata.nama_tiket.required' => 'Nama tiket tidak boleh kosong',
+            'tiketWisata.harga.required' => 'Harga tiket tidak boleh kosong',
+        ]);
 
         if (isset($this->tiketWisata->id_tiket)) {
             $this->tiketWisata->save();

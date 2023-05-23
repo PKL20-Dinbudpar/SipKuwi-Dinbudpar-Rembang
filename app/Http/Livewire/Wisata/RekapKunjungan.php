@@ -72,7 +72,17 @@ class RekapKunjungan extends Component
     
     public function saveRekap()
     {
-        $this->validate();
+        $this->validate([
+            'dataRekap.tanggal' => 'required',
+            'dataRekap.wisatawan_nusantara' => 'required|int',
+            'dataRekap.wisatawan_mancanegara' => 'required|int',
+            'dataRekap.total_pendapatan' => 'required|int',
+        ], [
+            'dataRekap.tanggal.required' => 'Tanggal tidak boleh kosong',
+            'dataRekap.wisatawan_nusantara.required' => 'Jumlah wisatawan nusantara tidak boleh kosong',
+            'dataRekap.wisatawan_mancanegara.required' => 'Jumlah wisatawan mancanegara tidak boleh kosong',
+            'dataRekap.total_pendapatan.required' => 'Total pendapatan tidak boleh kosong',
+        ]);
 
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();
