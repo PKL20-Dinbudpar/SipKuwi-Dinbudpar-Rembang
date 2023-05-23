@@ -67,11 +67,17 @@
                                     :line-chart-model="$kunjunganChart"
                                 />
                             </div>
-                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                            {{-- <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
                                 <livewire:livewire-column-chart
                                     :column-chart-model="$kamarChart"
                                 />
-                            </div>
+                            </div> --}}
+
+                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                <livewire:livewire-line-chart
+                                    key="{{ $kamarChart->reactiveKey() }}"
+                                    :line-chart-model="$kamarChart"
+                                />
                         </div>
                         @endif
                     </div>

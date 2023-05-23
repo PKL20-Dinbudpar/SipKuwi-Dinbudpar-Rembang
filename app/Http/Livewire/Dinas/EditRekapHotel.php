@@ -42,7 +42,7 @@ class EditRekapHotel extends Component
         $this->dataRekap = new RekapHotel();
 
         $this->tahunChart = date('Y');
-        $this->showGraph = false;
+        $this->showGraph = true;
     }
 
     public function render()
@@ -111,8 +111,48 @@ class EditRekapHotel extends Component
                         ->multiLine()
                     );
 
+        // $kamarChart = $dataRekap
+        //             ->reduce(function ($columnChartModel, $data) {
+        //                 $month = $data->bulan;
+        //                 if ($month == 1) {
+        //                     $nama_bulan = 'Januari';
+        //                 } elseif ($month == 2) {
+        //                     $nama_bulan = 'Februari';
+        //                 } elseif ($month == 3) {
+        //                     $nama_bulan = 'Maret';
+        //                 } elseif ($month == 4) {
+        //                     $nama_bulan = 'April';
+        //                 } elseif ($month == 5) {
+        //                     $nama_bulan = 'Mei';
+        //                 } elseif ($month == 6) {
+        //                     $nama_bulan = 'Juni';
+        //                 } elseif ($month == 7) {
+        //                     $nama_bulan = 'Juli';
+        //                 } elseif ($month == 8) {
+        //                     $nama_bulan = 'Agustus';
+        //                 } elseif ($month == 9) {
+        //                     $nama_bulan = 'September';
+        //                 } elseif ($month == 10) {
+        //                     $nama_bulan = 'Oktober';
+        //                 } elseif ($month == 11) {
+        //                     $nama_bulan = 'November';
+        //                 } elseif ($month == 12) {
+        //                     $nama_bulan = 'Desember';
+        //                 }
+        //                 $value = $data->kamar_terjual;
+        //                 $warna[$data->first()->bulan] = '#'.dechex(rand(0x000000, 0xFFFFFF));
+        
+        //                 return $columnChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
+        //             }, LivewireCharts::columnChartModel()
+        //                 ->setTitle('Kamar Terjual')
+        //                 ->setAnimated($this->firstRun)
+        //                 ->withOnColumnClickEventName('onColumnClick')
+        //                 ->withGrid()
+        //             );
+
+        // line chart kamar terjual
         $kamarChart = $dataRekap
-                    ->reduce(function ($columnChartModel, $data) {
+                    ->reduce(function ($lineChartModel, $data) {
                         $month = $data->bulan;
                         if ($month == 1) {
                             $nama_bulan = 'Januari';
@@ -142,11 +182,12 @@ class EditRekapHotel extends Component
                         $value = $data->kamar_terjual;
                         $warna[$data->first()->bulan] = '#'.dechex(rand(0x000000, 0xFFFFFF));
         
-                        return $columnChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
-                    }, LivewireCharts::columnChartModel()
+                        return $lineChartModel->addPoint($nama_bulan, $value, $warna[$data->first()->bulan]);
+                    }, LivewireCharts::lineChartModel()
                         ->setTitle('Kamar Terjual')
                         ->setAnimated($this->firstRun)
-                        ->withOnColumnClickEventName('onColumnClick')
+                        ->withOnPointClickEvent('onPointClick')
+                        ->setSmoothCurve()
                         ->withGrid()
                     );
 
@@ -160,7 +201,7 @@ class EditRekapHotel extends Component
 
     public function updatedTahunChart()
     {
-        $this->showGraph = false;
+        // $this->showGraph = false;
     }
 
     public function editRekap(RekapHotel $rekap)

@@ -65,11 +65,17 @@
                                     :line-chart-model="$wisatawanChart"
                                 />
                             </div>
-                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                            {{-- <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
                                 <livewire:livewire-column-chart
                                     :column-chart-model="$pendapatanChart"
                                 />
-                            </div>
+                            </div> --}}
+
+                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                <livewire:livewire-line-chart
+                                    key="{{ $pendapatanChart->reactiveKey() }}"
+                                    :line-chart-model="$pendapatanChart"
+                                />
                         </div>
                         @endif
                     </div>

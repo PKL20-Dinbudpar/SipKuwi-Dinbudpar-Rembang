@@ -42,7 +42,7 @@ class EditRekap extends Component
         $this->dataRekap = new RekapWisata();
 
         $this->tahunChart = date('Y');
-        $this->showGraph = false;
+        $this->showGraph = true;
     }
 
     public function render()
@@ -111,8 +111,48 @@ class EditRekap extends Component
                         ->multiLine()
                     );
 
+        // $pendapatanChart = $dataRekap
+        //             ->reduce(function ($columnChartModel, $data) {
+        //                 $month = $data->bulan;
+        //                 if ($month == 1) {
+        //                     $nama_bulan = 'Januari';
+        //                 } elseif ($month == 2) {
+        //                     $nama_bulan = 'Februari';
+        //                 } elseif ($month == 3) {
+        //                     $nama_bulan = 'Maret';
+        //                 } elseif ($month == 4) {
+        //                     $nama_bulan = 'April';
+        //                 } elseif ($month == 5) {
+        //                     $nama_bulan = 'Mei';
+        //                 } elseif ($month == 6) {
+        //                     $nama_bulan = 'Juni';
+        //                 } elseif ($month == 7) {
+        //                     $nama_bulan = 'Juli';
+        //                 } elseif ($month == 8) {
+        //                     $nama_bulan = 'Agustus';
+        //                 } elseif ($month == 9) {
+        //                     $nama_bulan = 'September';
+        //                 } elseif ($month == 10) {
+        //                     $nama_bulan = 'Oktober';
+        //                 } elseif ($month == 11) {
+        //                     $nama_bulan = 'November';
+        //                 } elseif ($month == 12) {
+        //                     $nama_bulan = 'Desember';
+        //                 }
+        //                 $value = $data->total_pendapatan;
+        //                 $warna[$data->first()->bulan] = '#'.dechex(rand(0x000000, 0xFFFFFF));
+        
+        //                 return $columnChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
+        //             }, LivewireCharts::columnChartModel()
+        //                 ->setTitle('Pendapatan')
+        //                 ->setAnimated($this->firstRun)
+        //                 ->withOnColumnClickEventName('onColumnClick')
+        //                 ->withGrid()
+        //             );
+                    
+        // line chart pendapatan
         $pendapatanChart = $dataRekap
-                    ->reduce(function ($columnChartModel, $data) {
+                    ->reduce(function ($multiLineChartModel, $data) {
                         $month = $data->bulan;
                         if ($month == 1) {
                             $nama_bulan = 'Januari';
@@ -142,14 +182,15 @@ class EditRekap extends Component
                         $value = $data->total_pendapatan;
                         $warna[$data->first()->bulan] = '#'.dechex(rand(0x000000, 0xFFFFFF));
         
-                        return $columnChartModel->addColumn($nama_bulan, $value, $warna[$data->first()->bulan]);
-                    }, LivewireCharts::columnChartModel()
+                        return $multiLineChartModel->addSeriesPoint('Pendapatan', $nama_bulan, $value, $warna[$data->first()->bulan]);
+        
+                    }, LivewireCharts::multiLineChartModel()
                         ->setTitle('Pendapatan')
                         ->setAnimated($this->firstRun)
-                        ->withOnColumnClickEventName('onColumnClick')
-                        ->withGrid()
+                        ->withOnPointClickEvent('onPointClick')
+                        ->multiLine()
                     );
-                    
+        
     return view('livewire.dinas.edit-rekap', [
             'wisata' => $wisata,
             'rekap' => $rekap,
@@ -161,7 +202,7 @@ class EditRekap extends Component
     // change showGraph to false when change year
     public function updatedTahunChart()
     {
-        $this->showGraph = false;
+        // $this->showGraph = false;
     }
 
     public function editRekap(RekapWisata $rekap)
