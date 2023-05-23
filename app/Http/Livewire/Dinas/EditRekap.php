@@ -42,7 +42,7 @@ class EditRekap extends Component
         $this->dataRekap = new RekapWisata();
 
         $this->tahunChart = date('Y');
-        $this->showGraph = true;
+        $this->showGraph = false;
     }
 
     public function render()
@@ -156,6 +156,12 @@ class EditRekap extends Component
             'wisatawanChart' => $wisatawanChart,
             'pendapatanChart' => $pendapatanChart,
         ]);
+    }
+
+    // change showGraph to false when change year
+    public function updatedTahunChart()
+    {
+        $this->showGraph = false;
     }
 
     public function editRekap(RekapWisata $rekap)
