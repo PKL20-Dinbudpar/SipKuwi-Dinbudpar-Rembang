@@ -6,21 +6,32 @@ use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\SignUp;
-use App\Http\Livewire\DaftarHotel;
-use App\Http\Livewire\DaftarTransaksi;
-use App\Http\Livewire\DaftarUser;
-use App\Http\Livewire\DaftarWisata;
-use App\Http\Livewire\EditRekap;
-use App\Http\Livewire\EditRekapHotel;
-
-use App\Http\Livewire\RekapWisataHarian;
-use App\Http\Livewire\RekapHotelHarian;
-use App\Http\Livewire\RekapHotelBulanan;
-use App\Http\Livewire\RekapKunjungan;
-use App\Http\Livewire\RekapKunjunganHotel;
-use App\Http\Livewire\RekapWisataBulanan;
-use App\Http\Livewire\TicketingWisata;
 use App\Http\Livewire\UserProfile;
+
+// Dinas
+use App\Http\Livewire\Dinas\DaftarHotel;
+use App\Http\Livewire\Dinas\DaftarUser;
+use App\Http\Livewire\Dinas\DaftarWisata;
+use App\Http\Livewire\Dinas\EditRekap;
+use App\Http\Livewire\Dinas\EditRekapHotel;
+use App\Http\Livewire\Dinas\RekapWisataHarian;
+use App\Http\Livewire\Dinas\RekapHotelHarian;
+use App\Http\Livewire\Dinas\RekapHotelBulanan;
+use App\Http\Livewire\Dinas\RekapWisataBulanan;
+use App\Http\Livewire\Guest\Dashboard;
+// Wisata
+use App\Http\Livewire\Wisata\DaftarTransaksi;
+use App\Http\Livewire\Wisata\RekapKunjungan;
+use App\Http\Livewire\Wisata\TicketingWisata;
+
+// Hotel
+use App\Http\Livewire\Hotel\RekapKunjunganHotel;
+use App\Http\Livewire\Hotel\ChartKunjunganHotel;
+
+// Guest
+use App\Http\Livewire\Guest\KunjunganWisataBulanan;
+use App\Http\Livewire\Guest\KunjunganWisataHarian;
+use App\Http\Livewire\Wisata\ChartKunjunganWisata;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -45,6 +56,7 @@ Route::get('/', function () {
         }
     } else {
         return redirect('/login');
+        // return redirect('/dashboard');
     }
 })->name('home');
 
@@ -53,6 +65,11 @@ Route::get('/', function () {
 Route::get('/login', Login::class)->name('login');
 Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-password');
 Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')->middleware('signed');
+
+// Guest Routes
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
+Route::get('/wisata-harian', KunjunganWisataHarian::class)->name('kunjungan-wisata-harian');
+Route::get('/wisata-bulanan', KunjunganWisataBulanan::class)->name('kunjungan-wisata-bulanan');
 
 // Route for Dinas
 Route::middleware(['auth', 'user-role:dinas'])->group(function () {
@@ -74,10 +91,12 @@ Route::middleware(['auth', 'user-role:wisata'])->group(function () {
     Route::get('/ticketing', TicketingWisata::class)->name('ticketing');
     Route::get('/daftar-transaksi', DaftarTransaksi::class)->name('daftar-transaksi');
     Route::get('/rekap-kunjungan-wisata', RekapKunjungan::class)->name('rekap-kunjungan-wisata');
+    Route::get('/grafik-kunjungan-wisata', ChartKunjunganWisata::class)->name('grafik-kunjungan-wisata');
 });
 
 Route::middleware(['auth', 'user-role:hotel'])->group(function () {
     Route::get('/rekap-kunjungan-hotel', RekapKunjunganHotel::class)->name('rekap-kunjungan-hotel');
+    Route::get('/grafik-kunjungan-hotel', ChartKunjunganHotel::class)->name('grafik-kunjungan-hotel');
 });
 
 Route::middleware('auth')->group(function () {

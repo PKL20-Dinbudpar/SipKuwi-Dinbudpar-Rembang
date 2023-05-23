@@ -20,9 +20,10 @@ class DatabaseSeeder extends Seeder
             WisataSeeder::class,
             TiketSeeder::class,
             UserSeeder::class,
-            RekapSeeder::class,
             TransaksiSeeder::class,
             HotelSeeder::class,
+            RekapHotelSeeder::class,
+            RekapWisataSeeder::class,
         ]);
     }
 }

@@ -46,7 +46,7 @@
                             <div class="form-group col-lg-6">
                                 <label for="tahun">Tahun</label>
                                 <select class="form-control" wire:model="tahun" id="tahun" name="tahun">
-                                    @for ($i = date('Y'); $i >= 2021; $i--)
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
                                         <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
                                     @endfor
                                 </select>
@@ -86,13 +86,13 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    @if ($rekap->count() > 0)
-                        <div class="table-responsive p-0">
+                    @if ($tahun < date('Y') || ($tahun == date('Y') && $bulan <= date('m')))
+                        <div class="table-responsive table-sticky p-0">
                             @include('components.tables.tabel-rekap-hotel-harian')
                         </div>
                     @else
                         <div class="text-center m-5">
-                            <p class="text-gray-500">Tidak ada data</p>
+                            <p class="text-gray-500">Belum ada data</p>
                         </div>
                     @endif
                 </div>

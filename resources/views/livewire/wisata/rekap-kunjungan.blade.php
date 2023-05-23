@@ -1,8 +1,22 @@
 <main class="main-content">
     <div class="container-fluid py-4">
 
+        @if (session()->has('message'))
+        <div x-data="{ show: true }" x-show="show">
+            <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
+                <div >
+                    {{ session('message') }}
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
+                
                 <div class="card px-4 mb-4 bg-gray-50">
                     <div class="card-header pb-0 px-3">
                         <h6 class="mb-2">Rekap Hari Ini - {{ date("d M Y") }}</h6>
@@ -19,10 +33,10 @@
                                             </div>
                                         </div>
                                         <div class="card-body pt-0 p-3 text-center">
-                                            <h6 class="text-center mb-0">Wisatawan Domestik</h6>
+                                            <h6 class="text-center mb-0">Wisatawan Nusantara</h6>
                                             <hr class="horizontal dark my-3">
                                             <h5 class="mb-0">
-                                                {{ $todayRekap->wisatawan_domestik ?? "-" }}
+                                                {{ $todayRekap->wisatawan_nusantara ?? "-" }}
                                             </h5>
                                         </div>
                                     </div>
@@ -55,8 +69,12 @@
                                         <div class="card-body pt-0 p-3 text-center">
                                             <h6 class="text-center mb-0">Total Pendapatan</h6>
                                             <hr class="horizontal dark my-3">
-                                            <h5 class="mb-0">
-                                                {{ $todayRekap->total_pendapatan ?? "-" }}
+                                            <h5 class="mb-0">Rp 
+                                                @if ($todayRekap)
+                                                    {{ number_format($todayRekap->total_pendapatan,0,",",".") }}
+                                                @else
+                                                    -
+                                                @endif
                                             </h5>
                                         </div>
                                     </div>
@@ -75,16 +93,6 @@
 
                 {{-- Tabel --}}
                 <div class="card mb-4">
-                    @if (session()->has('message'))
-                        <div class=" d-flex flex-row alert alert-success mx-3 mb-0 justify-content-between" style="margin-top:30px;" x-data="{ show: true }" x-show="show">
-                            <div >
-                                {{ session('message') }}
-                            </div>
-                            <div class="d-flex">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
-                            </div>
-                        </div>
-                    @endif
                     <div class="card-header pb-0">
                         <div>
                             <h6>Histori Rekap</h6>
@@ -96,30 +104,34 @@
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
                                     </span>
-                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tahun</option>
-                                        @for ($i = date('Y'); $i >= 2021; $i--)
+                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tgl &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = 1; $i <= 31; $i++)
+                                            @if ($i < 10)
+                                                <option value="0{{ $i }}">0{{ $i }}</option>
+                                                @continue
+                                            @endif
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                     <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Bulan</option>
-                                        <option value="01">Januari</option>
-                                        <option value="02">Februari</option>
-                                        <option value="03">Maret</option>
-                                        <option value="04">April</option>
+                                        <option value="">Bln &nbsp; &nbsp; &nbsp;</option>
+                                        <option value="01">Jan</option>
+                                        <option value="02">Feb</option>
+                                        <option value="03">Mar</option>
+                                        <option value="04">Apr</option>
                                         <option value="05">Mei</option>
-                                        <option value="06">Juni</option>
-                                        <option value="07">Juli</option>
-                                        <option value="08">Agustus</option>
-                                        <option value="09">September</option>
-                                        <option value="10">Oktober</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Desember</option>
+                                        <option value="06">Jun</option>
+                                        <option value="07">Jul</option>
+                                        <option value="08">Aug</option>
+                                        <option value="09">Sep</option>
+                                        <option value="10">Okt</option>
+                                        <option value="11">Nov</option>
+                                        <option value="12">Des</option>
                                     </select>
-                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tanggal</option>
-                                        @for ($i = 1; $i <= 31; $i++)
+                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Thn &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
@@ -127,8 +139,8 @@
                             </div>
                             <div class="d-flex">
                                 <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm d-none d-lg-block mb-0 mx-2"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
-                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm d-sm-block d-md-none mx-2 mb-0">+&nbsp;</button>
-                                <button data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm mb-0 d-none d-md-block">+&nbsp; Tambah Data</button>
+                                <button wire:click="resetInput" data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm d-sm-block d-md-none mx-2 mb-0">+&nbsp;</button>
+                                <button wire:click="resetInput" data-bs-toggle="modal" data-bs-target="#editRekapModal" class="btn bg-gradient-primary btn-sm mb-0 d-none d-md-block">+&nbsp; Tambah Data</button>
                             </div>
                         </div>
                     </div>
@@ -139,7 +151,7 @@
                             <tr>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Domestik</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Nusantara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Mancanegara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pendapatan</th>
                               <th class="text-secondary opacity-7"></th>
@@ -160,7 +172,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_domestik }}
+                                            {{ $item->wisatawan_nusantara }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
@@ -170,7 +182,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->total_pendapatan }}
+                                            Rp {{ number_format($item->total_pendapatan,0,",",".") }}
                                         </p>
                                     </td>
                                     <td class="align-middle">
@@ -213,11 +225,12 @@
                                     <label>Tanggal</label>
                                     <input type="date" wire:model.defer="dataRekap.tanggal" class="form-control" 
                                     @isset($dataRekap->id_rekap) disabled @endisset>
+                                    @error('dataRekap.tanggal')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label>Jumlah Wisatawan Domestik</label>
-                                    <input type="number" wire:model.defer="dataRekap.wisatawan_domestik" class="form-control">
-                                    @error('dataRekap.wisatawan_domestik')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <label>Jumlah Wisatawan Nusantara</label>
+                                    <input type="number" wire:model.defer="dataRekap.wisatawan_nusantara" class="form-control">
+                                    @error('dataRekap.wisatawan_nusantara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
                                     <label>Jumlah Wisatawan Mancanegara</label>

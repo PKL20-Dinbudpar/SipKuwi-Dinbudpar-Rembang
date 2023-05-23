@@ -1,19 +1,23 @@
 <main class="main-content">
     <div class="container-fluid py-4">
+
+        @if (session()->has('message'))
+        <div x-data="{ show: true }" x-show="show">
+            <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
+                <div >
+                    {{ session('message') }}
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+        
         {{-- Tables --}}
         <div class="row">
             <div class="col-12">
-                <div class="card mb-4 mx-4">
-                    @if (session()->has('message'))
-                        <div class=" d-flex flex-row alert alert-success mx-3 mb-0 justify-content-between" style="margin-top:30px;" x-data="{ show: true }" x-show="show">
-                            <div >
-                                {{ session('message') }}
-                            </div>
-                            <div class="d-flex">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
-                            </div>
-                        </div>
-                    @endif
+                <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div>
                             <h5 class="mb-3">Daftar Hotel Rembang</h5>
@@ -119,7 +123,7 @@
                                         @error('hotelWisata.nama_hotel')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label>Alamat (Desa)</label>
+                                        <label>Alamat</label>
                                         <input type="text" wire:model.defer="hotelWisata.alamat" class="form-control">
                                         @error('hotelWisata.alamat')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
@@ -152,7 +156,7 @@
                         <x-slot name="content">
                             <form wire:submit.prevent="destroyHotel">
                                 <div class="modal-body">
-                                    <h6>Apa anda yakin ingin menghapus hotel ini?</h6>
+                                    <h6>Apa anda yakin ingin menghapus hotel ini beserta usernya?</h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>

@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Rekap;
+use App\Models\RekapHotel;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -20,7 +20,7 @@ class KunjunganHotelExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $rekap = Rekap::select('tanggal', 'wisatawan_domestik', 'wisatawan_mancanegara', 'total_pendapatan')
+        $rekap = RekapHotel::select('tanggal', 'pengunjung_nusantara', 'pengunjung_mancanegara', 'kamar_terjual')
                     ->where('id_hotel', $this->idHotel ?? auth()->user()->id_hotel)
                     ->orderBy('tanggal', 'desc');
 
@@ -29,6 +29,6 @@ class KunjunganHotelExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["tanggal", "pengunjung domestik", "pengunjung mancanegara", "total pendapatan"];
+        return ["tanggal", "pengunjung nusantara", "pengunjung mancanegara", "kamar terjual"];
     }
 }

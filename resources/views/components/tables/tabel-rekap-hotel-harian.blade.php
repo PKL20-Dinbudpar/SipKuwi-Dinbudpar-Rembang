@@ -1,4 +1,4 @@
-<table class="table table-hover align-items-center mb-0">
+<table class="table table-hover table-sticky align-items-center mb-0">
     <col>
     <col>
     @foreach ($tanggal as $tgl)
@@ -11,9 +11,9 @@
             <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 No
             </th>
-            <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+            <td scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ps-2">
                 Nama Hotel
-            </th>
+            </td>
             @foreach ($tanggal as $tgl)
                 <th scope="col" colspan="3" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     {{ $tgl->tanggal->format('d M Y') }}
@@ -23,19 +23,19 @@
                 Total Pengunjung
             </th>
             <th scope="col" rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                Total Pendapatan
+                Total Kamar Terjual
             </th>
         </tr>
         <tr>
             @foreach ($tanggal as $tgl)
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    WisNus
+                    Nusantara
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    WisMan
+                    Manca
                 </th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Pendapatan
+                    Kamar Terjual
                 </th>
             @endforeach 
         </tr>
@@ -55,7 +55,7 @@
                 </a>
                 @php
                     $totalPengunjung = 0;
-                    $totalPendapatan = 0;
+                    $totalKamarTerjual = 0;
                 @endphp
             </th>
             @foreach ($tanggal as $tgl)
@@ -63,18 +63,18 @@
                     $data = $rekap->where('id_hotel', $objek->id_hotel)->where('tanggal', $tgl->tanggal)->first();
 
                     if ($data) {
-                        $totalPengunjung += $data->wisatawan_domestik + $data->wisatawan_mancanegara;
-                        $totalPendapatan += $data->total_pendapatan;
+                        $totalPengunjung += $data->pengunjung_nusantara + $data->pengunjung_mancanegara;
+                        $totalKamarTerjual += $data->kamar_terjual;
                     }
                 @endphp
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_domestik ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_nusantara ?? "" }}</span>
                 </td>
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_mancanegara ?? "" }}</span>
                 </td>
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{ $data->kamar_terjual ?? "" }}</span>
                 </td>
             @endforeach
             <td scope="row" class="align-middle text-center">
@@ -84,7 +84,7 @@
             </td>
             <td scope="row" class="align-middle text-center">
                 <span class="text-secondary text-xs font-weight-bold">
-                    {{ $totalPendapatan == 0 ? 0 : $totalPendapatan }}
+                    {{ $totalKamarTerjual == 0 ? 0 : $totalKamarTerjual }}
                 </span>
             </td>
             </tr>

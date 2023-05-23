@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Guest;
 
-use App\Exports\WisataHarianExport;
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use App\Models\Wisata;
 use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
 
-class RekapWisataHarian extends Component
+class KunjunganWisataHarian extends Component
 {
     public $bulan;
     public $tahun;
@@ -23,32 +21,26 @@ class RekapWisataHarian extends Component
 
     public function render()
     {
-        $tanggal = Rekap::with('wisata')
-                ->join('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
+        $tanggal = RekapWisata::with('wisata')
+                ->join('wisata', 'rekap_wisata.id_wisata', '=', 'wisata.id_wisata')
                 ->select('tanggal')
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('tanggal')
                 ->get();
         
-        $rekap = Rekap::with('wisata')
-                ->join('wisata', 'rekap.id_wisata', '=', 'wisata.id_wisata')
+        $rekap = RekapWisata::with('wisata')
+                ->join('wisata', 'rekap_wisata.id_wisata', '=', 'wisata.id_wisata')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->get();
         
         $wisata = Wisata::all();
 
-
-        return view('livewire.dinas.rekap-wisata-harian', [
+        return view('livewire.guest.kunjungan-wisata-harian', [
             'tanggal' => $tanggal,
             'rekap' => $rekap,
             'wisata' => $wisata,
         ]);
-    }
-
-    public function export()
-    {
-        return Excel::download(new WisataHarianExport($this->bulan, $this->tahun), 'RekapWisataHarian' . $this->bulan . $this->tahun . '.xlsx');
     }
 }

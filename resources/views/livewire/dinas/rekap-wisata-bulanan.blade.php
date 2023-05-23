@@ -17,20 +17,16 @@
         </div>
 
         {{-- Tahun Selector --}}
-        {{-- Bulan dan Tahun Selector --}}
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        {{-- <h6>Pilih Bulan dan Tahun</h6> --}}
                     </div>
                     <div class="card-body px-4 pt-0 pb-2">
-                        {{-- Dropdown select Bulan and Tahun --}}
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label for="tahun">Tahun</label>
                                 <select class="form-control" wire:model="tahun" id="tahun" name="tahun">
-                                    <option>Pilih Tahun</option>
                                     @for ($i = date('Y'); $i >= 2022; $i--)
                                         <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
                                     @endfor
@@ -59,13 +55,13 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    @if ($rekap->count() > 0)
-                        <div class="table-responsive p-0">
+                    @if ($tahun <= date('Y'))
+                        <div class="table-responsive table-sticky p-0">
                             @include('components.tables.tabel-rekap-wisata-bulanan')
                         </div>
-                    @elseif ($tahun != "")
+                    @else
                         <div class="text-center m-5">
-                            <p class="text-gray-500">Tidak ada data</p>
+                            <p class="text-gray-500">Belum ada data</p>
                         </div>
                     @endif
                 </div>

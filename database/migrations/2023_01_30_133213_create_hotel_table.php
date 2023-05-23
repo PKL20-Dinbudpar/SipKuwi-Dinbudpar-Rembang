@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('nama_hotel');
             $table->string('alamat')->nullable();
             $table->char('id_kecamatan', 3)->nullable();
+
+            $table->foreign('id_kecamatan', 'fk_hotel_kecamatan')->references('id_kecamatan')->on('kecamatan')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

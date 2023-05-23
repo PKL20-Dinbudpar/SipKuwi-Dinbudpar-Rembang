@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -20,7 +20,7 @@ class KunjunganWisataExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        $rekap = Rekap::select('tanggal', 'wisatawan_domestik', 'wisatawan_mancanegara', 'total_pendapatan')
+        $rekap = RekapWisata::select('tanggal', 'wisatawan_nusantara', 'wisatawan_mancanegara', 'total_pendapatan')
                     ->where('id_wisata', $this->idWisata ?? auth()->user()->id_wisata)
                     ->orderBy('tanggal', 'desc');
 
@@ -29,6 +29,6 @@ class KunjunganWisataExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["tanggal", "wisatawan domestik", "wisatawan mancanegara", "total pendapatan"];
+        return ["tanggal", "wisatawan nusantara", "wisatawan mancanegara", "total pendapatan"];
     }
 }

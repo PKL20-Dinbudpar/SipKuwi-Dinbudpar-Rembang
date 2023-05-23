@@ -14,39 +14,94 @@
             
         </div>
 
+        @if (session()->has('message'))
+        <div x-data="{ show: true }" x-show="show">
+            <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
+                <div >
+                    {{ session('message') }}
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
-                {{-- Tabel --}}
+
+                {{-- Grafik Kunjungan Hotel --}}
                 <div class="card mb-4">
-                    @if (session()->has('message'))
-                        <div class=" d-flex flex-row alert alert-success mx-3 mb-0 justify-content-between" style="margin-top:30px;" x-data="{ show: true }" x-show="show">
-                            <div >
-                                {{ session('message') }}
+                    <div class="card-header pb-0">
+                        <div>
+                            <h5>Grafik Kunjungan {{ $hotel->nama_hotel }}</h5>
+                        </div>
+                    </div>
+                    <div class="card-body px-4 pt-0 pb-4">
+                        {{-- Tahun Selector --}}
+                        <div class="flex-row d-flex justify-content-between">
+                            <div class="form-group d-flex">
+                                <select class="form-control px-5" wire:model="tahunChart" id="tahun" name="tahun">
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
+                                        <option value="{{ $i }}" @selected(date('Y') == $i)>{{ $i }}</option>
+                                    @endfor
+                                </select>
                             </div>
                             <div class="d-flex">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                                <button class="btn bg-gradient-success" wire:click="showGraph">
+                                    @if (!$showGraph)
+                                        Tampilkan Grafik
+                                    @else
+                                        Sembunyikan Grafik
+                                    @endif
+                                </button>
                             </div>
                         </div>
-                    @endif
+        
+                        {{-- Chart --}}
+                        @if ($showGraph)
+                        <div class="d-lg-flex">
+                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                <livewire:livewire-line-chart
+                                    key="{{ $kunjunganChart->reactiveKey() }}"
+                                    :line-chart-model="$kunjunganChart"
+                                />
+                            </div>
+                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                <livewire:livewire-column-chart
+                                    :column-chart-model="$kamarChart"
+                                />
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Tabel --}}
+                <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div>
                             <h4>Rekap Kunjungan {{ $hotel->nama_hotel }}</h4>
                         </div>
 
                         <div class="d-flex flex-row justify-content-between mt-3 mb-2">
-                            <div class="form-group mb-0 col-5">
+                            <div class="form-group mb-0">
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F4C5;&#xFE0E;
                                     </span>
-                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tahun</option>
-                                        @for ($i = date('Y'); $i >= 2021; $i--)
+                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tanggal &nbsp; &nbsp; &nbsp;</option>
+                                        @for ($i = 1; $i <= 31; $i++)
+                                            @if ($i < 10)
+                                                <option value="0{{ $i }}">0{{ $i }}</option>
+                                                @continue
+                                            @endif
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
                                     <select wire:model="bulan" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Bulan</option>
+                                        <option value="">Bulan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
                                         <option value="01">Januari</option>
                                         <option value="02">Februari</option>
                                         <option value="03">Maret</option>
@@ -60,9 +115,9 @@
                                         <option value="11">November</option>
                                         <option value="12">Desember</option>
                                     </select>
-                                    <select wire:model="tanggal" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                        <option value="">Tanggal</option>
-                                        @for ($i = 1; $i <= 31; $i++)
+                                    <select wire:model="tahun" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                        <option value="">Tahun &nbsp;</option>
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
@@ -81,9 +136,9 @@
                             <tr>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tanggal</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Domestik</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Mancanegara</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pendapatan</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Nusantara</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Mancanegara</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kamar Terjual</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -102,17 +157,17 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_domestik }}
+                                            {{ $item->pengunjung_nusantara }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_mancanegara }}
+                                            {{ $item->pengunjung_mancanegara }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->total_pendapatan }}
+                                            {{ $item->kamar_terjual }}
                                         </p>
                                     </td>
                                     <td class="align-middle">
@@ -155,21 +210,22 @@
                                     <label>Tanggal</label>
                                     <input type="date" wire:model.defer="dataRekap.tanggal" class="form-control" 
                                     @isset($dataRekap->id_rekap) disabled @endisset>
+                                    @error('dataRekap.tanggal')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label>Jumlah Wisatawan Domestik</label>
-                                    <input type="number" wire:model.defer="dataRekap.wisatawan_domestik" class="form-control">
-                                    @error('dataRekap.wisatawan_domestik')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <label>Jumlah Pengunjung Nusantara</label>
+                                    <input type="number" wire:model.defer="dataRekap.pengunjung_nusantara" class="form-control">
+                                    @error('dataRekap.pengunjung_nusantara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label>Jumlah Wisatawan Mancanegara</label>
-                                    <input type="number" wire:model.defer="dataRekap.wisatawan_mancanegara" class="form-control">
-                                    @error('dataRekap.wisatawan_mancanegara')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <label>Jumlah Pengunjung Mancanegara</label>
+                                    <input type="number" wire:model.defer="dataRekap.pengunjung_mancanegara" class="form-control">
+                                    @error('dataRekap.pengunjung_mancanegara')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label>Total Pendapatan</label>
-                                    <input type="number" wire:model.defer="dataRekap.total_pendapatan" class="form-control">
-                                    @error('dataRekap.total_pendapatan')<span class="text-danger">{{ $message }}</span>@enderror
+                                    <label>Jumlah Kamar Terjual</label>
+                                    <input type="number" wire:model.defer="dataRekap.kamar_terjual" class="form-control">
+                                    @error('dataRekap.kamar_terjual')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                             </div>
                             <div class="modal-footer">

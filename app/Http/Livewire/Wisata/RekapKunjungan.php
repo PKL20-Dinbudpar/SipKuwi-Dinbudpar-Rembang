@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Wisata;
 
 use App\Exports\KunjunganWisataExport;
-use App\Models\Rekap;
+use App\Models\RekapWisata;
 use App\Models\Wisata;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -24,23 +23,23 @@ class RekapKunjungan extends Component
 
     protected $rules = [
         'dataRekap.tanggal' => 'required',
-        'dataRekap.wisatawan_domestik' => 'required|int',
+        'dataRekap.wisatawan_nusantara' => 'required|int',
         'dataRekap.wisatawan_mancanegara' => 'required|int',
         'dataRekap.total_pendapatan' => 'required|int',
     ];
 
     public function mount()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapWisata();
     }
 
     public function render()
     {
-        $todayRekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $todayRekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                     ->where('tanggal', date('Y-m-d'))
                     ->first();
 
-        $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                     ->when($this->tahun, function($query){
                         return $query->whereYear('tanggal', '=', $this->tahun);
                     })
@@ -60,15 +59,30 @@ class RekapKunjungan extends Component
         ]);
     }
 
-    public function editRekap(Rekap $rekap)
+    public function editRekap(RekapWisata $rekap)
     {
         $this->resetErrorBag();
         $this->dataRekap = $rekap;
+
+        // Set date time to Asia Jakarta
+        $dateTime = new \DateTime($this->dataRekap->tanggal);
+        $dateTime->setTime(7, 0, 0);
+        $this->dataRekap->tanggal = $dateTime->format('Y-m-d\TH:i:s');
     }
     
     public function saveRekap()
     {
-        $this->validate();
+        $this->validate([
+            'dataRekap.tanggal' => 'required',
+            'dataRekap.wisatawan_nusantara' => 'required|int',
+            'dataRekap.wisatawan_mancanegara' => 'required|int',
+            'dataRekap.total_pendapatan' => 'required|int',
+        ], [
+            'dataRekap.tanggal.required' => 'Tanggal tidak boleh kosong',
+            'dataRekap.wisatawan_nusantara.required' => 'Jumlah wisatawan nusantara tidak boleh kosong',
+            'dataRekap.wisatawan_mancanegara.required' => 'Jumlah wisatawan mancanegara tidak boleh kosong',
+            'dataRekap.total_pendapatan.required' => 'Total pendapatan tidak boleh kosong',
+        ]);
 
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();
@@ -76,6 +90,24 @@ class RekapKunjungan extends Component
         }
         else {
             $this->dataRekap->id_wisata = auth()->user()->id_wisata;
+            // make datetime to Asia Jakarta
+            $dateTime = new \DateTime($this->dataRekap->tanggal);
+            $dateTime->setTime(7, 0, 0);
+
+            // Exception for non duplicate date in same wisata
+            $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
+                        ->where('tanggal', $dateTime->format('Y-m-d'))
+                        ->first();
+            if ($rekap) {
+                $this->tanggal = $dateTime->format('d');
+                $this->bulan = $dateTime->format('m');
+                $this->tahun = $dateTime->format('Y');
+                
+                session()->flash('message', 'Data rekap sudah ada');
+                $this->emit('rekapSaved');
+                return;
+            }
+
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }
@@ -86,18 +118,18 @@ class RekapKunjungan extends Component
 
     public function resetInput()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapWisata();
         $this->resetErrorBag();
     }
 
-    public function deleteRekap(Rekap $rekap)
+    public function deleteRekap(RekapWisata $rekap)
     {
         $this->deleteRekap = $rekap;
     }
 
     public function destroyRekap()
     {
-        Rekap::destroy($this->deleteRekap->id_rekap);
+        RekapWisata::destroy($this->deleteRekap->id_rekap);
         session()->flash('message', 'Rekap data berhasil dihapus');
 
         $this->reset(['deleteRekap']);

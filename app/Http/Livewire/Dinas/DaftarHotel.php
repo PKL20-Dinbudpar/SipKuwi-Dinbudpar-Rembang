@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dinas;
 
 use App\Exports\HotelExport;
 use App\Models\Hotel;
 use App\Models\Kecamatan;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,16 +16,12 @@ class DaftarHotel extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search;
-    public $sortBy = 'id_hotel';
-    public $sortAsc = true;
 
     public $deleteConfirmation = false;
     public $hotelWisata;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'id_hotel'],
-        'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
@@ -42,7 +39,7 @@ class DaftarHotel extends Component
                         ->orWhere('alamat', 'like', '%'.$this->search.'%')
                         ->orWhere('kecamatan.nama_kecamatan', 'like', '%'.$this->search.'%');
                 })
-                ->orderBy($this->sortBy, $this->sortAsc ? 'asc' : 'desc');
+                ->orderBy('id_hotel', 'asc');
 
         $hotels = $hotels->paginate(10);
 
@@ -67,7 +64,16 @@ class DaftarHotel extends Component
     }
 
     public function saveHotel(){
-        $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'hotelWisata.nama_hotel' => 'required|string|max:255',
+            'hotelWisata.alamat' => 'required|string|max:255',
+            'hotelWisata.id_kecamatan' => 'required',
+        ], [
+            'hotelWisata.nama_hotel.required' => 'Nama hotel tidak boleh kosong',
+            'hotelWisata.alamat.required' => 'Alamat tidak boleh kosong',
+            'hotelWisata.id_kecamatan.required' => 'Kecamatan tidak boleh kosong',
+        ]);
         
         if (isset($this->hotelWisata->id_hotel)) {
             $this->hotelWisata->save();
@@ -90,6 +96,7 @@ class DaftarHotel extends Component
     public function destroyHotel()
     {
         Hotel::destroy($this->hotelWisata->id_hotel);
+        User::where('id_hotel', $this->hotelWisata->id_hotel)->delete();
         session()->flash('message', 'Hotel berhasil dihapus');
 
         $this->resetInput();

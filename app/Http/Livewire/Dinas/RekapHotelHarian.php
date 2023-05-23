@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dinas;
 
 use App\Exports\HotelHarianExport;
 use App\Models\Hotel;
-use App\Models\Rekap;
+use App\Models\RekapHotel;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -12,9 +12,7 @@ class RekapHotelHarian extends Component
 {
     public $bulan;
     public $tahun;
-    public $totalPengunjung;
-    public $totalPendapatan;
-
+    
     public function mount()
     {
         $this->bulan = date('m');
@@ -23,16 +21,16 @@ class RekapHotelHarian extends Component
 
     public function render()
     {
-        $tanggal = Rekap::with('hotel')
-                ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
+        $tanggal = RekapHotel::with('hotel')
+                ->join('hotel', 'rekap_hotel.id_hotel', '=', 'hotel.id_hotel')
                 ->select('tanggal')
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->groupBy('tanggal')
                 ->get();
         
-        $rekap = Rekap::with('hotel')
-                ->join('hotel', 'rekap.id_hotel', '=', 'hotel.id_hotel')
+        $rekap = RekapHotel::with('hotel')
+                ->join('hotel', 'rekap_hotel.id_hotel', '=', 'hotel.id_hotel')
                 ->whereYear('tanggal', '=', $this->tahun)
                 ->whereMonth('tanggal', '=', $this->bulan)
                 ->get();

@@ -1,5 +1,17 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
     <div class="container-fluid py-4">
+        @if (session()->has('message'))
+        <div x-data="{ show: true }" x-show="show">
+            <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
+                <div >
+                    {{ session('message') }}
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card px-4 mb-4 bg-gray-50">
@@ -63,7 +75,7 @@
                 </div>
               </div>
             </div>
-          </div>
+        </div>
         
 
         {{-- Modal createTiket --}}
@@ -87,7 +99,7 @@
                             @error('tiketWisata.nama_tiket')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                         <div class="mb-3">
-                            <label>Deskripsi Tiket</label>
+                            <label>Deskripsi Tiket (Opsional)</label>
                             <textarea wire:model.defer="tiketWisata.deskripsi" class="form-control" rows="3"></textarea>
                             @error('tiketWisata.deskripsi')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
@@ -152,7 +164,7 @@
                         <div class="mb-3">
                             <label>Jenis Wisatawan</label>
                             <select wire:model.defer="jenisWisatawan" class="form-control" aria-label="Default select example">
-                                <option value="wisnus">Wisatawan Domestik</option>
+                                <option value="wisnus">Wisatawan Nusantara</option>
                                 <option value="wisman">Wisatawan Mancanegara</option>
                             </select>
                         </div>
@@ -215,17 +227,9 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <div>
-                            @isset($tiketWisata->id_tiket)
-                                <button type="button" wire:click="deleteTiket({{ $tiketWisata->id_tiket }})" class="btn bg-gradient-danger" 
-                                    data-bs-toggle="modal" data-bs-target="#deleteTiketModal" data-bs-dismiss="modal">Hapus</button>
-                            @endisset
-                        </div>
-                        <div>
-                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
-                            <button type="submit" class="btn bg-gradient-primary">Simpan</button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn bg-gradient-primary">Simpan</button>
                     </div>
                 </form>
             </x-slot>

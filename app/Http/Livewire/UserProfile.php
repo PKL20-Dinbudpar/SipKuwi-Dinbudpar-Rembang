@@ -7,10 +7,16 @@ use App\Models\User;
 use App\Models\Wisata;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class UserProfile extends Component
 {
+    use WithFileUploads;
+    
     public User $user;
+
+    public $newPhoto;
+
     public $newPassword;
     public $newPasswordConfirmation;
     public $oldPassword;
@@ -26,49 +32,53 @@ class UserProfile extends Component
         'user.email' => 'email:rfc,dns',
         'user.phone' => 'max:10',
         'user.alamat' => 'max:200',
-        'user.pass' => 'max:200',
     ];
 
     public function mount() { 
         $this->user = auth()->user();
     }
 
+    public function updatePhoto()
+    {
+        $this->validate([
+            'newPhoto' => 'image|max:1024',
+        ]);
+
+        $photo = $this->newPhoto->store('photos', 'public');
+
+        $this->user->photo = $photo;
+        $this->user->save();
+        return redirect()->route('user-profile');
+    }
+
     public function save() {
-        if(env('IS_DEMO')) {
-           $this->showDemoNotification = true;
-        } else {
-            $this->validate();
-            $this->user->save();
-            $this->showSuccesNotification = true;
-        }
+        $this->validate();
+        $this->user->save();
+        $this->showSuccesNotification = true;
     }
 
     public function savePassword(){
-        if(env('IS_DEMO')) {
-            $this->showDemoNotification = true;
-         } else {
-            $this->validate([
-                'oldPassword' => 'required',
-                'newPassword' => 'required|min:8',
-                'newPasswordConfirmation' => 'required|same:newPassword',
-            ]);
-            if ($this->newPassword == $this->oldPassword) {
-                $this->addError('newPassword', 'The new password must be different from the old password');
-                return;
-            }
-            if ($this->newPasswordConfirmation != $this->newPassword) {
-                $this->addError('newPasswordConfirmation', 'The new password confirmation does not match');
-                return;
-            }
-            if (Hash::check($this->oldPassword, $this->user->password)) {
-                $this->user->password = bcrypt($this->newPassword);
-                $this->user->pass = $this->newPassword;
-                $this->user->save();
-                $this->showSuccesNotification = true;
-                $this->emit('passwordSaved');
-            } else {
-                $this->addError('oldPassword', 'The old password is incorrect');
-            }
+        $this->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required',
+            'newPasswordConfirmation' => 'required|same:newPassword',
+        ]);
+        if (Hash::check($this->newPassword, $this->user->password)) {
+            $this->addError('newPassword', 'The new password must be different from the old password');
+            return;
+        }
+        if ($this->newPasswordConfirmation != $this->newPassword) {
+            $this->addError('newPasswordConfirmation', 'The new password confirmation does not match');
+            return;
+        }
+        if (Hash::check($this->oldPassword, $this->user->password)) {
+            $this->user->password = bcrypt($this->newPassword);
+            $this->user->save();
+            $this->showSuccesNotification = true;
+            $this->emit('passwordSaved');
+        } 
+        else {
+            $this->addError('oldPassword', 'The old password is incorrect');
         }
     }
 

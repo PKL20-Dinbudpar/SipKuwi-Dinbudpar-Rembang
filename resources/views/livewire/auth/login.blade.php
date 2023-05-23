@@ -33,7 +33,7 @@
                                 <div class="form-check form-switch">
                                     <input wire:model="remember_me" class="form-check-input" type="checkbox"
                                         id="rememberMe">
-                                    <label class="form-check-label" for="rememberMe">{{ __('Remember me') }}</label>
+                                    <label class="form-check-label" for="rememberMe">{{ __('Ingat Saya') }}</label>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit"
@@ -45,6 +45,10 @@
                             <small class="text-muted">{{ __('Lupa password anda? Reset password anda') }} <a
                                     href="{{ route('forgot-password') }}"
                                     class="text-info text-gradient font-weight-bold">{{ __('disini') }}</a></small>
+                            <br>
+                            <small class="text-muted">{{ __('Belum punya akun?') }} <a
+                                href="https://dinbudpar.rembangkab.go.id/hubungi-kami/"
+                                class="text-info text-gradient font-weight-bold">{{ __('Hubungi kami') }}</a></small>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,8 @@
 namespace App\Console;
 
 use App\Models\Hotel;
-use App\Models\Rekap;
+use App\Models\RekapHotel;
+use App\Models\RekapWisata;
 use App\Models\Wisata;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -27,20 +28,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $hour = config('app.hour');
-        // $min = config('app.min');
-        // $scheduledInterval = $hour !== '' ? ( ($min !== '' && $min != 0) ?  $min .' */'. $hour .' * * *' : '0 */'. $hour .' * * *') : '*/'. $min .' * * * *';
-        // if (env('IS_DEMO')) {
-        //     $schedule->command('migrate:fresh --seed')->cron($scheduledInterval);
-        // }
-
         $schedule->call(function () {
             $wisata = Wisata::all();
             foreach ($wisata as $w) {
-                $rekap = new Rekap;
+                $rekap = new RekapWisata();
                 $rekap->tanggal = date('Y-m-d');
                 $rekap->id_wisata = $w->id_wisata;
-                $rekap->wisatawan_domestik = 0;
+                $rekap->wisatawan_nusantara = 0;
                 $rekap->wisatawan_mancanegara = 0;
                 $rekap->total_pendapatan = 0;
                 $rekap->save();
@@ -48,15 +42,15 @@ class Kernel extends ConsoleKernel
 
             $hotel = Hotel::all();
             foreach ($hotel as $h) {
-                $rekap = new Rekap;
+                $rekap = new RekapHotel();
                 $rekap->tanggal = date('Y-m-d');
                 $rekap->id_hotel = $h->id_hotel;
-                $rekap->hotel_domestik = 0;
-                $rekap->hotel_mancanegara = 0;
-                $rekap->total_pendapatan = 0;
+                $rekap->pengunjung_nusantara = 0;
+                $rekap->pengunjung_mancanegara = 0;
+                $rekap->kamar_terjual = 0;
                 $rekap->save();
             }
-        })->dailyAt('10.00');
+        })->dailyAt('00.00');
     }
 
     /**

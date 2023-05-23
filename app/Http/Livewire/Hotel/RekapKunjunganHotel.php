@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Hotel;
 
 use App\Exports\KunjunganHotelExport;
 use App\Models\Hotel;
-use App\Models\Rekap;
+use App\Models\RekapHotel;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,23 +23,23 @@ class RekapKunjunganHotel extends Component
 
     protected $rules = [
         'dataRekap.tanggal' => 'required',
-        'dataRekap.wisatawan_domestik' => 'required|int',
-        'dataRekap.wisatawan_mancanegara' => 'required|int',
-        'dataRekap.total_pendapatan' => 'required|int',
+        'dataRekap.pengunjung_nusantara' => 'required|int',
+        'dataRekap.pengunjung_mancanegara' => 'required|int',
+        'dataRekap.kamar_terjual' => 'required|int',
     ];
 
     public function mount()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapHotel();
     }
 
     public function render()
     {
-        $todayRekap = Rekap::where('id_hotel', auth()->user()->id_hotel)
+        $todayRekap = RekapHotel::where('id_hotel', auth()->user()->id_hotel)
                     ->where('tanggal', date('Y-m-d'))
                     ->first();
 
-        $rekap = Rekap::where('id_hotel', auth()->user()->id_hotel)
+        $rekap = RekapHotel::where('id_hotel', auth()->user()->id_hotel)
                     ->when($this->tahun, function($query){
                         return $query->whereYear('tanggal', '=', $this->tahun);
                     })
@@ -59,15 +59,30 @@ class RekapKunjunganHotel extends Component
         ]);
     }
 
-    public function editRekap(Rekap $rekap)
+    public function editRekap(RekapHotel $rekap)
     {
         $this->resetErrorBag();
         $this->dataRekap = $rekap;
+
+        // Set date time to Asia Jakarta
+        $dateTime = new \DateTime($this->dataRekap->tanggal);
+        $dateTime->setTime(7, 0, 0);
+        $this->dataRekap->tanggal = $dateTime->format('Y-m-d\TH:i:s');
     }
     
     public function saveRekap()
     {
-        $this->validate();
+        $this->validate([
+            'dataRekap.tanggal' => 'required',
+            'dataRekap.pengunjung_nusantara' => 'required|int',
+            'dataRekap.pengunjung_mancanegara' => 'required|int',
+            'dataRekap.kamar_terjual' => 'required|int'
+        ], [
+            'dataRekap.tanggal.required' => 'Tanggal tidak boleh kosong',
+            'dataRekap.pengunjung_nusantara.required' => 'Jumlah pengunjung nusantara tidak boleh kosong',
+            'dataRekap.pengunjung_mancanegara.required' => 'Jumlah pengunjung mancanegara tidak boleh kosong',
+            'dataRekap.kamar_terjual.required' => 'Jumlah kamar terjual tidak boleh kosong'
+        ]);
 
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();
@@ -75,6 +90,24 @@ class RekapKunjunganHotel extends Component
         }
         else {
             $this->dataRekap->id_hotel = auth()->user()->id_hotel;
+            // make datetime to Asia Jakarta
+            $dateTime = new \DateTime($this->dataRekap->tanggal);
+            $dateTime->setTime(7, 0, 0);
+
+            // Exception for non duplicate date in same hotel
+            $rekap = RekapHotel::where('id_hotel', auth()->user()->id_hotel)
+                        ->where('tanggal', $dateTime->format('Y-m-d'))
+                        ->first();
+            if ($rekap) {
+                $this->tanggal = $dateTime->format('d');
+                $this->bulan = $dateTime->format('m');
+                $this->tahun = $dateTime->format('Y');
+                
+                session()->flash('message', 'Data rekap sudah ada');
+                $this->emit('rekapSaved');
+                return;
+            }
+            
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil ditambahkan');
         }
@@ -85,18 +118,18 @@ class RekapKunjunganHotel extends Component
 
     public function resetInput()
     {
-        $this->dataRekap = new Rekap();
+        $this->dataRekap = new RekapHotel();
         $this->resetErrorBag();
     }
 
-    public function deleteRekap(Rekap $rekap)
+    public function deleteRekap(RekapHotel $rekap)
     {
         $this->deleteRekap = $rekap;
     }
 
     public function destroyRekap()
     {
-        Rekap::destroy($this->deleteRekap->id_rekap);
+        RekapHotel::destroy($this->deleteRekap->id_rekap);
         session()->flash('message', 'Rekap data berhasil dihapus');
 
         $this->reset(['deleteRekap']);

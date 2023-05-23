@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dinas;
 
 use App\Exports\UserExport;
 use App\Models\Hotel;
@@ -15,29 +15,26 @@ class DaftarUser extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    
     public $search;
-    public $sortBy = 'wisata.id_wisata';
-    public $sortAsc = true;
     public $userWisata;
+    public $pass;
 
     public $deleteConfirmation = false;
     public $addConfirmation = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'wisata.id_wisata'],
-        'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
         'userWisata.name' => 'required|string|max:255',
         'userWisata.username' => 'required|string|max:255',
-        'userWisata.pass' => 'required|string|min:8',
         'userWisata.email' => 'email|max:255',
         'userWisata.role' => 'required',
         'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
         'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
+
+        'pass' => 'required|string',
     ];
 
     public function render()
@@ -52,13 +49,15 @@ class DaftarUser extends Component
                 ->orWhere('wisata.nama_wisata', 'like', '%'.$this->search.'%')
                 ->orWhere('hotel.nama_hotel', 'like', '%'.$this->search.'%');
         })
-        ->orderBy('role', 'asc');
+        ->orderBy('role', 'asc')
+        ->orderBy('users.id_hotel', 'asc')
+        ->orderBy('users.id_wisata', 'asc');
 
         $users = $users->paginate(10);
 
-        $wisata = Wisata::all();
+        $wisata = Wisata::all()->sortBy('nama_wisata');
 
-        $hotel = Hotel::all();
+        $hotel = Hotel::all()->sortBy('nama_hotel');
 
         return view('livewire.dinas.daftar-user', [
             'users' => $users,
@@ -70,16 +69,6 @@ class DaftarUser extends Component
     public function updatingSearch()
     {
         $this->resetPage();
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->sortBy == $field) {
-            $this->sortAsc = !$this->sortAsc;
-        } else {
-            $this->sortAsc = true;
-        }
-        $this->sortBy = $field;
     }
 
     public function resetInput()
@@ -96,17 +85,47 @@ class DaftarUser extends Component
 
     public function saveUser()
     {
-        $this->validate();
+        // $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'userWisata.name' => 'required|string|max:255',
+            'userWisata.username' => 'required|string|max:255',
+            'userWisata.email' => 'email|max:255',
+            'userWisata.role' => 'required',
+            'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
+            'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
+            'pass' => 'required|string',
+        ], [
+            'userWisata.name.required' => 'Nama tidak boleh kosong',
+            'userWisata.username.required' => 'Username tidak boleh kosong',
+            'userWisata.email.email' => 'Email tidak valid',
+            'userWisata.role.required' => 'Role tidak boleh kosong',
+            'userWisata.id_wisata.required_if' => 'Wisata tidak boleh kosong',
+            'userWisata.id_hotel.required_if' => 'Hotel tidak boleh kosong',
+            'pass.required' => 'Password tidak boleh kosong',
+        ]);
+
+
 
         if (isset($this->userWisata->id)) {
+            $this->userWisata->password = bcrypt($this->pass);
             $this->userWisata->save();
-            session()->flash('message', 'Data user berhasil diubah');
+            session()->flash('message', 'User berhasil diubah');
         }
         else {
-            $this->userWisata += ['pass' => $this->userWisata['pass']];
-            $this->userWisata['password'] = bcrypt($this->userWisata['pass']);
+            // Exception for non duplicate username
+            $this->validate([
+                'userWisata.username' => 'unique:users,username',
+            ]);
+
+            // Exception for non duplicate email
+            $this->validate([
+                'userWisata.email' => 'unique:users,email',
+            ]);
+
+            $this->userWisata['password'] = bcrypt($this->pass);
             User::create($this->userWisata);
-            session()->flash('message', 'Data user berhasil ditambahkan');
+            session()->flash('message', 'User berhasil ditambahkan');
         }
 
         $this->resetInput();
@@ -120,8 +139,14 @@ class DaftarUser extends Component
 
     public function destroyUser()
     {
+        if ($this->userWisata->id == auth()->user()->id) {
+            session()->flash('message', 'User gagal dihapus');
+            $this->emit('userDeleted');
+            return;
+        }
+
         User::destroy($this->userWisata->id);
-        session()->flash('message', 'Data user berhasil dihapus');
+        session()->flash('message', 'User berhasil dihapus');
 
         $this->resetInput();
         $this->emit('userDeleted');

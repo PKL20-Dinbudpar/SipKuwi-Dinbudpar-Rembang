@@ -34,23 +34,19 @@ class ForgotPassword extends Component
     }
 
     public function recoverPassword() { 
-        if(env('IS_DEMO')) {
-            $this->showDemoNotification = true;
+        $this->validate();
+        $user = User::where('email', $this->email)->first();
+        if($user){
+            $this->notify(new ResetPassword($user->id));
+            $this->showSuccesNotification = true;
+            $this->showFailureNotification = false;
         } else {
-            $this->validate();
-            $user = User::where('email', $this->email)->first();
-            if($user){
-                $this->notify(new ResetPassword($user->id));
-                $this->showSuccesNotification = true;
-                $this->showFailureNotification = false;
-            } else {
-                $this->showFailureNotification = true;
-            }
+            $this->showFailureNotification = true;
         }
     }
 
     public function render()
     {
-        return view('livewire.auth.forgot-password')->layout('layouts.base');
+        return view('livewire.auth.forgot-password');
     }
 }

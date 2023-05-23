@@ -1,20 +1,23 @@
 <main class="main-content">
     <div class="container-fluid py-4">
-        
+
+        @if (session()->has('message'))
+        <div x-data="{ show: true }" x-show="show">
+            <div class=" d-flex flex-row alert alert-success mx-0 mb-2 justify-content-between">
+                <div >
+                    {{ session('message') }}
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
+                </div>
+            </div>
+        </div>
+        @endif
+
         {{-- Tables --}}
         <div class="row">
             <div class="col-12">
-                <div class="card mb-4 mx-4">
-                    @if (session()->has('message'))
-                        <div class=" d-flex flex-row alert alert-success mx-3 mb-0 justify-content-between" style="margin-top:30px;" x-data="{ show: true }" x-show="show">
-                            <div >
-                                {{ session('message') }}
-                            </div>
-                            <div class="d-flex">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="show = false"></button>
-                            </div>
-                        </div>
-                    @endif
+                <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div>
                             <h5 class="mb-3">Daftar User</h5>
@@ -26,7 +29,7 @@
                                     <span class="input-group-text" id="basic-addon1">
                                         &#x1F50E;&#xFE0E;
                                     </span>
-                                    <input wire:model="search" type="text" class="form-control" placeholder="Cari" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input wire:model="search" type="text" class="form-control" placeholder="Cari User" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="d-flex">
@@ -48,9 +51,6 @@
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Username
-                                        </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Password
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Email
@@ -83,15 +83,6 @@
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $user->username }}
                                             </p>
-                                        </td>
-                                        <td class="">
-                                            <div class="input-group input-group-sm">
-                                                <input id="pass{{ $user->id }}" type="password" class="form-control text-xs font-weight-bold mb-0" 
-                                                    value={{ $user->pass }} @disabled(true)>
-                                                <button class="btn btn-outline-secondary mb-0" type="button" onclick="showPass({{ $user->id }})">
-                                                    <i class="fa fa-eye"></i>
-                                                </button>
-                                            </div>
                                         </td>
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
@@ -130,17 +121,6 @@
                                 </tbody>
                             </table>
 
-                            <script>
-                                function showPass(id) {
-                                    var x = document.getElementById("pass"+id);
-                                    if (x.type === "password") {
-                                        x.type = "text";
-                                    } else {
-                                        x.type = "password";
-                                    }
-                                }
-                            </script>
-
                             <div class="p-4">
                                 {{ $users->links() }}
                             </div>
@@ -173,8 +153,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label>Password</label>
-                                        <input type="password" wire:model.defer="userWisata.pass" class="form-control">
-                                        @error('userWisata.pass')<span class="text-danger">{{ $message }}</span>@enderror
+                                        <input type="password" wire:model.defer="pass" class="form-control">
+                                        @error('pass')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
                                         <label>Email</label>

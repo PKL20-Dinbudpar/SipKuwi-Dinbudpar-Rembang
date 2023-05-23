@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Wisata;
 
-use App\Models\Rekap;
+use App\Models\Receipt;
+use App\Models\RekapWisata;
 use App\Models\Tiket;
 use App\Models\Transaksi;
 use Livewire\Component;
@@ -80,16 +81,23 @@ class TicketingWisata extends Component
 
     public function saveTiket()
     {
-        $this->validate();
+        $this->validate([
+            'tiketWisata.nama_tiket' => 'required',
+            'tiketWisata.deskripsi' => '',
+            'tiketWisata.harga' => 'required|int',
+        ], [
+            'tiketWisata.nama_tiket.required' => 'Nama tiket tidak boleh kosong',
+            'tiketWisata.harga.required' => 'Harga tiket tidak boleh kosong',
+        ]);
 
         if (isset($this->tiketWisata->id_tiket)) {
             $this->tiketWisata->save();
-            session()->flash('message', 'Data rekap berhasil diubah');
+            session()->flash('message', 'Tiket berhasil diubah');
         }
         else {
             $this->tiketWisata->id_wisata = auth()->user()->id_wisata;
             $this->tiketWisata->save();
-            session()->flash('message', 'Data rekap berhasil ditambahkan');
+            session()->flash('message', 'Tiket berhasil ditambahkan');
         }
 
         $this->refreshTiket();
@@ -154,22 +162,27 @@ class TicketingWisata extends Component
 
         $jumlahTiket = array_sum($this->jumlahTiket);
 
-        Transaksi::create([
-            'waktu_transaksi' => now(),
-            'id_wisata' => auth()->user()->id_wisata,
-            'id_user' => auth()->user()->id,
-            'id_tiket' => 1,
-            'jumlah_tiket' => $jumlahTiket,
-            'total_pendapatan' => $this->uangMasuk - $this->kembalian,
-        ]);
+        // insert transaksi
+        $transaksi = new Transaksi();
+        $transaksi->waktu_transaksi = now();
+        $transaksi->id_wisata = auth()->user()->id_wisata;
+        $transaksi->id_user = auth()->user()->id;
+        $transaksi->jenis_wisatawan = $this->jenisWisatawan;
+        $transaksi->jumlah_tiket = $jumlahTiket;
+        $transaksi->uang_masuk = $this->uangMasuk;
+        $transaksi->kembalian = $this->kembalian;
+        $transaksi->total_pendapatan = $totalPendapatan;
 
-        $rekap = Rekap::where('id_wisata', auth()->user()->id_wisata)
+        $transaksi->save();
+
+        // update rekap
+        $rekap = RekapWisata::where('id_wisata', auth()->user()->id_wisata)
                 ->where('tanggal', now()->format('Y-m-d'))        
                 ->first();
 
         if ($rekap) {
             if ($this->jenisWisatawan == 'wisnus') {
-                $rekap->wisatawan_domestik += $jumlahTiket;
+                $rekap->wisatawan_nusantara += $jumlahTiket;
             }
             else if ($this->jenisWisatawan == 'wisman') {
                 $rekap->wisatawan_mancanegara += $jumlahTiket;
@@ -179,29 +192,35 @@ class TicketingWisata extends Component
             $rekap->save();
         }
         else {
-            Rekap::create([
-                'tanggal' => now()->format('Y-m-d'),
-                'id_wisata' => auth()->user()->id_wisata,
-                'wisatawan_domestik' => $jumlahTiket,
-            ]);
+            $newRekap = new RekapWisata();
+
+            if ($this->jenisWisatawan == 'wisnus') {
+                $newRekap->wisatawan_nusantara = $jumlahTiket;
+            }
+            else if ($this->jenisWisatawan == 'wisman') {
+                $newRekap->wisatawan_mancanegara = $jumlahTiket;
+            }
+
+            $newRekap->tanggal = now()->format('Y-m-d');
+            $newRekap->id_wisata = auth()->user()->id_wisata;
+            $newRekap->total_pendapatan = $this->uangMasuk - $this->kembalian;
+            $newRekap->save();
         }
+
+        // insert to receipt
+        foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
+            $receipt = new Receipt();
+            $receipt->id_transaksi = $transaksi->id_transaksi;
+            $receipt->id_tiket = $ticketId;
+            $receipt->jumlah_tiket = $jumlahTiket;
+            $receipt->total_pendapatan = $jumlahTiket * $this->hargaTiket[$ticketId];
+
+            $receipt->save();
+        }
+        
 
         session()->flash('message', 'Order tiket berhasil disimpan.');
 
         $this->emit('transaksiSaved');
     }
-
-    // public function updatedKembalian()
-    // {
-    //     $this->validate([
-    //         'kembalian' => 'required|numeric|min:0',
-    //     ]);
-
-    //     $totalPendapatan = 0;
-    //     foreach ($this->jumlahTiket as $ticketId => $jumlahTiket) {
-    //         $totalPendapatan += $jumlahTiket * $this->hargaTiket[$ticketId];
-    //     }
-
-    //     $this->uangMasuk = $this->kembalian + $totalPendapatan;
-    // }
 }

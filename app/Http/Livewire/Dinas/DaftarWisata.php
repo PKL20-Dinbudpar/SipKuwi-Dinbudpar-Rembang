@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dinas;
 
 use App\Exports\WisataExport;
 use App\Models\Kecamatan;
+use App\Models\User;
 use App\Models\Wisata;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,14 +17,10 @@ class DaftarWisata extends Component
 
 
     public $search;
-    public $sortBy = 'id_wisata';
-    public $sortAsc = true;
     public $objWisata;
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'sortBy' => ['except' => 'id_wisata'],
-        'sortAsc' => ['except' => true],
     ];
 
     protected $rules = [
@@ -41,7 +38,7 @@ class DaftarWisata extends Component
                         ->orWhere('alamat', 'like', '%'.$this->search.'%')
                         ->orWhere('kecamatan.nama_kecamatan', 'like', '%'.$this->search.'%');
                 })
-                ->orderBy($this->sortBy, $this->sortAsc ? 'asc' : 'desc');
+                ->orderBy('id_wisata', 'asc');
 
         $wisata = $wisata->paginate(10);
 
@@ -58,16 +55,6 @@ class DaftarWisata extends Component
         $this->resetPage();
     }
 
-    public function sortBy($field)
-    {
-        if ($this->sortBy == $field) {
-            $this->sortAsc = !$this->sortAsc;
-        } else {
-            $this->sortAsc = true;
-        }
-        $this->sortBy = $field;
-    }
-
     public function resetInput()
     {
         $this->reset(['objWisata']);
@@ -82,7 +69,16 @@ class DaftarWisata extends Component
 
     public function saveWisata()
     {
-        $this->validate();
+        // validate with custom error message
+        $this->validate([
+            'objWisata.nama_wisata' => 'required|string|max:255',
+            'objWisata.alamat' => 'required|string|max:255',
+            'objWisata.id_kecamatan' => 'required',
+        ], [
+            'objWisata.nama_wisata.required' => 'Nama objek wisata tidak boleh kosong',
+            'objWisata.alamat.required' => 'Alamat objek wisata tidak boleh kosong',
+            'objWisata.id_kecamatan.required' => 'Kecamatan objek wisata tidak boleh kosong',
+        ]);
 
         if (isset($this->objWisata->id_wisata)) {
             $this->objWisata->save();
@@ -105,6 +101,7 @@ class DaftarWisata extends Component
     public function destroyWisata()
     {
         Wisata::destroy($this->objWisata->id_wisata);
+        User::where('id_wisata', $this->objWisata->id_wisata)->delete();
         session()->flash('message', 'Objek Wisata berhasil dihapus');
 
         $this->resetInput();

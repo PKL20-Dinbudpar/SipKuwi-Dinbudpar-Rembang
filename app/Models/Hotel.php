@@ -31,6 +31,6 @@ class Hotel extends Model
     }
     public function rekap()
     {
-        return $this->hasMany(Rekap::class, 'id_hotel', 'id_hotel');
+        return $this->hasMany(RekapHotel::class, 'id_hotel', 'id_hotel');
     }
 }

@@ -8,17 +8,20 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        @if (auth()->user()->role == 'dinas')
-                            <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
-                        
+                        @if (auth()->user()->photo)
+                            <img src="{{ Storage::url(auth()->user()->photo) }}" alt="..." class="w-100 border-radius-lg shadow-sm">
                         @else
-                            <img src="../assets/img/enjoyRembang.jpeg" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            @if (auth()->user()->role == 'dinas')
+                                <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            @else
+                                <img src="{{ asset('assets/img/enjoyRembang.jpeg') }}" alt="..." class="w-100 border-radius-lg shadow-sm">
+                            @endif
                         @endif
-                        {{-- <a href="javascript:;"
+                        <button wire:click="resetPass" data-bs-toggle="modal" data-bs-target="#updateImgModal"
                             class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                             <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit Image"></i>
-                        </a> --}}
+                                title="Edit Photo"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -44,19 +47,9 @@
     <div class="container-fluid py-4">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Profile Information') }}</h6>
+                <h6 class="mb-0">{{ __('Informasi Profil') }}</h6>
             </div>
             <div class="card-body pt-4 p-3">
-
-                @if ($showDemoNotification)
-                    <div wire:model="showDemoNotification" class="mt-3  alert alert-primary alert-dismissible fade show"
-                        role="alert">
-                        <span class="alert-text text-white">
-                            {{ __('You are in a demo version, you can\'t update the profile.') }}</span>
-                        <button wire:click="$set('showDemoNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        </button>
-                    </div>
-                @endif
 
                 @if ($showSuccesNotification)
                     <div wire:model="showSuccesNotification"
@@ -74,9 +67,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
+                                <label for="user-name" class="form-control-label">{{ __('Nama Pengguna') }}</label>
                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
-                                    <input wire:model="user.name" class="form-control" type="text" placeholder="Name"
+                                    <input wire:model="user.name" class="form-control" type="text" placeholder="Nama"
                                         id="user-name">
                                 </div>
                                 @error('user.name') <div class="text-danger">{{ $message }}</div> @enderror
@@ -106,10 +99,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
+                                <label for="user.phone" class="form-control-label">{{ __('Kontak') }}</label>
                                 <div class="@error('user.phone')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.phone" class="form-control" type="tel"
-                                        placeholder="088888888888" id="phone">
+                                        placeholder="08xxxxxxxxxx" id="phone">
                                 </div>
                                 @error('user.phone') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
@@ -131,17 +124,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user.pass" class="form-control-label">{{ __('Password') }}</label>
-                                <div class="@error('user.pass')border border-danger rounded-3 @enderror">
-                                    <div class="input-group">
-                                        <input wire:model="user.pass" class="form-control" type="{{ $typePass }}"
-                                        placeholder="password" id="pass" disabled>
-                                        <button class="btn btn-outline-secondary mb-0" type="button" wire:click="showPass">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </div>
+                                <div class="@error('user.password')border border-danger rounded-3 @enderror">
+                                    <button wire:click="resetPass" type="button" data-bs-toggle="modal" data-bs-target="#changePassModal" 
+                                        class="btn bg-gradient-danger btn-sm mt-2">{{ 'Ganti Password' }}</button>
                                 </div>
-                                <button wire:click="resetPass" type="button" data-bs-toggle="modal" data-bs-target="#changePassModal" 
-                                    class="btn bg-gradient-danger btn-sm mt-2">{{ 'Ganti Password' }}</button>
                             </div>
                         </div>
                     </div>
@@ -154,7 +140,7 @@
         </div>
     </div>
 
-    {{-- Modal Tambah Wisata --}}
+    {{-- Modal Ganti Password --}}
     <x-modal> 
         <x-slot name="id"> changePassModal </x-slot>
         <x-slot name="title">
@@ -178,6 +164,38 @@
                         <label>Password Lama</label>
                         <input type="password" wire:model.defer="oldPassword" class="form-control">
                         @error('oldPassword')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
+
+    {{-- Modal Update Photo --}}
+    <x-modal>
+        <x-slot name="id"> updateImgModal </x-slot>
+        <x-slot name="title">
+            Upload Gambar
+        </x-slot>
+
+        <x-slot name="content">
+            <form wire:submit.prevent="updatePhoto">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Upload Gambar</label>
+                        @if ($newPhoto)
+                            <div class="d-flex">
+                                <label for="photo" class="d-flex align-items-center">Preview:&nbsp;</label>
+                                <div class="d-flex justify-content-center mb-2">
+                                    <img src="{{ $newPhoto->temporaryUrl() }}" alt="" class="img-thumbnail" width="100px" height="100px">
+                                </div>
+                            </div>
+                        @endif
+                        <input type="file" wire:model="newPhoto" name="photo" class="form-control" placeholder="photo">
+                        @error('newPhoto')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </div>
                 <div class="modal-footer">

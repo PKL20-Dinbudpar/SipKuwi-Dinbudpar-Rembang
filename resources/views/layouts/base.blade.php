@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/logorembang.png">
     <title>
-        SIP KuWi Rembang
+        SIPKuWi Rembang
     </title>
     <!-- Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -27,9 +27,12 @@
     {{-- <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" /> --}}
     {{-- <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1" rel="stylesheet" /> --}}
     <!-- Alpine -->
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> --}}
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @livewireStyles
 
+    {{-- Apex Chart --}}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -55,6 +58,7 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/soft-ui-dashboard.js"></script>
     @livewireScripts
+    @livewireChartsScripts
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -95,6 +99,12 @@
         });
         window.livewire.on('transaksiSaved', () => {
             $('#createTransaksiModal').modal('hide');
+        });
+        window.livewire.on('transaksiDeleted', () => {
+            $('#deleteTransaksiModal').modal('hide');
+        });
+        window.livewire.on('photoSaved', () => {
+            $('#updateImgModal').modal('hide');
         });
     </script>
 </body>
