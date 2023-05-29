@@ -221,14 +221,17 @@ class EditRekapHotel extends Component
         // validate with custom error message
         $this->validate([
             'dataRekap.tanggal' => 'required',
-            'dataRekap.pengunjung_nusantara' => 'required|int',
-            'dataRekap.pengunjung_mancanegara' => 'required|int',
-            'dataRekap.kamar_terjual' => 'int',
+            'dataRekap.pengunjung_nusantara' => 'required|int|gte:0',
+            'dataRekap.pengunjung_mancanegara' => 'required|int|gte:0',
+            'dataRekap.kamar_terjual' => 'required|int|gte:0',
         ], [
             'dataRekap.tanggal.required' => 'Tanggal tidak boleh kosong',
             'dataRekap.pengunjung_nusantara.required' => 'Pengunjung nusantara tidak boleh kosong',
+            'dataRekap.pengunjung_nusantara.gte' => 'Pengunjung nusantara tidak boleh kurang dari 0',
             'dataRekap.pengunjung_mancanegara.required' => 'Pengunjung mancanegara tidak boleh kosong',
+            'dataRekap.pengunjung_mancanegara.gte' => 'Pengunjung mancanegara tidak boleh kurang dari 0',
             'dataRekap.kamar_terjual.required' => 'Kamar terjual tidak boleh kosong',
+            'dataRekap.kamar_terjual.gte' => 'Kamar terjual tidak boleh kurang dari 0',
         ]);
 
         if (isset($this->dataRekap->id_rekap)) {

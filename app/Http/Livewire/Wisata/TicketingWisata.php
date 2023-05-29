@@ -84,10 +84,11 @@ class TicketingWisata extends Component
         $this->validate([
             'tiketWisata.nama_tiket' => 'required',
             'tiketWisata.deskripsi' => '',
-            'tiketWisata.harga' => 'required|int',
+            'tiketWisata.harga' => 'required|int|min:0',
         ], [
             'tiketWisata.nama_tiket.required' => 'Nama tiket tidak boleh kosong',
             'tiketWisata.harga.required' => 'Harga tiket tidak boleh kosong',
+            'tiketWisata.harga.min' => 'Harga tiket tidak boleh kurang dari 0',
         ]);
 
         if (isset($this->tiketWisata->id_tiket)) {
@@ -153,6 +154,13 @@ class TicketingWisata extends Component
         $this->validate([
             'jumlahTiket.*' => 'required|numeric|min:0',
             'uangMasuk' => 'required|numeric|min:0',
+            'kembalian' => 'numeric|min:0',
+        ], [
+            'jumlahTiket.*.required' => 'Jumlah tiket tidak boleh kosong',
+            'jumlahTiket.*.min' => 'Jumlah tiket tidak boleh kurang dari 0',
+            'uangMasuk.required' => 'Uang masuk tidak boleh kosong',
+            'uangMasuk.min' => 'Uang masuk tidak boleh kurang dari 0',
+            'kembalian.min' => 'Kembalian tidak boleh kurang dari 0',
         ]);
 
         $totalPendapatan = 0;
