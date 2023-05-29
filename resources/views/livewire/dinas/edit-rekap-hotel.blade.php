@@ -60,25 +60,32 @@
         
                         {{-- Chart --}}
                         @if ($showGraph)
-                        <div class="d-lg-flex">
-                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
-                                <livewire:livewire-line-chart
-                                    key="{{ $kunjunganChart->reactiveKey() }}"
-                                    :line-chart-model="$kunjunganChart"
-                                />
-                            </div>
-                            {{-- <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
-                                <livewire:livewire-column-chart
-                                    :column-chart-model="$kamarChart"
-                                />
-                            </div> --}}
+                            @if ($kunjunganChart->data->isEmpty() && $kamarChart->data->isEmpty())
+                                <div class="text-center m-5">
+                                    <h5 class="text-center">Data Kunjungan Kosong</h5>
+                                </div>
+                            @else
+                            <div class="d-lg-flex"> 
+                                <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                    <livewire:livewire-line-chart
+                                        key="{{ $kunjunganChart->reactiveKey() }}"
+                                        :line-chart-model="$kunjunganChart"
+                                    />
+                                </div>
+                                {{-- <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                    <livewire:livewire-column-chart
+                                        :column-chart-model="$kamarChart"
+                                    />
+                                </div> --}}
 
-                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
-                                <livewire:livewire-line-chart
-                                    key="{{ $kamarChart->reactiveKey() }}"
-                                    :line-chart-model="$kamarChart"
-                                />
-                        </div>
+                                <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                    <livewire:livewire-line-chart
+                                        key="{{ $kamarChart->reactiveKey() }}"
+                                        :line-chart-model="$kamarChart"
+                                    />
+                                </div>
+                            </div>
+                            @endif
                         @endif
                     </div>
                 </div>

@@ -68,7 +68,7 @@ class EditRekap extends Component
                     ->whereYear('tanggal', $this->tahunChart)
                     ->groupBy('id_wisata', 'bulan', 'tahun')
                     ->get();
-
+        
         $wisatawanChart = $dataRekap
                     ->reduce(function ($multiLineChartModel, $data) {
                         $month = $data->bulan;

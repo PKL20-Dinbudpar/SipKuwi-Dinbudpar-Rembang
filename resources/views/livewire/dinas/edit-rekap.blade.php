@@ -57,26 +57,33 @@
                         </div>
         
                         {{-- Chart --}}
-                        @if ($showGraph)
-                        <div class="d-lg-flex">
-                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
-                                <livewire:livewire-line-chart
-                                    key="{{ $wisatawanChart->reactiveKey() }}"
-                                    :line-chart-model="$wisatawanChart"
-                                />
+                        @if ($wisatawanChart->data->isEmpty() && $pendapatanChart->data->isEmpty())
+                            <div class="text-center m-5">
+                                <h5 class="text-center">Data Kunjungan Kosong</h5>
                             </div>
-                            {{-- <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
-                                <livewire:livewire-column-chart
-                                    :column-chart-model="$pendapatanChart"
-                                />
-                            </div> --}}
+                        @else
+                            @if ($showGraph)
+                            <div class="d-lg-flex">
+                                <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                    <livewire:livewire-line-chart
+                                        key="{{ $wisatawanChart->reactiveKey() }}"
+                                        :line-chart-model="$wisatawanChart"
+                                    />
+                                </div>
+                                {{-- <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                    <livewire:livewire-column-chart
+                                        :column-chart-model="$pendapatanChart"
+                                    />
+                                </div> --}}
 
-                            <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
-                                <livewire:livewire-line-chart
-                                    key="{{ $pendapatanChart->reactiveKey() }}"
-                                    :line-chart-model="$pendapatanChart"
-                                />
-                        </div>
+                                <div class="shadow rounded p-4 border bg-white col-lg-5 col-md-12 mx-5" style="height: 20rem;">
+                                    <livewire:livewire-line-chart
+                                        key="{{ $pendapatanChart->reactiveKey() }}"
+                                        :line-chart-model="$pendapatanChart"
+                                    />
+                                </div>
+                            </div>
+                            @endif
                         @endif
                     </div>
                 </div>
