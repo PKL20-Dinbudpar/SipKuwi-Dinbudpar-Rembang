@@ -19,7 +19,7 @@
                                         <input wire:model="auth" id="auth" type="text" class="form-control"
                                             placeholder="Username" aria-label="Email" aria-describedby="email-addon">
                                     </div>
-                                    @error('email') <div class="text-danger">{{ $message }}</div> @enderror
+                                    {{-- @error('email') <div class="text-danger">{{ $message }}</div> @enderror --}}
                                 </div>
                                 <div class="mb-3">
                                     <label for="password">{{ __('Password') }}</label>
@@ -28,7 +28,7 @@
                                             placeholder="Password" aria-label="Password"
                                             aria-describedby="password-addon">
                                     </div>
-                                    @error('password') <div class="text-danger">{{ $message }}</div> @enderror
+                                    {{-- @error('password') <div class="text-danger">{{ $message }}</div> @enderror --}}
                                 </div>
                                 <div class="form-check form-switch">
                                     <input wire:model="remember_me" class="form-check-input" type="checkbox"
