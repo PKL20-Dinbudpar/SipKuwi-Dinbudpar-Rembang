@@ -93,23 +93,35 @@
             @endphp
 
             <td scope="row" class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_nusantara ?? "" }}</span>
+                <span class="text-secondary text-xs font-weight-bold">
+                    @isset($data->wisatawan_nusantara)
+                        {{ number_format($data->wisatawan_nusantara, 0, ',', '.')}}
+                    @endisset
+                </span>
             </td>
             <td scope="row" class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold">{{ $data->wisatawan_mancanegara ?? "" }}</span>
+                <span class="text-secondary text-xs font-weight-bold">
+                    @isset($data->wisatawan_mancanegara)
+                        {{ number_format($data->wisatawan_mancanegara, 0, ',', '.')}}
+                    @endisset
+                </span>
             </td>
             <td scope="row" class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold">{{ $data->total_pendapatan ?? "" }}</span>
+                <span class="text-secondary text-xs font-weight-bold">
+                    @isset($data->total_pendapatan)
+                        Rp {{ number_format($data->total_pendapatan, 0, ',', '.')}}
+                    @endisset
+                </span>
             </td>
         @endforeach
         <td scope="row" class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">
-                {{ $totalWisatawan == 0 ? 0 : $totalWisatawan }}
+                {{ $totalWisatawan == 0 ? 0 : number_format($totalWisatawan, 0, ',', '.')}}
             </span>
         </td>
         <td scope="row" class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">
-                {{ $totalPendapatan == 0 ? 0 : $totalPendapatan }}
+                Rp {{ $totalPendapatan == 0 ? 0 : number_format($totalPendapatan, 0, ',', '.')}}
             </span>
         </td>
         </tr>

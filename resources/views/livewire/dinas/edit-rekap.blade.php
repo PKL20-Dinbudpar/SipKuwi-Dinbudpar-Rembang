@@ -169,17 +169,17 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_nusantara }}
+                                            {{ number_format($item->wisatawan_nusantara, 0, ',', '.') }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->wisatawan_mancanegara }}
+                                            {{ number_format($item->wisatawan_mancanegara, 0, ',', '.') }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            {{ $item->total_pendapatan }}
+                                            Rp {{ number_format($item->total_pendapatan, 0, ',', '.') }}
                                         </p>
                                     </td>
                                     <td class="align-middle">

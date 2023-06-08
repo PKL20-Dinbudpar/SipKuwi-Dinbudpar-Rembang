@@ -68,23 +68,35 @@
                     }
                 @endphp
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_nusantara ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">
+                        @isset($data->pengunjung_nusantara)
+                            {{ number_format($data->pengunjung_nusantara, 0, ',', '.')}}
+                        @endisset
+                    </span>
                 </td>
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->pengunjung_mancanegara ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">
+                        @isset($data->pengunjung_mancanegara)
+                            {{ number_format($data->pengunjung_mancanegara, 0, ',', '.')}}
+                        @endisset
+                    </span>
                 </td>
                 <td scope="row" class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">{{ $data->kamar_terjual ?? "" }}</span>
+                    <span class="text-secondary text-xs font-weight-bold">
+                        @isset($data->kamar_terjual)
+                            {{ number_format($data->kamar_terjual, 0, ',', '.')}}
+                        @endisset
+                    </span>
                 </td>
             @endforeach
             <td scope="row" class="align-middle text-center">
                 <span class="text-secondary text-xs font-weight-bold">
-                    {{ $totalPengunjung == 0 ? 0 : $totalPengunjung }}
+                    {{ $totalPengunjung == 0 ? 0 : number_format($totalPengunjung, 0, ',', '.')}}
                 </span>
             </td>
             <td scope="row" class="align-middle text-center">
                 <span class="text-secondary text-xs font-weight-bold">
-                    {{ $totalKamarTerjual == 0 ? 0 : $totalKamarTerjual }}
+                    {{ $totalKamarTerjual == 0 ? 0 : number_format($totalKamarTerjual, 0, ',', '.')}}
                 </span>
             </td>
             </tr>
