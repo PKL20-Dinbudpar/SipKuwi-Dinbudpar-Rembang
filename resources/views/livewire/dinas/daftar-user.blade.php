@@ -56,6 +56,9 @@
                                             Email
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            No HP
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Role
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -86,7 +89,12 @@
                                         </td>
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $user->email }}
+                                                {{ $user->email ?? "-"}}
+                                            </p>
+                                        </td>
+                                        <td class="">
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $user->phone ?? "-"}}
                                             </p>
                                         </td>
                                         <td class="align-middle text-sm">
@@ -101,9 +109,11 @@
                                         <td class="">
                                             <p class="text-xs font-weight-bold mb-0">
                                                 @if($user->role == 'wisata')
-                                                    {{ $user->wisata->nama_wisata ?? "" }}
+                                                    {{ $user->wisata->nama_wisata ?? "-" }}
                                                 @elseif($user->role == 'hotel')
-                                                    {{ $user->hotel->nama_hotel ?? "" }}
+                                                    {{ $user->hotel->nama_hotel ?? "-" }}
+                                                @else
+                                                    -
                                                 @endif
                                             </p>
                                         </td>
@@ -157,9 +167,14 @@
                                         @error('pass')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label>Email</label>
+                                        <label>Email (Opsional)</label>
                                         <input type="text" wire:model.defer="userWisata.email" class="form-control">
                                         @error('userWisata.email')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>No HP (Opsional)</label>
+                                        <input type="text" wire:model.defer="userWisata.phone" class="form-control">
+                                        @error('userWisata.phone')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="mb-3">
                                         <label>Role</label>

@@ -33,6 +33,7 @@ class DaftarUser extends Component
         'userWisata.role' => 'required',
         'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
         'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
+        'userWisata.phone' => 'nullable|numeric|digits_between:10,15',
 
         'pass' => 'required|string',
     ];
@@ -94,6 +95,7 @@ class DaftarUser extends Component
             'userWisata.role' => 'required',
             'userWisata.id_wisata' => 'required_if:userWisata.role,wisata',
             'userWisata.id_hotel' => 'required_if:userWisata.role,hotel',
+            'userWisata.phone' => 'nullable|numeric|digits_between:10,15',
             'pass' => 'required|string',
         ], [
             'userWisata.name.required' => 'Nama tidak boleh kosong',
@@ -102,6 +104,8 @@ class DaftarUser extends Component
             'userWisata.role.required' => 'Role tidak boleh kosong',
             'userWisata.id_wisata.required_if' => 'Wisata tidak boleh kosong',
             'userWisata.id_hotel.required_if' => 'Hotel tidak boleh kosong',
+            'userWisata.phone.numeric' => 'Nomor telepon harus berupa angka',
+            'userWisata.phone.digits_between' => 'Nomor telepon tidak valid',
             'pass.required' => 'Password tidak boleh kosong',
         ]);
 
@@ -116,11 +120,22 @@ class DaftarUser extends Component
             // Exception for non duplicate username
             $this->validate([
                 'userWisata.username' => 'unique:users,username',
+            ], [
+                'userWisata.username.unique' => 'Username sudah digunakan',
             ]);
 
             // Exception for non duplicate email
             $this->validate([
                 'userWisata.email' => 'unique:users,email',
+            ], [
+                'userWisata.email.unique' => 'Email sudah digunakan',
+            ]);
+
+            // exception for non duplicate phone
+            $this->validate([
+                'userWisata.phone' => 'unique:users,phone',
+            ],[
+                'userWisata.phone.unique' => 'Nomor telepon sudah digunakan',
             ]);
 
             $this->userWisata['password'] = bcrypt($this->pass);
