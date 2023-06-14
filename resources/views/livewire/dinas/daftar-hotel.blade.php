@@ -150,7 +150,7 @@
                     <x-modal> 
                         <x-slot name="id"> deleteHotelModal </x-slot>
                         <x-slot name="title">
-                            Hapus Objek Hotel
+                            Hapus Hotel
                         </x-slot>
 
                         <x-slot name="content">

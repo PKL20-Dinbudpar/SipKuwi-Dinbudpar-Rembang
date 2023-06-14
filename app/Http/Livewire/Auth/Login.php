@@ -24,7 +24,16 @@ class Login extends Component
     }
 
     public function login() {
-        $credentials = $this->validate();
+        $credentials = $this->validate([
+            'auth' => 'required|string',
+            'password' => 'required',],
+            [
+                'auth.required' => 'Username dan Password Harus Diisi',
+                'password.required' => 'Username dan Password Harus Diisi.',
+            ]);
+        // custom error message
+
+
         if(auth()->attempt(['username' => $this->auth,  'password' => $this->password], $this->remember_me)) {
             $user = AuthUser::where(["username" => $this->auth])
                 ->first();
@@ -32,7 +41,7 @@ class Login extends Component
             return redirect()->intended('/');        
         }
         else{
-            return $this->addError('auth', trans('auth.failed')); 
+            return $this->addError('auth', 'Username atau Password Salah.'); 
         }
     }
 

@@ -82,7 +82,14 @@
                                 @endif
                             </h5>
                         </div>
-                        <button wire:click.prevent="export" class="btn bg-gradient-success btn-sm mb-0"><i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel</button>
+                        <button wire:click.prevent="export"
+                        {{-- disable jika bulan dan tahun melebihi bulan dan tahun saat ini --}}
+                        @if ($tahun > date('Y') || ($tahun == date('Y') && $bulan > date('m')))
+                            disabled
+                        @endif
+                        class="btn bg-gradient-success btn-sm mb-0">
+                            <i class="fa fa-file-excel-o" style="font-size:12px"></i> Export Excel
+                        </button>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">

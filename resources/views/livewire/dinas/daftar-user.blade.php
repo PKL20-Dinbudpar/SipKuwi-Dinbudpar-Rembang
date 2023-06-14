@@ -78,7 +78,17 @@
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-xs font-weight-bold mb-0">
+                                            <p class="text-xs font-weight-bold mb-0 d-flex align-items-center">
+                                                {{-- profile picture --}}
+                                                @if ($user->photo != null)
+                                                    <img src="{{ asset('storage/' . $user->photo) }}" alt="profile picture" class="rounded-circle mx-2" width="30" height="30">
+                                                @else
+                                                    @if ($user->role == 'dinas')
+                                                        <img src="{{ asset('assets/img/logoRembang.jpeg') }}" alt="profile picture" class="rounded-circle mx-2" width="30" height="30">
+                                                    @else
+                                                        <img src="{{ asset('assets/img/enjoyRembang.jpeg') }}" alt="profile picture" class="rounded-circle mx-2" width="30" height="30">
+                                                    @endif
+                                                @endif
                                                 {{ $user->name }}
                                             </p>
                                         </td>

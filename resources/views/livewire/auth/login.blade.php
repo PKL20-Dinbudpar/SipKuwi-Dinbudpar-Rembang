@@ -13,6 +13,7 @@
                         <div class="card-body">
                             <form wire:submit.prevent="login" action="#" method="POST" role="form text-left">
                                 @error('auth') <div class="text-danger">{{ $message }}</div> @enderror
+                                @error('password') <div class="text-danger">{{ $message }}</div> @enderror
                                 <div class="mb-3">
                                     <label for="email">{{ __('Username') }}</label>
                                     <div class="@error('email')border border-danger rounded-3 @enderror">
@@ -28,7 +29,6 @@
                                             placeholder="Password" aria-label="Password"
                                             aria-describedby="password-addon">
                                     </div>
-                                    {{-- @error('password') <div class="text-danger">{{ $message }}</div> @enderror --}}
                                 </div>
                                 <div class="form-check form-switch">
                                     <input wire:model="remember_me" class="form-check-input" type="checkbox"
