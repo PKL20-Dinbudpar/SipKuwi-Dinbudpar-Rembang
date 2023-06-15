@@ -78,7 +78,7 @@
 
                             <div class="d-flex justify-content-end mt-4">
                                 <button data-bs-toggle="modal" data-bs-target="#editRekapModal" 
-                                    @isset($todayRekap) wire:click="editRekap({{ $todayRekap->id_rekap }})" @endisset class="btn bg-gradient-info">
+                                    @isset($todayRekap) wire:click="editRekap({{ $todayRekap->id_rekap }})" @else wire:click="editTodayRekap()" @endisset class="btn bg-gradient-info">
                                     Edit
                                 </button>
                             </div>

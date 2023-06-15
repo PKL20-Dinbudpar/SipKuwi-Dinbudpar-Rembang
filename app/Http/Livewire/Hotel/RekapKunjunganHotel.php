@@ -69,6 +69,18 @@ class RekapKunjunganHotel extends Component
         $dateTime->setTime(7, 0, 0);
         $this->dataRekap->tanggal = $dateTime->format('Y-m-d\TH:i:s');
     }
+
+    public function editTodayRekap()
+    {
+        $this->resetErrorBag();
+        $this->dataRekap = new RekapHotel();
+        $this->dataRekap->tanggal = date('Y-m-d\TH:i:s');
+
+        // Set date time to Asia Jakarta
+        $dateTime = new \DateTime();
+        $dateTime->setTime(7, 0, 0);
+        $this->dataRekap->tanggal = $dateTime->format('Y-m-d\TH:i:s');
+    }
     
     public function saveRekap()
     {
