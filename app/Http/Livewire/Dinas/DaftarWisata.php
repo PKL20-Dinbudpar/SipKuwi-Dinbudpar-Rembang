@@ -85,6 +85,22 @@ class DaftarWisata extends Component
             session()->flash('message', 'Objek wisata berhasil diubah');
         }
         else {
+            // // exception for duplicate entry
+            // $this->validate([
+            //     'objWisata.nama_wisata' => 'unique:wisata,nama_wisata',
+            // ], [
+            //     'objWisata.nama_wisata.unique' => 'Objek wisata sudah ada',
+            // ]);
+
+            $hotel = Wisata::where('nama_wisata', $this->objWisata['nama_wisata'])->get();
+            if ($hotel) {
+                $this->search = $this->objWisata['nama_wisata'];
+
+                session()->flash('message', 'Objek wisata sudah ada');
+                $this->emit('wisataSaved');
+                return;
+            }
+
             Wisata::create($this->objWisata);
             session()->flash('message', 'Objek wisata berhasil ditambahkan');
         }

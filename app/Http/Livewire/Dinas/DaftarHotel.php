@@ -74,12 +74,29 @@ class DaftarHotel extends Component
             'hotelWisata.alamat.required' => 'Alamat tidak boleh kosong',
             'hotelWisata.id_kecamatan.required' => 'Kecamatan tidak boleh kosong',
         ]);
-        
+        // dd($this->hotelWisata['nama_hotel']);
         if (isset($this->hotelWisata->id_hotel)) {
             $this->hotelWisata->save();
             session()->flash('message', 'Hotel berhasil diubah');
         }
         else {
+            // // exception for duplicate entry
+            // $this->validate([
+            //     'hotelWisata.nama_hotel' => 'unique:hotel,nama_hotel',
+            // ], [
+            //     'hotelWisata.nama_hotel.unique' => 'Hotel sudah ada',
+            // ]);
+
+            // Exception for non duplicate hotel
+            $hotel = Hotel::where('nama_hotel', $this->hotelWisata['nama_hotel'])->get();
+            if ($hotel) {
+                $this->search = $this->hotelWisata['nama_hotel'];
+
+                session()->flash('message', 'Hotel sudah ada');
+                $this->emit('hotelSaved');
+                return;
+            }
+
             Hotel::create($this->hotelWisata);
             session()->flash('message', 'Hotel berhasil ditambahkan');
         }
