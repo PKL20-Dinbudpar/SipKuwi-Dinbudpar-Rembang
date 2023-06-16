@@ -96,6 +96,13 @@ class TicketingWisata extends Component
             session()->flash('message', 'Tiket berhasil diubah');
         }
         else {
+            // validate non duplicate nama tiket for the same wisata
+            $this->validate([
+                'tiketWisata.nama_tiket' => 'unique:tiket,nama_tiket,NULL,id_tiket,id_wisata,' . auth()->user()->id_wisata,
+            ], [
+                'tiketWisata.nama_tiket.unique' => 'Nama tiket sudah ada',
+            ]);
+
             $this->tiketWisata->id_wisata = auth()->user()->id_wisata;
             $this->tiketWisata->save();
             session()->flash('message', 'Tiket berhasil ditambahkan');
