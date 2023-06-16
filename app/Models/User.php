@@ -62,4 +62,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaksi::class, 'id_user', 'id_user');
     }
+    public function rekapWisata()
+    {
+        return $this->hasMany(RekapWisata::class, 'id_user', 'id_user');
+    }
+    public function rekapHotel()
+    {
+        return $this->hasMany(RekapHotel::class, 'id_user', 'id_user');
+    }
 }

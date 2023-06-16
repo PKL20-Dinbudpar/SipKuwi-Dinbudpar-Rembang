@@ -14,7 +14,7 @@ class RekapHotel extends Model
     protected $primaryKey = 'id_rekap';
 
     // Fillable
-    protected $fillable = ['tanggal', 'id_hotel', 'pengunjung_nusantara', 'pengunjung_mancanegara', 'kamar_terjual', ];
+    protected $fillable = ['tanggal', 'id_hotel', 'pengunjung_nusantara', 'pengunjung_mancanegara', 'kamar_terjual', 'id_user'];
 
     // dates
     protected $dates = ['tanggal'];
@@ -30,5 +30,9 @@ class RekapHotel extends Model
     public function hotel()
     {
         return $this->belongsTo(Hotel::class, 'id_hotel', 'id_hotel');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

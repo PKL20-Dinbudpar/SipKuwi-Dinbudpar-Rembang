@@ -14,7 +14,7 @@ class RekapWisata extends Model
     protected $primaryKey = 'id_rekap';
 
     // Fillable
-        protected $fillable = ['tanggal', 'id_wisata', 'wisatawan_nusantara', 'wisatawan_mancanegara', 'total_pendapatan', ];
+        protected $fillable = ['tanggal', 'id_wisata', 'wisatawan_nusantara', 'wisatawan_mancanegara', 'total_pendapatan', 'id_user'];
 
     // dates
     protected $dates = ['tanggal'];
@@ -31,5 +31,9 @@ class RekapWisata extends Model
     public function wisata()
     {
         return $this->belongsTo(Wisata::class, 'id_wisata', 'id_wisata');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

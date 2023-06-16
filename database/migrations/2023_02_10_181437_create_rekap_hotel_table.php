@@ -19,9 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_hotel')->nullable();
             $table->integer('pengunjung_nusantara')->default(0);
             $table->integer('pengunjung_mancanegara')->default(0);
-            $table->integer('kamar_terjual')->nullable();
+            $table->integer('kamar_terjual')->default(0);
+            $table->unsignedBigInteger('id_user')->nullable()->default(1);
 
             $table->foreign('id_hotel', 'fk_rekap_hotel')->references('id_hotel')->on('hotel')->onDelete('cascade');
+            $table->foreign('id_user', 'fk_rekap_hotel_user')->references('id')->on('users')->onDelete('cascade');
 
             $table->unique(['tanggal', 'id_hotel']);
         });

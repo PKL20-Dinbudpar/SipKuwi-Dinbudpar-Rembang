@@ -20,8 +20,10 @@ return new class extends Migration
             $table->integer('wisatawan_nusantara')->default(0);
             $table->integer('wisatawan_mancanegara')->default(0);
             $table->bigInteger('total_pendapatan')->default(0);
+            $table->unsignedBigInteger('id_user')->nullable()->default(1);
 
             $table->foreign('id_wisata', 'fk_rekap_wisata')->references('id_wisata')->on('wisata')->onDelete('cascade');
+            $table->foreign('id_user', 'fk_rekap_wisata_user')->references('id')->on('users')->onDelete('cascade');
 
             $table->unique(['tanggal', 'id_wisata']);
         });
