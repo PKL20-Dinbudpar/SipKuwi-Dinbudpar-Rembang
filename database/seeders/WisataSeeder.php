@@ -191,10 +191,6 @@ class WisataSeeder extends Seeder
                 'alamat' => 'Ds. Binangun',
                 'id_kecamatan' => '140',
             ],
-            [   
-                'id_wisata' => 999,
-                'nama_wisata' => 'Tes Objek Wisata',
-            ],
         ];
 
         foreach ($wisata as $key => $value) {

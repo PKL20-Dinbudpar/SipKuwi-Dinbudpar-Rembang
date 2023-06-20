@@ -15,12 +15,12 @@ class TiketSeeder extends Seeder
      */
     public function run()
     {
-        Tiket::create(
-            [
-                'id_wisata' => 999,
-                'nama_tiket' => 'Tiket Wisata',
-                'harga' => 10000,
-                'deskripsi' => 'Tiket Wisata',
-            ],);
+        // Tiket::create(
+        //     [
+        //         'id_wisata' => 999,
+        //         'nama_tiket' => 'Tiket Wisata',
+        //         'harga' => 10000,
+        //         'deskripsi' => 'Tiket Wisata',
+        //     ],);
     }
 }
