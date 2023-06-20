@@ -234,6 +234,7 @@ class EditRekap extends Component
         ]);
 
         $this->dataRekap->id_user = auth()->user()->id;
+        $this->dataRekap->updated_at = now();
 
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();

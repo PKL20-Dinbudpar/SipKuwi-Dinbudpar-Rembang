@@ -149,7 +149,8 @@
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Domestik</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Mancanegara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kamar Terjual</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir Diedit Oleh</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir Diedit</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Oleh</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -179,6 +180,11 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
                                             {{ $item->kamar_terjual }}
+                                        </p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ $item->updated_at->format('d M Y H:i') }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">

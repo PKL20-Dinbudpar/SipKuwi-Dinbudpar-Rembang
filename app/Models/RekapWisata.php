@@ -14,10 +14,10 @@ class RekapWisata extends Model
     protected $primaryKey = 'id_rekap';
 
     // Fillable
-        protected $fillable = ['tanggal', 'id_wisata', 'wisatawan_nusantara', 'wisatawan_mancanegara', 'total_pendapatan', 'id_user'];
+        protected $fillable = ['tanggal', 'id_wisata', 'wisatawan_nusantara', 'wisatawan_mancanegara', 'total_pendapatan', 'id_user', 'updated_at'];
 
     // dates
-    protected $dates = ['tanggal'];
+    protected $dates = ['tanggal', 'updated_at'];
 
     protected $casts = [
         'tanggal' => 'date:Y-m-d'

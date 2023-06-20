@@ -151,7 +151,8 @@
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Nusantara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wisatawan Mancanegara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pendapatan</th>
-                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir Diedit Oleh</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir Diedit</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Oleh</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -181,6 +182,11 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
                                             Rp {{ number_format($item->total_pendapatan, 0, ',', '.') }}
+                                        </p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ $item->updated_at->format('d M Y H:i') }}
                                         </p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
