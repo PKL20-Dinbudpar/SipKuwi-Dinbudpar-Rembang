@@ -152,6 +152,7 @@
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Nusantara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pengunjung Mancanegara</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kamar Terjual</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terakhir Diedit Oleh</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
@@ -181,6 +182,17 @@
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
                                             {{ number_format($item->kamar_terjual, 0, ',', '.') }}
+                                        </p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            @if ($item->user->name == Auth::user()->name)
+                                                <span class="badge badge-sm bg-gradient-success">Anda</span>
+                                            @elseif ($item->user->role == 'dinas')
+                                                <span class="badge badge-sm bg-gradient-danger">{{ $item->user->name }}</span>
+                                            @else
+                                                <span class="badge badge-sm bg-gradient-secondary">{{ $item->user->name }}</span>
+                                            @endif
                                         </p>
                                     </td>
                                     <td class="align-middle">

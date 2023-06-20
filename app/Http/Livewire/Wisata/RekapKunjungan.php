@@ -99,6 +99,8 @@ class RekapKunjungan extends Component
             'dataRekap.total_pendapatan.gte' => 'Total pendapatan tidak boleh kurang dari 0',
         ]);
 
+        $this->dataRekap->id_user = auth()->user()->id;
+
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil diubah');

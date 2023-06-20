@@ -61,6 +61,8 @@ class EditRekapHotel extends Component
                     })
                     ->orderBy('tanggal', 'desc');
 
+        // $ =
+
         $rekap = $rekap->paginate(10);
 
         $dataRekap = RekapHotel::selectRaw('id_hotel, MONTH(tanggal) bulan, YEAR(tanggal) tahun, SUM(pengunjung_nusantara) pengunjung_nusantara, SUM(pengunjung_mancanegara) pengunjung_mancanegara, SUM(kamar_terjual) kamar_terjual')
@@ -233,6 +235,8 @@ class EditRekapHotel extends Component
             'dataRekap.kamar_terjual.required' => 'Kamar terjual tidak boleh kosong',
             'dataRekap.kamar_terjual.gte' => 'Kamar terjual tidak boleh kurang dari 0',
         ]);
+
+        $this->dataRekap->id_user = auth()->user()->id;
 
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();

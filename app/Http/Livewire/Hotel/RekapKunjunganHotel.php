@@ -99,6 +99,8 @@ class RekapKunjunganHotel extends Component
             'dataRekap.kamar_terjual.gte' => 'Kamar terjual tidak boleh kurang dari 0',
         ]);
 
+        $this->dataRekap->id_user = auth()->user()->id;
+        
         if (isset($this->dataRekap->id_rekap)) {
             $this->dataRekap->save();
             session()->flash('message', 'Data rekap berhasil diubah');
