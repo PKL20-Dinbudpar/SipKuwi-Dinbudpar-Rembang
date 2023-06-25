@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('pengunjung_nusantara')->default(0);
             $table->integer('pengunjung_mancanegara')->default(0);
             $table->integer('kamar_terjual')->default(0);
-            $table->unsignedBigInteger('id_user')->nullable()->default(1);
+            $table->unsignedBigInteger('id_user')->nullable()->default(2);
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('id_hotel', 'fk_rekap_hotel')->references('id_hotel')->on('hotel')->onDelete('cascade');

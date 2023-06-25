@@ -78,10 +78,10 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Waktu Transaksi
                                     </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Penanggung Jawab
                                     </th>
-                                    <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Jenis Wisatawan
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -114,11 +114,11 @@
                                             </p>
                                         </td>
                                         <td class="">
-                                            <p class="text-xs font-weight-bold mb-0">
+                                            <p class="text-xs text-center font-weight-bold mb-0">
                                                 @if ($data->jenis_wisatawan == 'wisnus')
                                                     <span class="badge badge-sm bg-gradient-success">Nusantara</span>
                                                 @elseif ($data->jenis_wisatawan == 'wisman')
-                                                    <span class="badge badge-sm bg-gradient-warning">Manca</span>
+                                                    <span class="badge badge-sm bg-gradient-warning">Mancanegara</span>
                                                 @endif
                                             </p>
                                         </td>
@@ -183,7 +183,7 @@
         </x-slot>
 
         <x-slot name="title">
-            Tambah Pengunjung
+            Data Transaksi
         </x-slot>
 
         <x-slot name="content">

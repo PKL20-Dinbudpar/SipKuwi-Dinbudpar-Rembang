@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('wisatawan_nusantara')->default(0);
             $table->integer('wisatawan_mancanegara')->default(0);
             $table->bigInteger('total_pendapatan')->default(0);
-            $table->unsignedBigInteger('id_user')->nullable()->default(1);
+            $table->unsignedBigInteger('id_user')->nullable()->default(2);
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('id_wisata', 'fk_rekap_wisata')->references('id_wisata')->on('wisata')->onDelete('cascade');
