@@ -92,7 +92,7 @@ class DaftarWisata extends Component
             //     'objWisata.nama_wisata.unique' => 'Objek wisata sudah ada',
             // ]);
 
-            $hotel = Wisata::where('nama_wisata', $this->objWisata['nama_wisata'])->get();
+            $hotel = Wisata::where('nama_wisata', $this->objWisata['nama_wisata'])->first();
             if ($hotel) {
                 $this->search = $this->objWisata['nama_wisata'];
 

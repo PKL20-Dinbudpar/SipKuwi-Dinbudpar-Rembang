@@ -88,7 +88,7 @@ class DaftarHotel extends Component
             // ]);
 
             // Exception for non duplicate hotel
-            $hotel = Hotel::where('nama_hotel', $this->hotelWisata['nama_hotel'])->get();
+            $hotel = Hotel::where('nama_hotel', $this->hotelWisata['nama_hotel'])->first();
             if ($hotel) {
                 $this->search = $this->hotelWisata['nama_hotel'];
 
