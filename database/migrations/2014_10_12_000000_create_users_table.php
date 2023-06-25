@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_hotel')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
 
             // foreign key
             // $table->foreign('id_wisata', 'fk_users_wisata')->references('id_wisata')->on('wisata')->onDelete('CASCADE');

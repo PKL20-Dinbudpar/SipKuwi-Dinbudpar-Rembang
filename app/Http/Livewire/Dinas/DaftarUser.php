@@ -155,12 +155,13 @@ class DaftarUser extends Component
     public function destroyUser()
     {
         if ($this->userWisata->id == auth()->user()->id) {
-            session()->flash('message', 'User gagal dihapus');
+            session()->flash('message', 'Anda tidak dapat menghapus akun anda sendiri');
             $this->emit('userDeleted');
             return;
         }
 
-        User::destroy($this->userWisata->id);
+        // soft delete
+        $this->userWisata->delete();
         session()->flash('message', 'User berhasil dihapus');
 
         $this->resetInput();

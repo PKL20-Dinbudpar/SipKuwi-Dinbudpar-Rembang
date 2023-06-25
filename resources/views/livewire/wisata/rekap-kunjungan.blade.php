@@ -194,13 +194,18 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-xs font-weight-bold mb-0">
-                                            @if ($item->user->name == Auth::user()->name)
-                                                <span class="badge badge-sm bg-gradient-success">Anda</span>
-                                            @elseif ($item->user->role == 'dinas')
-                                                <span class="badge badge-sm bg-gradient-danger">{{ $item->user->name }}</span>
+                                            @isset($item->user->name)
+                                                @if ($item->user->name == Auth::user()->name)
+                                                    <span class="badge badge-sm bg-gradient-success">Anda</span>
+                                                @elseif ($item->user->role == 'dinas')
+                                                    <span class="badge badge-sm bg-gradient-danger">{{ $item->user->name }}</span>
+                                                @else
+                                                    <span class="badge badge-sm bg-gradient-info">{{ $item->user->name }}</span>
+                                                @endif
                                             @else
-                                                <span class="badge badge-sm bg-gradient-info">{{ $item->user->name }}</span>
-                                            @endif
+                                                -
+                                            @endisset
+                                            
                                         </p>
                                     </td>
                                     <td class="align-middle">
