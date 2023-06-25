@@ -161,6 +161,11 @@ class DaftarUser extends Component
         }
 
         // soft delete
+        $this->userWisata->username = $this->userWisata->username . '-deleted';
+        $this->userWisata->email = $this->userWisata->email . '-deleted';
+        $this->userWisata->phone = $this->userWisata->phone . '-deleted';
+        $this->userWisata->save();
+        
         $this->userWisata->delete();
         session()->flash('message', 'User berhasil dihapus');
 
